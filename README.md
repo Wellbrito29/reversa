@@ -192,6 +192,7 @@ Every statement in the specs is marked with:
 | GitHub Copilot | `.github/copilot-instructions.md` | `.agents/skills/reversa-*/` | `/reversa` |
 | Aider | `CONVENTIONS.md` | `.agents/skills/reversa-*/` | `reversa` |
 | Amazon Q Developer | `.amazonq/rules/reversa.md` | `.agents/skills/reversa-*/` | `/reversa` |
+| Kimi CLI | `AGENTS.md` | `.agents/skills/reversa-*/` and `.kimi/skills/reversa-*/` | `reversa` |
 
 ---
 
