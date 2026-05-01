@@ -25,6 +25,22 @@ The result is not documentation for humans to read. These are **operational cont
 
 ---
 
+## Foundation
+
+Reversa is built as a **control plane for AI coding agents**, on three pillars:
+
+| Pillar | Role | Tool |
+|---|---|---|
+| **Reversa** | Spec authority — features, contracts, invariants, ADRs | `_reversa_sdd/` + agents (Architect, Writer, Archaeologist…) |
+| **Keeper** | Drift gate — keeps specs in sync with code | Hooks + `/reversa-keeper [before\|after]` + `drift-check` |
+| **GitNexus** *(companion)* | Codebase oracle — knowledge graph of the actual code | External MCP — [abhigyanpatwari/GitNexus](https://github.com/abhigyanpatwari/GitNexus) |
+
+Together: agents must respect what the code **should be** (Reversa specs), see what it **is** (GitNexus graph), and stay aligned (Keeper). Specs are the contract, the graph is the ground truth, drift detection is the gate.
+
+> GitNexus is an optional companion (PolyForm Noncommercial license — installed separately, never bundled). Reversa stays MIT and engine-agnostic.
+
+---
+
 ## Installation
 
 In the root of the legacy project:
@@ -220,22 +236,50 @@ The `uninstall` command removes only files created by Reversa — nothing from t
 
 ## Drift loop
 
-The Keeper closes the cycle between spec and code so new code does not become legacy:
+The Keeper closes the cycle between spec and code so new code does not become legacy.
+
+### Local flow (developer machine)
 
 ```
 [Edit a file]                 → engine hook → .reversa/keeper-queue.json
                                             → stub in changelog/YYYY-MM-DD.md
                                             → marks spec as 🔴 pending in drift.md
 
-[/reversa-keeper after]   → asks 3 questions (why / breaking / context)
+[/reversa-keeper after]       → asks 3 questions (why / breaking / context)
                               → updates impacted specs in-place
                               → reclassifies confidence 🟢🟡🔴
                               → marks specs as 🟢 resolved
 
-[npx reversa drift-check]     → exit 1 if any 🔴 pending → CI blocks merge
+[git push]                    → developer commits both code + updated specs
 ```
 
-Three layers, each opt-in:
+### CI flow (control plane enforcement)
+
+```mermaid
+flowchart TD
+    PR[PR opened or updated] --> CO[Checkout + restore .gitnexus/ cache]
+    CO --> INS[Install reversa + gitnexus]
+    INS --> IDX[gitnexus analyze --incremental]
+    IDX --> DRIFT{npx reversa drift-check<br/>--severity high}
+    DRIFT -->|exit 1| BLOCK1[Block: spec drift pending<br/>dev must run /reversa-keeper after locally]
+    DRIFT -->|exit 0| POLICY{policy-check<br/>Phase 2 — planned}
+    POLICY -->|contract broken| BLOCK2[Block: 🟢 contract violated]
+    POLICY -->|clean| IMPACT[gitnexus detect_changes<br/>blast radius posted as PR comment]
+    IMPACT --> PASS[Ready for review]
+```
+
+| Stage | Where | Tool | On failure |
+|---|---|---|---|
+| Pre-edit | Local | Keeper `before` + GitNexus `context` | Agent reconsiders |
+| Edit | Local | Engine hook | Event queued |
+| Post-edit | Local | Keeper `after` | Specs updated, drift cleared |
+| CI gate 1 | CI | `drift-check --severity high` | PR fails (drift pending) |
+| CI gate 2 | CI | `policy-check` *(Phase 2)* | PR fails (contract broken) |
+| CI report | CI | `gitnexus impact` | Comment on PR (info only) |
+
+> Keeper is **never run automatically in CI** — it asks 3 questions to the developer and updates specs based on that intent. CI only enforces that drift was resolved locally.
+
+### Three layers, each opt-in
 
 1. **Manual** — run `/reversa-keeper after` whenever you want
 2. **Automatic** — install hooks: `npx reversa add-hooks --engine <claude-code|cursor|kimi-cli|codex|opencode>`
