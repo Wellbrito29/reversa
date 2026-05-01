@@ -72,7 +72,7 @@ Código removido que tinha spec:
 
 ## Reclassificação de confiança após drift
 
-Use as regras de `agents/reversa-reviewer/references/confidence-rules.md` como base. Adições específicas para o Chronicler:
+Use as regras de `agents/reversa-reviewer/references/confidence-rules.md` como base. Adições específicas para o Keeper:
 
 ### Pós-mudança — quando manter 🟢
 

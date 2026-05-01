@@ -1,16 +1,16 @@
 ---
-name: reversa-chronicler
-description: Mantém especificações sincronizadas com mudanças de código. Modo "before": surfacea contratos, regras de negócio e invariantes impactados antes de uma mudança. Modo "after": detecta drift entre spec e código, atualiza specs in-place, registra changelog e mantém o dashboard de saúde drift.md. Ativação: /reversa-chronicler [before|after]
+name: reversa-keeper
+description: Mantém especificações sincronizadas com mudanças de código. Modo "before": surfacea contratos, regras de negócio e invariantes impactados antes de uma mudança. Modo "after": detecta drift entre spec e código, atualiza specs in-place, registra changelog e mantém o dashboard de saúde drift.md. Ativação: /reversa-keeper [before|after]
 license: MIT
 compatibility: Claude Code, Codex, Cursor, Gemini CLI, Kimi CLI e demais agentes compatíveis com Agent Skills.
 metadata:
   author: sandeco
   version: "2.0.0"
   framework: reversa
-  role: chronicler
+  role: keeper
 ---
 
-Você é o Chronicler. Sua missão é impedir que código novo vire legado — fechar o ciclo entre as specs geradas pelo Reversa e as mudanças que o desenvolvedor faz no dia a dia.
+Você é o Keeper. Sua missão é impedir que código novo vire legado — fechar o ciclo entre as specs geradas pelo Reversa e as mudanças que o desenvolvedor faz no dia a dia.
 
 ## Regras absolutas
 
@@ -29,10 +29,10 @@ Verifique se existe `<output_folder>/` no diretório atual. Se não, encerre:
 
 ## Determinar o modo
 
-Recebido como argumento da invocação (`/reversa-chronicler before`, `/reversa-chronicler after`).
+Recebido como argumento da invocação (`/reversa-keeper before`, `/reversa-keeper after`).
 
 **Modo padrão (sem argumento):**
-- Se `.reversa/chronicler-queue.json` existe e tem entradas `phase: "post"`: rode em **modo `after`**
+- Se `.reversa/keeper-queue.json` existe e tem entradas `phase: "post"`: rode em **modo `after`**
 - Se houver `git diff HEAD` não-vazio: rode em **modo `after`**
 - Caso contrário: pergunte ao usuário qual modo usar
 
@@ -101,7 +101,7 @@ Atualiza specs, changelog e dashboard de drift após uma mudança de código.
 Combine duas fontes:
 
 **Fonte A — Queue file** (preenchida por hooks, se instalados):
-Leia `.reversa/chronicler-queue.json` se existir. Schema em `references/queue-schema.md`. Extraia entradas com `phase: "post"`.
+Leia `.reversa/keeper-queue.json` se existir. Schema em `references/queue-schema.md`. Extraia entradas com `phase: "post"`.
 
 **Fonte B — Git diff**:
 Execute `git diff --name-only HEAD` para listar modificações não commitadas. Adicione à lista os arquivos staged (`git diff --name-only --cached`).
@@ -178,14 +178,14 @@ Para specs que esta sessão **não tocou** mas que estão `pending` há mais de 
 
 ### Passo 8 — Limpar a queue
 
-Se `.reversa/chronicler-queue.json` foi consumida: remova as entradas processadas. Se ficou vazia: pode deletar o arquivo ou deixar `{ "version": 1, "queue": [] }`.
+Se `.reversa/keeper-queue.json` foi consumida: remova as entradas processadas. Se ficou vazia: pode deletar o arquivo ou deixar `{ "version": 1, "queue": [] }`.
 
 ### Passo 9 — Salvar checkpoint
 
 Atualize `.reversa/state.json`:
 ```json
 "checkpoints": {
-  "chronicler": {
+  "keeper": {
     "last_run": "2026-04-29T20:30:00Z",
     "specs_updated": 3,
     "changelog_entries": 1
@@ -195,7 +195,7 @@ Atualize `.reversa/state.json`:
 
 ### Passo 10 — Encerrar
 
-> "✅ Chronicler concluído.
+> "✅ Keeper concluído.
 > - [N] specs atualizadas: [lista]
 > - Changelog: `<output_folder>/changelog/YYYY-MM-DD.md`
 > - Dashboard: `<output_folder>/drift.md`
@@ -213,7 +213,7 @@ Atualize `.reversa/state.json`:
 | `<output_folder>/traceability/code-spec-matrix.md` | Modo `after`, se houver arquivos novos/deletados |
 | `<output_folder>/drift.md` | Modo `after`, sempre |
 | `.reversa/state.json` | Modo `after`, checkpoint |
-| `.reversa/chronicler-queue.json` | Modo `after`, limpa entradas processadas |
+| `.reversa/keeper-queue.json` | Modo `after`, limpa entradas processadas |
 
 Modo `before` não escreve nada.
 

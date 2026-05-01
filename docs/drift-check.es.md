@@ -37,7 +37,7 @@ npx reversa drift-check [--format text|json] [--severity high|medium|low] [--fol
 
 ## Por qué importa
 
-Sin este gate, el drift loop es disciplina humana. Hooks encolan eventos, Chronicler actualiza specs — pero nada impide que un PR mergee con specs aún en `pending`.
+Sin este gate, el drift loop es disciplina humana. Hooks encolan eventos, Keeper actualiza specs — pero nada impide que un PR mergee con specs aún en `pending`.
 
 `drift-check` cierra el ciclo: build que intenta enviar drift sin resolver falla.
 
@@ -53,5 +53,5 @@ Sin este gate, el drift loop es disciplina humana. Hooks encolan eventos, Chroni
 
 ## Ver también
 
-- [Agente Chronicler](agentes/cronista.es.md)
+- [Agente Keeper](agentes/keeper.es.md)
 - [Hooks](hooks.es.md)

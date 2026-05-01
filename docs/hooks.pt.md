@@ -1,8 +1,8 @@
-# Hooks (Chronicler automático)
+# Hooks (Keeper automático)
 
-Instala configuração de hooks na sua engine de IA para o Chronicler rodar automaticamente toda vez que você editar um arquivo.
+Instala configuração de hooks na sua engine de IA para o Keeper rodar automaticamente toda vez que você editar um arquivo.
 
-`/reversa-chronicler after` manual sempre funciona como fallback. Hooks só removem a fricção.
+`/reversa-keeper after` manual sempre funciona como fallback. Hooks só removem a fricção.
 
 ---
 
@@ -29,14 +29,14 @@ Quando a engine dispara um tool que edita arquivo (`Edit`, `Write`, `MultiEdit`,
 
 O runner:
 
-1. Faz append de uma entrada em `.reversa/chronicler-queue.json` (com lock para edições concorrentes)
-2. Escreve um stub em `_reversa_sdd/changelog/YYYY-MM-DD.md` pra mudança ser mencionada mesmo se você nunca rodar o Chronicler
+1. Faz append de uma entrada em `.reversa/keeper-queue.json` (com lock para edições concorrentes)
+2. Escreve um stub em `_reversa_sdd/changelog/YYYY-MM-DD.md` pra mudança ser mencionada mesmo se você nunca rodar o Keeper
 3. Marca specs afetadas como `🔴 pending` em `_reversa_sdd/drift.md`
 4. Imprime warning no terminal se uma spec de alta confiança foi tocada
 
-O runner **nunca bloqueia** a engine e **nunca modifica seu código**. Erros são logados silenciosamente em `.reversa/chronicler-errors.log`.
+O runner **nunca bloqueia** a engine e **nunca modifica seu código**. Erros são logados silenciosamente em `.reversa/keeper-errors.log`.
 
-Depois, quando você roda `/reversa-chronicler after`, o agente lê a queue, faz as 3 perguntas, enriquece o changelog, atualiza as specs e limpa a queue.
+Depois, quando você roda `/reversa-keeper after`, o agente lê a queue, faz as 3 perguntas, enriquece o changelog, atualiza as specs e limpa a queue.
 
 ---
 
@@ -48,9 +48,9 @@ Depois, quando você roda `/reversa-chronicler after`, o agente lê a queue, faz
 | Cursor | `.cursor/hooks.json` | afterFileEdit (matcher `**/*`) |
 | Kimi CLI | `.kimi/config.toml` (projeto) ou `~/.kimi/config.toml` (global, com backup) | PreToolUse + PostToolUse (matcher `Edit\|Write`) |
 | Codex | `.codex/hooks.toml` | PreToolUse + PostToolUse (matcher `apply_patch`) |
-| Opencode | `.opencode/plugins/reversa-chronicler.js` | tool.execute.before/after |
+| Opencode | `.opencode/plugins/reversa-keeper.js` | tool.execute.before/after |
 
-Para engines não listadas (Gemini CLI, Aider, Roo, Cline, Copilot, Windsurf, Antigravity, Kiro, Amazon Q): use o fluxo manual `/reversa-chronicler`.
+Para engines não listadas (Gemini CLI, Aider, Roo, Cline, Copilot, Windsurf, Antigravity, Kiro, Amazon Q): use o fluxo manual `/reversa-keeper`.
 
 ---
 
@@ -88,13 +88,13 @@ Assim: hooks mantêm queue e dashboard atualizados enquanto o dev codifica local
         │
         ▼
 [.reversa/_hooks/runner.js]
-        ├─→ append em .reversa/chronicler-queue.json
+        ├─→ append em .reversa/keeper-queue.json
         ├─→ stub em _reversa_sdd/changelog/YYYY-MM-DD.md
         ├─→ marca _reversa_sdd/drift.md como pending
         └─→ warning no stderr (specs de alta confiança)
         │
         ▼ (depois, quando dev roda o agente)
-[/reversa-chronicler after]
+[/reversa-keeper after]
         ├─→ faz 3 perguntas (por quê / breaking / contexto)
         ├─→ enriquece changelog
         ├─→ atualiza specs in-place + reclassifica confiança

@@ -45,9 +45,9 @@ ______
     uninstall          Remove o Reversa do projeto
     add-agent          Adiciona um agente ao projeto
     add-engine         Adiciona suporte a uma engine
-    add-hooks          Instala hooks pre/post-edit do Chronicler na engine
+    add-hooks          Instala hooks pre/post-edit do Keeper na engine
                        Opções: --engine=<id>  --yes
-    remove-hooks       Remove hooks do Chronicler instalados em uma engine
+    remove-hooks       Remove hooks do Keeper instalados em uma engine
                        Opções: --engine=<id>  --all  --yes
     drift-check        CI gate — exit 1 se houver specs com drift pendente
                        Opções: --format=text|json  --severity=high|medium|low

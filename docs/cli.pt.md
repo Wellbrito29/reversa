@@ -81,7 +81,7 @@ Remove o Reversa do projeto: apaga os arquivos criados pela instalação (`.reve
 npx reversa add-hooks --engine claude-code
 ```
 
-Instala hooks do Chronicler na config da engine pra ele rodar automaticamente após cada edição. Mostra preview, pede confirmação, escreve.
+Instala hooks do Keeper na config da engine pra ele rodar automaticamente após cada edição. Mostra preview, pede confirmação, escreve.
 
 Engines suportadas: `claude-code`, `cursor`, `kimi-cli`, `codex`, `opencode`. Veja [Hooks](hooks.pt.md) pra referência completa.
 
@@ -94,7 +94,7 @@ npx reversa remove-hooks --engine claude-code
 npx reversa remove-hooks --all
 ```
 
-Remove os hooks do Chronicler da config da engine. Outros hooks que você adicionou manualmente são preservados.
+Remove os hooks do Keeper da config da engine. Outros hooks que você adicionou manualmente são preservados.
 
 ---
 

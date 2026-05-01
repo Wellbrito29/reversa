@@ -1,8 +1,8 @@
-# Hooks (auto Chronicler)
+# Hooks (auto Keeper)
 
-Install hook configuration in your AI engine so the Chronicler runs automatically every time you edit a file.
+Install hook configuration in your AI engine so the Keeper runs automatically every time you edit a file.
 
-Manual `/reversa-chronicler after` always works as a fallback. Hooks just remove the friction.
+Manual `/reversa-keeper after` always works as a fallback. Hooks just remove the friction.
 
 ---
 
@@ -29,14 +29,14 @@ When the engine triggers a tool that edits a file (`Edit`, `Write`, `MultiEdit`,
 
 The runner:
 
-1. Appends an entry to `.reversa/chronicler-queue.json` (with a lock to handle concurrent edits)
-2. Writes a stub to `_reversa_sdd/changelog/YYYY-MM-DD.md` so the change is at least mentioned even if you never run the Chronicler
+1. Appends an entry to `.reversa/keeper-queue.json` (with a lock to handle concurrent edits)
+2. Writes a stub to `_reversa_sdd/changelog/YYYY-MM-DD.md` so the change is at least mentioned even if you never run the Keeper
 3. Marks affected specs as `🔴 pending` in `_reversa_sdd/drift.md`
 4. Prints a warning to your terminal if a high-confidence spec was touched
 
-The runner **never blocks** the engine and **never modifies your code**. Errors are silently logged to `.reversa/chronicler-errors.log`.
+The runner **never blocks** the engine and **never modifies your code**. Errors are silently logged to `.reversa/keeper-errors.log`.
 
-Later, when you run `/reversa-chronicler after`, the agent reads the queue, asks the 3 questions, enriches the changelog, updates the specs, and clears the queue.
+Later, when you run `/reversa-keeper after`, the agent reads the queue, asks the 3 questions, enriches the changelog, updates the specs, and clears the queue.
 
 ---
 
@@ -48,9 +48,9 @@ Later, when you run `/reversa-chronicler after`, the agent reads the queue, asks
 | Cursor | `.cursor/hooks.json` | afterFileEdit (matcher `**/*`) |
 | Kimi CLI | `.kimi/config.toml` (project) or `~/.kimi/config.toml` (global, with backup) | PreToolUse + PostToolUse (matcher `Edit\|Write`) |
 | Codex | `.codex/hooks.toml` | PreToolUse + PostToolUse (matcher `apply_patch`) |
-| Opencode | `.opencode/plugins/reversa-chronicler.js` | tool.execute.before/after |
+| Opencode | `.opencode/plugins/reversa-keeper.js` | tool.execute.before/after |
 
-For engines not listed (Gemini CLI, Aider, Roo, Cline, Copilot, Windsurf, Antigravity, Kiro, Amazon Q): use the manual `/reversa-chronicler` workflow.
+For engines not listed (Gemini CLI, Aider, Roo, Cline, Copilot, Windsurf, Antigravity, Kiro, Amazon Q): use the manual `/reversa-keeper` workflow.
 
 ---
 
@@ -88,13 +88,13 @@ This way: hooks keep the queue and dashboard fresh as developers code locally, a
         │
         ▼
 [.reversa/_hooks/runner.js]
-        ├─→ append .reversa/chronicler-queue.json
+        ├─→ append .reversa/keeper-queue.json
         ├─→ stub _reversa_sdd/changelog/YYYY-MM-DD.md
         ├─→ mark _reversa_sdd/drift.md as pending
         └─→ stderr warning (high-confidence specs only)
         │
         ▼ (later, when developer runs the agent)
-[/reversa-chronicler after]
+[/reversa-keeper after]
         ├─→ asks 3 questions (why / breaking / context)
         ├─→ enriches changelog
         ├─→ updates specs in-place + reclassifies confidence

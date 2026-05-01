@@ -45,9 +45,9 @@ Override do output folder. Por padrão lê `output_folder` de `.reversa/state.js
 
 ## Por que importa
 
-Sem este gate, o drift loop é puramente disciplina humana. Hooks enfileiram eventos, Chronicler atualiza specs — mas nada impede um PR de mergear com specs ainda em `pending`.
+Sem este gate, o drift loop é puramente disciplina humana. Hooks enfileiram eventos, Keeper atualiza specs — mas nada impede um PR de mergear com specs ainda em `pending`.
 
-`drift-check` fecha o ciclo: build que tenta enviar drift não-resolvido falha. Desenvolvedores ou rodam `/reversa-chronicler after` pra resolver, ou explicitamente baixam a severidade (com justificativa) pra aquele PR.
+`drift-check` fecha o ciclo: build que tenta enviar drift não-resolvido falha. Desenvolvedores ou rodam `/reversa-keeper after` pra resolver, ou explicitamente baixam a severidade (com justificativa) pra aquele PR.
 
 ---
 
@@ -83,7 +83,7 @@ drift-check:
 #!/bin/sh
 # .git/hooks/pre-push
 if ! npx reversa drift-check --severity high; then
-  echo "Push bloqueado. Rode /reversa-chronicler after pra resolver."
+  echo "Push bloqueado. Rode /reversa-keeper after pra resolver."
   exit 1
 fi
 ```
@@ -111,7 +111,7 @@ Cold start rápido (sem imports pesados), serve em qualquer CI runner.
   "source": "/abs/path/to/_reversa_sdd/drift.md",
   "counts": { "pending": 1, "stale": 2, "resolved": 12 },
   "blocking": [
-    { "spec": "sdd/notifications.md", "status": "pending", "action": "Rodar /reversa-chronicler after" }
+    { "spec": "sdd/notifications.md", "status": "pending", "action": "Rodar /reversa-keeper after" }
   ],
   "clean": false
 }
@@ -123,7 +123,7 @@ Quando `_reversa_sdd/drift.md` está ausente, saída JSON:
 {
   "error": "drift.md not found",
   "path": "/abs/path/to/_reversa_sdd/drift.md",
-  "hint": "Rode /reversa pra inicializar, depois /reversa-chronicler after pra popular drift.md"
+  "hint": "Rode /reversa pra inicializar, depois /reversa-keeper after pra popular drift.md"
 }
 ```
 
@@ -131,5 +131,5 @@ Quando `_reversa_sdd/drift.md` está ausente, saída JSON:
 
 ## Veja também
 
-- [Agente Chronicler](agentes/cronista.pt.md) — quem popula o `drift.md`
-- [Hooks](hooks.pt.md) — auto-trigger do Chronicler por edição de arquivo
+- [Agente Keeper](agentes/keeper.pt.md) — quem popula o `drift.md`
+- [Hooks](hooks.pt.md) — auto-trigger do Keeper por edição de arquivo

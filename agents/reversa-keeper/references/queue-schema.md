@@ -1,11 +1,11 @@
-# Schema do `.reversa/chronicler-queue.json`
+# Schema do `.reversa/keeper-queue.json`
 
-Arquivo de comunicação entre os hooks de engine e o agente Chronicler.
+Arquivo de comunicação entre os hooks de engine e o agente Keeper.
 
 - **Hooks escrevem** entradas (modo append) quando o usuário edita / salva arquivos via Claude Code, Cursor, Kimi, Codex, Opencode
-- **Chronicler lê** entradas no modo `after`, processa e remove
+- **Keeper lê** entradas no modo `after`, processa e remove
 
-Modo manual (sem hooks instalados): este arquivo pode não existir. Chronicler usa `git diff HEAD` como fonte alternativa.
+Modo manual (sem hooks instalados): este arquivo pode não existir. Keeper usa `git diff HEAD` como fonte alternativa.
 
 ---
 
@@ -34,7 +34,7 @@ Modo manual (sem hooks instalados): este arquivo pode não existir. Chronicler u
 ## Campos
 
 ### `version` (top-level)
-Schema version. Atualmente `1`. Chronicler deve ignorar entradas com versão maior que a que conhece e logar warning.
+Schema version. Atualmente `1`. Keeper deve ignorar entradas com versão maior que a que conhece e logar warning.
 
 ### `queue` (top-level)
 Array ordenado cronologicamente (mais antiga primeiro). Hooks fazem append no final.
@@ -50,7 +50,7 @@ Array ordenado cronologicamente (mais antiga primeiro). Hooks fazem append no fi
 | `timestamp` | string ISO 8601 (UTC) | sim | Momento do evento |
 | `engine` | string | sim | ID da engine — útil pra debug e métricas |
 | `diff_summary` | string | não | Resumo de 1-2 linhas do diff (se a engine conseguir extrair). Pode ser vazio |
-| `affected_specs` | array de string | não | Pré-cálculo das specs impactadas (se o hook conseguir consultar `code-spec-matrix.md`). Chronicler valida e completa |
+| `affected_specs` | array de string | não | Pré-cálculo das specs impactadas (se o hook conseguir consultar `code-spec-matrix.md`). Keeper valida e completa |
 
 ---
 
@@ -58,31 +58,31 @@ Array ordenado cronologicamente (mais antiga primeiro). Hooks fazem append no fi
 
 Hooks podem disparar simultaneamente (várias engines no mesmo projeto, ou edições em paralelo). Para evitar corrupção:
 
-1. Antes de escrever: criar `.reversa/chronicler-queue.lock` (arquivo vazio) com retry/backoff
+1. Antes de escrever: criar `.reversa/keeper-queue.lock` (arquivo vazio) com retry/backoff
 2. Ler queue atual, append nova entrada, escrever
 3. Remover lock
 
 Se o lock existir há >5s: assumir lock órfão, deletar e prosseguir.
 
-O Chronicler segue o mesmo protocolo ao consumir / limpar entradas.
+O Keeper segue o mesmo protocolo ao consumir / limpar entradas.
 
 ---
 
-## Limpeza pelo Chronicler
+## Limpeza pelo Keeper
 
 Após processar entradas com sucesso (modo `after`):
 
 1. Remover entradas processadas do array `queue`
 2. Se `queue` ficar vazia: pode deletar o arquivo OU manter como `{ "version": 1, "queue": [] }`
-3. Salvar timestamp em `.reversa/state.json.checkpoints.chronicler.last_run`
+3. Salvar timestamp em `.reversa/state.json.checkpoints.keeper.last_run`
 
-Se houver erro durante processamento de uma entrada específica: NÃO remover essa entrada. Logar em `.reversa/chronicler-errors.log` com motivo. Próxima invocação tenta de novo.
+Se houver erro durante processamento de uma entrada específica: NÃO remover essa entrada. Logar em `.reversa/keeper-errors.log` com motivo. Próxima invocação tenta de novo.
 
 ---
 
 ## Limites operacionais
 
-- Tamanho máximo razoável: ~1000 entradas. Acima disso, hook deve printar aviso no terminal sugerindo rodar Chronicler.
+- Tamanho máximo razoável: ~1000 entradas. Acima disso, hook deve printar aviso no terminal sugerindo rodar Keeper.
 - Entradas mais antigas que 30 dias podem ser auto-purgadas pelo runner (assumindo que o usuário esqueceu de processar).
 
 ---
@@ -127,5 +127,5 @@ Se houver erro durante processamento de uma entrada específica: NÃO remover es
 
 Neste exemplo:
 - 3 entradas (1 pre, 2 post)
-- Chronicler `after` processa as 2 entradas `post`, ignora `pre` (intent já concluído)
+- Keeper `after` processa as 2 entradas `post`, ignora `pre` (intent já concluído)
 - Detecta arquivo novo `lib/middleware/rate-limit.js` sem spec → adiciona à `code-spec-matrix.md` apontando pra `sdd/authentication.md` (heurística: spec do dir pai)

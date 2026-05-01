@@ -1,8 +1,8 @@
-# Hooks (Chronicler automático)
+# Hooks (Keeper automático)
 
-Instala hooks en tu engine de IA para que el Chronicler corra automáticamente cuando edites un archivo.
+Instala hooks en tu engine de IA para que el Keeper corra automáticamente cuando edites un archivo.
 
-`/reversa-chronicler after` manual siempre funciona como fallback.
+`/reversa-keeper after` manual siempre funciona como fallback.
 
 ---
 
@@ -27,12 +27,12 @@ npx reversa remove-hooks --all
 
 Cuando la engine dispara un tool que edita archivos, el hook invoca el runner en `.reversa/_hooks/runner.js`. El runner:
 
-1. Append en `.reversa/chronicler-queue.json` (con lock para concurrencia)
+1. Append en `.reversa/keeper-queue.json` (con lock para concurrencia)
 2. Stub en `_reversa_sdd/changelog/YYYY-MM-DD.md`
 3. Marca specs afectadas como `🔴 pending` en `_reversa_sdd/drift.md`
 4. Warning en stderr si se afectó spec de alta confianza
 
-Nunca bloquea la engine. Nunca modifica tu código. Errores en `.reversa/chronicler-errors.log`.
+Nunca bloquea la engine. Nunca modifica tu código. Errores en `.reversa/keeper-errors.log`.
 
 ---
 
@@ -44,7 +44,7 @@ Nunca bloquea la engine. Nunca modifica tu código. Errores en `.reversa/chronic
 | Cursor | `.cursor/hooks.json` | afterFileEdit |
 | Kimi CLI | `.kimi/config.toml` o `~/.kimi/config.toml` (con backup) | PreToolUse + PostToolUse |
 | Codex | `.codex/hooks.toml` | PreToolUse + PostToolUse (apply_patch) |
-| Opencode | `.opencode/plugins/reversa-chronicler.js` | tool.execute.before/after |
+| Opencode | `.opencode/plugins/reversa-keeper.js` | tool.execute.before/after |
 
 ---
 

@@ -81,7 +81,7 @@ Removes Reversa from the project: deletes the files created by the installation 
 npx reversa add-hooks --engine claude-code
 ```
 
-Installs Chronicler hooks in your engine's config so the agent runs automatically after every file edit. Shows a preview, asks confirmation, then writes.
+Installs Keeper hooks in your engine's config so the agent runs automatically after every file edit. Shows a preview, asks confirmation, then writes.
 
 Supported engines: `claude-code`, `cursor`, `kimi-cli`, `codex`, `opencode`. See [Hooks](hooks.md) for the full reference.
 
@@ -94,7 +94,7 @@ npx reversa remove-hooks --engine claude-code
 npx reversa remove-hooks --all
 ```
 
-Strips Chronicler hooks from the engine config. Other hooks you added manually are preserved.
+Strips Keeper hooks from the engine config. Other hooks you added manually are preserved.
 
 ---
 

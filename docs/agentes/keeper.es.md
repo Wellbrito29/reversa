@@ -1,16 +1,16 @@
-# Chronicler
+# Keeper
 
 El agente que impide que el código nuevo se vuelva legado.
 
 ## Qué hace
 
-El Chronicler cierra el ciclo de feedback entre las specs generadas por Reversa y los cambios diarios de código. Funciona en dos modos — antes de un cambio (briefing solo lectura) y después (actualiza specs, changelog y el dashboard de drift).
+El Keeper cierra el ciclo de feedback entre las specs generadas por Reversa y los cambios diarios de código. Funciona en dos modos — antes de un cambio (briefing solo lectura) y después (actualiza specs, changelog y el dashboard de drift).
 
 ## Por qué existe
 
 Reversa genera specs a partir del código legado existente. Pero el código sigue cambiando, y las specs envejecen en semanas. Sin un guardián, las specs se desincronizan y se vuelven tan inútiles como la documentación ausente que Reversa vino a resolver.
 
-El Chronicler es ese guardián. Trata las specs como **fuentes de verdad activas**, no snapshots.
+El Keeper es ese guardián. Trata las specs como **fuentes de verdad activas**, no snapshots.
 
 ---
 
@@ -21,8 +21,8 @@ El Chronicler es ese guardián. Trata las specs como **fuentes de verdad activas
 Briefing solo lectura. Úsalo **antes** del cambio.
 
 ```
-/reversa-chronicler before lib/auth/login.js
-/reversa-chronicler before "voy a agregar rate limiting al login"
+/reversa-keeper before lib/auth/login.js
+/reversa-keeper before "voy a agregar rate limiting al login"
 ```
 
 El agente:
@@ -37,12 +37,12 @@ El agente:
 Modo predeterminado si hay cambios sin commitear o eventos en cola. Úsalo **después** del cambio.
 
 ```
-/reversa-chronicler after
-/reversa-chronicler
+/reversa-keeper after
+/reversa-keeper
 ```
 
 El agente:
-1. Recolecta archivos modificados de `git diff HEAD` y (si hay hooks) `.reversa/chronicler-queue.json`
+1. Recolecta archivos modificados de `git diff HEAD` y (si hay hooks) `.reversa/keeper-queue.json`
 2. Mapea archivos a specs impactadas vía `code-spec-matrix.md`
 3. Hace 3 preguntas: **Por qué** el cambio, **breaking change**, **contexto extra**
 4. Actualiza cada spec impactada in-place, reclasifica confianza (🟢/🟡/🔴)
@@ -66,7 +66,7 @@ El agente:
 
 ## Trigger manual vs automatizado
 
-Manual: `/reversa-chronicler` funciona en cualquier engine sin setup.
+Manual: `/reversa-keeper` funciona en cualquier engine sin setup.
 
 Automatizado: instala hooks vía [`npx reversa add-hooks`](../hooks.es.md). Los hooks encolan eventos para que el agente los procese después.
 
@@ -82,4 +82,4 @@ Automatizado: instala hooks vía [`npx reversa add-hooks`](../hooks.es.md). Los 
 
 ## Integración
 
-El Chronicler complementa al Reviewer (validación inicial), Archaeologist (análisis profundo) y Architect (síntesis). Cuando detecta cambios que afectan más de 5 specs o tocan entry points / schemas, sugiere escalar a esos agentes.
+El Keeper complementa al Reviewer (validación inicial), Archaeologist (análisis profundo) y Architect (síntesis). Cuando detecta cambios que afectan más de 5 specs o tocan entry points / schemas, sugiere escalar a esos agentes.

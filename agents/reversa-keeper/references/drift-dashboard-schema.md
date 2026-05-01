@@ -2,7 +2,7 @@
 
 Dashboard de saúde das specs — mostra para cada spec o quão sincronizada está com o código atual.
 
-Mantido pelo Chronicler no modo `after`. Pode ser lido por humanos e parseado pelo comando `npx reversa drift-check` (CI gate).
+Mantido pelo Keeper no modo `after`. Pode ser lido por humanos e parseado pelo comando `npx reversa drift-check` (CI gate).
 
 ---
 
@@ -12,7 +12,7 @@ Mantido pelo Chronicler no modo `after`. Pode ser lido por humanos e parseado pe
 # Drift Dashboard
 
 Última atualização: YYYY-MM-DD HH:MM (UTC)
-Geração: reversa-chronicler v2.0.0
+Geração: reversa-keeper v2.0.0
 
 ## Resumo
 
@@ -27,7 +27,7 @@ Geração: reversa-chronicler v2.0.0
 |---|---|---|---|---|
 | `sdd/authentication.md` | 2026-04-29 14:32 | 🟢 resolved | 🟢 80% / 🟡 18% / 🔴 2% | — |
 | `sdd/billing.md` | 2026-04-25 09:10 | 🟡 stale | 🟢 75% / 🟡 20% / 🔴 5% | Rodar `/reversa-archaeologist` |
-| `sdd/notifications.md` | 2026-04-29 14:25 | 🔴 pending | 🟢 60% / 🟡 30% / 🔴 10% | Rodar `/reversa-chronicler after` |
+| `sdd/notifications.md` | 2026-04-29 14:25 | 🔴 pending | 🟢 60% / 🟡 30% / 🔴 10% | Rodar `/reversa-keeper after` |
 ```
 
 ---
@@ -38,7 +38,7 @@ Geração: reversa-chronicler v2.0.0
 Caminho relativo ao `<output_folder>/`. Geralmente em `sdd/`, mas pode incluir `openapi/`, `database/`, etc.
 
 ### `Última sincronização`
-Timestamp UTC da última vez que o Chronicler atualizou (ou confirmou consistência) desta spec. Formato: `YYYY-MM-DD HH:MM`.
+Timestamp UTC da última vez que o Keeper atualizou (ou confirmou consistência) desta spec. Formato: `YYYY-MM-DD HH:MM`.
 
 ### `Status`
 Um de:
@@ -47,7 +47,7 @@ Um de:
 |---|---|---|
 | `🟢 resolved` | Spec sincronizada com o código atual | Após processar mudanças ou após confirmar que nenhuma mudança recente afetou a spec |
 | `🟡 stale` | Sem sincronização há >7 dias e código foi modificado nos paths mapeados | Detectado por hooks (modo `after`) ou por escaneamento periódico |
-| `🔴 pending` | Mudança detectada mas ainda não processada pelo Chronicler | Hooks marcam como `pending` no momento da edição; Chronicler `after` muda pra `resolved` |
+| `🔴 pending` | Mudança detectada mas ainda não processada pelo Keeper | Hooks marcam como `pending` no momento da edição; Keeper `after` muda pra `resolved` |
 
 ### `Distribuição confiança`
 Percentual de afirmações 🟢/🟡/🔴 na spec, recomputado quando a spec é atualizada.
@@ -56,7 +56,7 @@ Cálculo: contar emojis 🟢, 🟡, 🔴 na spec, dividir por total, arredondar 
 
 ### `Ação sugerida`
 Texto livre — geralmente o slash command recomendado:
-- `Rodar /reversa-chronicler after` (status `pending`)
+- `Rodar /reversa-keeper after` (status `pending`)
 - `Rodar /reversa-archaeologist` (drift estrutural ou stale)
 - `Rodar /reversa-reviewer` (múltiplas specs afetadas)
 - `Rodar /reversa-data-master` (mudança em schema)
@@ -76,7 +76,7 @@ Texto livre — geralmente o slash command recomendado:
         ▼
    🔴 pending
         │
-        │ (Chronicler after processa)
+        │ (Keeper after processa)
         ▼
    🟢 resolved
         │
@@ -84,7 +84,7 @@ Texto livre — geralmente o slash command recomendado:
         ▼
    🟡 stale
         │
-        │ (Chronicler after ou Archaeologist processa)
+        │ (Keeper after ou Archaeologist processa)
         ▼
    🟢 resolved
 ```

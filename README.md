@@ -100,7 +100,7 @@ Reconnaissance  Excavation  Interpretation  Generation  Review
 
 Independent agents (run at any phase): **Visor**, **Data Master**, **Design System**
 
-Continuous loop (after the initial pipeline): **Chronicler** keeps specs synchronized as the code evolves — see [Drift loop](#drift-loop) below.
+Continuous loop (after the initial pipeline): **Keeper** keeps specs synchronized as the code evolves — see [Drift loop](#drift-loop) below.
 
 ---
 
@@ -126,7 +126,7 @@ Continuous loop (after the initial pipeline): **Chronicler** keeps specs synchro
 | **Data Master** | Complete database analysis: DDL, migrations, ORM, ERD, triggers, procedures |
 | **Design System** | Extracts design tokens: colors, typography, spacing, themes, and components |
 | **Reconstructor** | Generates a bottom-up rebuild plan from the specs and executes one task at a time |
-| **Chronicler** | Keeps specs synchronized with code changes — drift detection, changelog, dashboard |
+| **Keeper** | Keeps specs synchronized with code changes — drift detection, changelog, dashboard |
 
 ---
 
@@ -149,8 +149,8 @@ _reversa_sdd/
 ├── confidence-report.md      # Confidence report 🟢🟡🔴
 ├── gaps.md                   # Identified gaps
 ├── questions.md              # Questions for human validation
-├── changelog/                # Code change log (Chronicler — by date)
-├── drift.md                  # Spec ↔ code drift dashboard (Chronicler)
+├── changelog/                # Code change log (Keeper — by date)
+├── drift.md                  # Spec ↔ code drift dashboard (Keeper)
 ├── sdd/                      # Specs per component
 │   └── [component].md
 ├── openapi/                  # API specs (if applicable)
@@ -207,8 +207,8 @@ npx reversa status                         # Show current analysis state
 npx reversa update                         # Update agents to the latest version
 npx reversa add-agent                      # Add an agent to the project
 npx reversa add-engine                     # Add support for a new engine
-npx reversa add-hooks --engine <id>        # Install Chronicler hooks (auto drift loop)
-npx reversa remove-hooks --engine <id>     # Remove Chronicler hooks
+npx reversa add-hooks --engine <id>        # Install Keeper hooks (auto drift loop)
+npx reversa remove-hooks --engine <id>     # Remove Keeper hooks
 npx reversa drift-check                    # CI gate — exit 1 if drift pending
 npx reversa uninstall                      # Remove Reversa from the project
 ```
@@ -220,14 +220,14 @@ The `uninstall` command removes only files created by Reversa — nothing from t
 
 ## Drift loop
 
-The Chronicler closes the cycle between spec and code so new code does not become legacy:
+The Keeper closes the cycle between spec and code so new code does not become legacy:
 
 ```
-[Edit a file]                 → engine hook → .reversa/chronicler-queue.json
+[Edit a file]                 → engine hook → .reversa/keeper-queue.json
                                             → stub in changelog/YYYY-MM-DD.md
                                             → marks spec as 🔴 pending in drift.md
 
-[/reversa-chronicler after]   → asks 3 questions (why / breaking / context)
+[/reversa-keeper after]   → asks 3 questions (why / breaking / context)
                               → updates impacted specs in-place
                               → reclassifies confidence 🟢🟡🔴
                               → marks specs as 🟢 resolved
@@ -237,11 +237,11 @@ The Chronicler closes the cycle between spec and code so new code does not becom
 
 Three layers, each opt-in:
 
-1. **Manual** — run `/reversa-chronicler after` whenever you want
+1. **Manual** — run `/reversa-keeper after` whenever you want
 2. **Automatic** — install hooks: `npx reversa add-hooks --engine <claude-code|cursor|kimi-cli|codex|opencode>`
 3. **Enforced** — add `npx reversa drift-check` to CI
 
-See [docs/agentes/cronista.md](docs/agentes/cronista.md), [docs/hooks.md](docs/hooks.md), [docs/drift-check.md](docs/drift-check.md).
+See [docs/agentes/keeper.md](docs/agentes/keeper.md), [docs/hooks.md](docs/hooks.md), [docs/drift-check.md](docs/drift-check.md).
 
 ---
 
