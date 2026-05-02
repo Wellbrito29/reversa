@@ -114,3 +114,28 @@ Se durante o modo `after` você encontrar:
 - Mudança em schema de banco → sugira `/reversa-data-master`
 
 Adicione essas sugestões na mensagem final ao usuário.
+
+---
+
+## Severidade por blast radius (v1.8.0+)
+
+Quando o graph L0 (`.reversa/context/graph.json`) está disponível, classifique a severidade de cada drift pela contagem de **reverse-deps diretas** do arquivo modificado:
+
+| Reverse-deps diretas | Severidade | Ação |
+|---|---|---|
+| 0-1 | `LOW` | Atualizar spec normalmente; sem alerta |
+| 2-4 | `MEDIUM` | Atualizar spec; mencionar blast radius no changelog |
+| **5+** | **`HIGH`** | Atualizar spec; **sugerir `/reversa-reviewer`** + listar arquivos afetados em `drift.md` (campo `blast_radius`) |
+
+Comandos de referência:
+
+```bash
+npx reversa graph reverse-deps <arquivo> --json    # 1 nível (severity)
+npx reversa graph impact <arquivo> --json          # transitivo BFS (blast_radius)
+```
+
+A severidade vai para o campo `severity` no `drift.md`. Os arquivos afetados (top 20) vão para `blast_radius`. Acima de 20, anotar `+N more`.
+
+> **Por quê 5:** abaixo disso, mudanças costumam ser refatorações localizadas. A partir de 5 reverse-deps, o risco de propagação cresce não-linearmente — cada arquivo afetado pode ter seus próprios reverse-deps.
+
+Se o graph não existir, sugira ao usuário rodar `npx reversa graph build` antes do próximo `/reversa-keeper after`. Modo degradado: classifique tudo como `MEDIUM` por padrão.

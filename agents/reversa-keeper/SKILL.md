@@ -125,11 +125,23 @@ Execute `git diff --name-only HEAD` para listar modificações não commitadas. 
 Se vazia em ambas: encerre.
 > "Nenhuma mudança detectada (queue vazia e git diff limpo). Nada a documentar."
 
-### Passo 2 — Mapear specs impactadas
+### Passo 2 — Mapear specs impactadas (matrix + graph)
 
-Leia `_reversa_sdd/traceability/code-spec-matrix.md`. Para cada arquivo alterado:
+**Fonte primária — matrix**: leia `_reversa_sdd/traceability/code-spec-matrix.md`. Para cada arquivo alterado:
 - Se tem spec correspondente: marque para atualização
 - Se não tem (entrada "—" ou ausente): marque para adicionar à matriz
+
+**Fonte secundária — graph blast radius (v1.8.0+)**: para arquivos sem spec direta na matrix, rode:
+
+```bash
+npx reversa graph impact <arquivo> --json
+```
+
+O comando retorna lista de arquivos transitivamente afetados. Para cada arquivo no resultado:
+- Se algum tem spec na matrix → essa spec também precisa de revisão (mesmo que o arquivo editado não esteja diretamente nela). Marque como "afetada via graph" e inclua na lista de specs a verificar.
+- Anote a contagem de reverse-deps (`npx reversa graph reverse-deps <arquivo> --json`) — usada na Passo 7 para classificar severidade do drift.
+
+Se `.reversa/context/graph.json` não existir, sugira ao usuário rodar `npx reversa graph build` antes de prosseguir, ou siga somente com a matrix (modo degradado).
 
 ### Passo 3 — Fazer as 3 perguntas
 
@@ -185,6 +197,11 @@ Para cada spec atualizada nesta sessão:
 - `status` = `🟢 resolved`
 - `confidence_dist` = recomputar contando 🟢/🟡/🔴 na spec atualizada
 - `suggested_action` = `—`
+- `blast_radius` (v1.8.0+) = lista dos arquivos afetados pela mudança nesta spec, conforme `npx reversa graph impact <arquivo-da-spec>`. Limite a 20 entradas; se >20, anote `"<file>... +N more"`.
+- `severity` (v1.8.0+) = aplique `references/drift-rules.md` regra "blast radius":
+  - 0-1 reverse-dep direto → `LOW`
+  - 2-4 → `MEDIUM`
+  - 5+ → `HIGH`
 
 Para specs marcadas como `pending` por hooks anteriores que foram resolvidas: mude para `resolved`.
 
