@@ -32,7 +32,7 @@ Verifique se existe `<output_folder>/` no diretório atual. Se não, encerre:
 Recebido como argumento da invocação (`/reversa-keeper before`, `/reversa-keeper after`).
 
 **Modo padrão (sem argumento):**
-- Se `.reversa/keeper-queue.json` existe e tem entradas `phase: "post"`: rode em **modo `after`**
+- Se `.reversa/keeper-queue.jsonl` existe e tem linhas `phase: "post"`: rode em **modo `after`**
 - Se houver `git diff HEAD` não-vazio: rode em **modo `after`**
 - Caso contrário: pergunte ao usuário qual modo usar
 
@@ -100,8 +100,22 @@ Atualiza specs, changelog e dashboard de drift após uma mudança de código.
 
 Combine duas fontes:
 
-**Fonte A — Queue file** (preenchida por hooks, se instalados):
-Leia `.reversa/keeper-queue.json` se existir. Schema em `references/queue-schema.md`. Extraia entradas com `phase: "post"`.
+**Fonte A — Queue file JSONL** (preenchida por hooks, se instalados):
+
+1. Se `.reversa/keeper-queue.jsonl` existir, renomeie atomicamente para `.reversa/keeper-queue.processing.jsonl` antes de ler (evita race com hooks ainda escrevendo).
+2. Leia o arquivo `processing` linha-a-linha. Cada linha é um JSON. Schema em `references/queue-schema.md`.
+3. Filtre `phase === "post"`. Ignore `phase === "stop"` (advisory only — sem `files`).
+4. **Deduplique por arquivo** (último entry por arquivo ganha):
+
+```js
+const lastByFile = new Map();
+for (const line of lines) {
+  const entry = JSON.parse(line);
+  if (entry.phase !== 'post') continue;
+  for (const file of entry.files) lastByFile.set(file, entry);
+}
+const uniqueFiles = Array.from(lastByFile.keys());
+```
 
 **Fonte B — Git diff**:
 Execute `git diff --name-only HEAD` para listar modificações não commitadas. Adicione à lista os arquivos staged (`git diff --name-only --cached`).
@@ -178,7 +192,9 @@ Para specs que esta sessão **não tocou** mas que estão `pending` há mais de 
 
 ### Passo 8 — Limpar a queue
 
-Se `.reversa/keeper-queue.json` foi consumida: remova as entradas processadas. Se ficou vazia: pode deletar o arquivo ou deixar `{ "version": 1, "queue": [] }`.
+Se `.reversa/keeper-queue.processing.jsonl` foi consumida com sucesso: delete o arquivo. Próxima invocação encontra apenas linhas novas em `.reversa/keeper-queue.jsonl` (escritas pelos hooks após o rename).
+
+Em caso de erro durante o processamento: **não** delete `processing.jsonl`. Logue o erro em `.reversa/keeper-errors.log` e encerre — próxima invocação retoma do mesmo arquivo.
 
 ### Passo 9 — Salvar checkpoint
 
@@ -213,7 +229,7 @@ Atualize `.reversa/state.json`:
 | `<output_folder>/traceability/code-spec-matrix.md` | Modo `after`, se houver arquivos novos/deletados |
 | `<output_folder>/drift.md` | Modo `after`, sempre |
 | `.reversa/state.json` | Modo `after`, checkpoint |
-| `.reversa/keeper-queue.json` | Modo `after`, limpa entradas processadas |
+| `.reversa/keeper-queue.jsonl` → `keeper-queue.processing.jsonl` | Modo `after`, rename atomic + delete após consumo |
 
 Modo `before` não escreve nada.
 
