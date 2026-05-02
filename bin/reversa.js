@@ -22,6 +22,7 @@ const commands = {
   'drift-check':      () => import('../lib/commands/drift-check.js'),
   'export-diagrams':  () => import('../lib/commands/export-diagrams.js'),
   graph:              () => import('../lib/commands/graph.js'),
+  'policy-index':     () => import('../lib/commands/policy-index.js'),
 };
 
 const green = chalk.hex('#ffa203');
@@ -58,6 +59,8 @@ ______
     graph              Constrói/consulta o knowledge graph L0 do código
                        Subcomandos: build | impact | deps | reverse-deps | stats
                        Opções: --json  --since=<ref>  --files=a,b,c
+    policy-index       Constrói índice de specs protegidas pra policy gate
+                       Subcomandos: build | show
 
   Documentação: https://github.com/sandeco/reversa
   `);
