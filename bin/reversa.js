@@ -21,6 +21,7 @@ const commands = {
   'remove-hooks':     () => import('../lib/commands/remove-hooks.js'),
   'drift-check':      () => import('../lib/commands/drift-check.js'),
   'export-diagrams':  () => import('../lib/commands/export-diagrams.js'),
+  graph:              () => import('../lib/commands/graph.js'),
 };
 
 const green = chalk.hex('#ffa203');
@@ -54,6 +55,9 @@ ______
     export-diagrams    Exporta diagramas Mermaid como imagens SVG/PNG
                        Opções: --format=svg|png  --output=<pasta>
                        Requer: npm install -g @mermaid-js/mermaid-cli
+    graph              Constrói/consulta o knowledge graph L0 do código
+                       Subcomandos: build | impact | deps | reverse-deps | stats
+                       Opções: --json  --since=<ref>  --files=a,b,c
 
   Documentação: https://github.com/sandeco/reversa
   `);
