@@ -1,6 +1,6 @@
 {
   "name": "reversa",
-  "version": "1.9.0-alpha.2",
+  "version": "1.9.0-alpha.3",
   "description": "Transform legacy systems into executable specifications for AI coding agents",
   "bin": {
     "reversa": "bin/reversa.js"
@@ -48,6 +48,7 @@
   },
   "optionalDependencies": {
     "tree-sitter": "^0.21.0",
+    "tree-sitter-go": "^0.21.0",
     "tree-sitter-python": "^0.21.0"
   }
 }
