@@ -33,11 +33,27 @@ Reversa is built as a **control plane for AI coding agents**, on three pillars:
 |---|---|---|
 | **Reversa** | Spec authority — features, contracts, invariants, ADRs | `_reversa_sdd/` + agents (Architect, Writer, Archaeologist…) |
 | **Keeper** | Drift gate — keeps specs in sync with code | Hooks + `/reversa-keeper [before\|after]` + `drift-check` |
-| **GitNexus** *(companion)* | Codebase oracle — knowledge graph of the actual code | External MCP — [abhigyanpatwari/GitNexus](https://github.com/abhigyanpatwari/GitNexus) |
+| **Graph** *(in-house, MIT)* | Codebase oracle — knowledge graph of the actual code | `lib/graph/` + `npx reversa graph` (L0 universal, L1 per-language) |
 
-Together: agents must respect what the code **should be** (Reversa specs), see what it **is** (GitNexus graph), and stay aligned (Keeper). Specs are the contract, the graph is the ground truth, drift detection is the gate.
+Together: agents must respect what the code **should be** (Reversa specs), see what it **is** (Graph), and stay aligned (Keeper). Specs are the contract, the graph is the ground truth, drift detection is the gate.
 
-> GitNexus is an optional companion (PolyForm Noncommercial license — installed separately, never bundled). Reversa stays MIT and engine-agnostic.
+### Pipeline (4 stages)
+
+```
+Stage 1 — Discovery     →  Scout, Archaeologist, Detective, Architect, Writer, Reviewer
+                            legacy code → _reversa_sdd/ specs
+
+Stage 2 — Migration     →  Paradigm Advisor, Curator, Strategist, Designer, Inspector
+                            _reversa_sdd/ → _reversa_sdd/migration/ plan + parity tests
+
+Stage 3 — Build         →  user's coding agent (Claude / Codex / Cursor / Gemini / Kimi)
+                            migration plan → new code
+
+Stage 4 — Control plane →  Keeper + Graph + Policy gate (file-level + signature diff)
+                            new code → guarded against drift, signature break, blast-radius edits
+```
+
+Stage 2 is optional — use it when migrating to a new stack. Stage 4 is what Reversa 2.0 builds out (see [ROADMAP.md](ROADMAP.md)).
 
 ---
 

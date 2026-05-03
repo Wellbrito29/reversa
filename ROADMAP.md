@@ -14,6 +14,24 @@ Roadmap discriminado pra evoluir Reversa de framework de spec generation pra **c
 
 Decisão arquitetural: **construir graph próprio**, não usar GitNexus (license PolyForm Noncommercial + scope mismatch). Mantém Reversa MIT puro.
 
+## Pipeline (4 estágios)
+
+```
+Stage 1 — Discovery     →  Scout, Archaeologist, Detective, Architect, Writer, Reviewer
+                            código legado → _reversa_sdd/ specs
+
+Stage 2 — Migração      →  Paradigm Advisor, Curator, Strategist, Designer, Inspector
+                            _reversa_sdd/ → _reversa_sdd/migration/ plan + parity tests
+
+Stage 3 — Build         →  agente codificador do user (Claude / Codex / Cursor / Gemini / Kimi)
+                            migration plan → código novo
+
+Stage 4 — Control plane →  Keeper + Graph + Policy gate (file-level + signature diff)
+                            código novo → guardado contra drift, signature break, blast-radius edits
+```
+
+Stage 1 e 2 são produto upstream (Discovery v1.x, Migração v1.2.17). **Este roadmap cobre Stage 4** — o control plane que mantém código sob controle de AI agents continuamente.
+
 ## Linguagens suportadas (full scope)
 
 L0 (file imports via regex) + L1 (AST symbols/calls via tree-sitter) pra:
