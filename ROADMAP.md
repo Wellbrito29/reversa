@@ -296,14 +296,16 @@ protected_files:
 
 ---
 
-## Fase 9 — Graph L1 Java → v1.9.0-alpha.4 (4-5 dias)
+## Fase 9 — Graph L1 Java → v1.9.0-alpha.4 (4-5 dias) ✅ shipped
+
+**Implementado:** `tree-sitter-java` via `optionalDependencies` (lazy load + fallback graceful pra L0). Extractor produz mesmo schema canonical (`{ symbols, calls, exports }`). Captura class/interface/record/enum (top-level e nested via prefixo `Outer.Inner`), métodos e construtores (id `file#Type.method`), modifiers via tokens anônimos do nó `modifiers` (public → exported), `extends`/`implements` como string em `extends`, `method_invocation` com receiver concatenado e `object_creation_expression` registrado como `new TypeName`. Maven/Gradle path resolution permanece em L0 — não bloqueia signature diff.
 
 | Item | Arquivo |
 |---|---|
-| 9.1 | `lib/graph/parsers-l1/java.js` (tree-sitter-java) |
-| 9.2 | `lib/graph/extractors/java-classes.js` (class + methods + interfaces) |
-| 9.3 | `lib/graph/extractors/java-calls.js` |
-| 9.4 | Maven/Gradle path resolution |
+| 9.1 | `lib/graph/parsers-l1/java.js` (tree-sitter-java wrapper) |
+| 9.2 | `lib/graph/extractors/java.js` (class/interface/record/enum + methods + nested + calls + exports) |
+| 9.3 | `lib/graph/parsers-l1/index.js` (registry) |
+| 9.4 | Maven/Gradle path resolution (deferido — L0 cobre `import x.y.Z`) |
 
 ---
 
