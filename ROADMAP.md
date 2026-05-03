@@ -438,21 +438,21 @@ Bump pra `2.0.0-beta.1`.
 
 ---
 
-## Fase 14 — CI templates + docs final → v2.0.0 (2-3 dias)
+## Fase 14 — CI templates + docs final → v2.0.0 (2-3 dias) ✅ shipped
 
-**Objetivo:** Out-of-the-box pra qualquer time.
+**Implementado:** Templates CI prontos pra colar (GitHub Actions, GitLab CI, CircleCI), todos com 3 jobs (drift-check → policy-check → keeper-auto opcional). O job auto é gated pela secret `ANTHROPIC_API_KEY` em todos os três providers — sem secret o resto do gate continua rodando. Audit log é uploaded como artifact em todos. Pre-commit hook local idempotente via `lib/installer/git-hooks.js` (block guarded pelos markers `>>> reversa policy-check >>>`). Doc do control plane em 3 langs cobre toolset, modos HITL/Auto/Hybrid, lista de arquivos, e CI templates. Migration guide 1.x→2.0 enumera mudanças e rollback.
 
-### Deliverables
+| Item | Arquivo |
+|---|---|
+| 14.1 | `templates/ci/github-actions-full.yml` |
+| 14.2 | `templates/ci/gitlab-ci-full.yml` |
+| 14.3 | `templates/ci/circleci-full.yml` |
+| 14.4 | `lib/installer/git-hooks.js` (instala pre-commit hook idempotente) |
+| 14.5 | `docs/control-plane.{md,pt.md,es.md}` |
+| 14.6 | `docs/migration-1.x-to-2.0.md` |
+| 14.7 | `README.md` (refs ao policy-check shipped) |
 
-| Item | Arquivo | O que faz |
-|---|---|---|
-| 14.1 | `templates/ci/github-actions-full.yml` | Workflow completo: drift-check + policy-check + graph cache + keeper auto opcional |
-| 14.2 | `templates/ci/gitlab-ci-full.yml` | Equivalente GitLab |
-| 14.3 | `templates/ci/circleci-full.yml` | CircleCI |
-| 14.4 | `lib/installer/git-hooks.js` | Instala pre-commit hook local |
-| 14.5 | `docs/control-plane.{md,pt.md,es.md}` | Doc completa do conceito |
-| 14.6 | `docs/migration-1.x-to-2.0.md` | Guide |
-| 14.7 | `README.md` | Update final com 2.0 features |
+Bump pra `2.0.0`. **Reversa 2.0 GA.**
 
 ### Exit criteria
 
