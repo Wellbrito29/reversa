@@ -326,33 +326,35 @@ Bump pra `1.9.0`.
 
 ---
 
-## Fase 11 — policy-check CLI (CI gate) → v1.10.0 (3-4 dias)
+## Fase 11 — policy-check CLI (CI gate) → v1.10.0 (3-4 dias) ✅ shipped
 
-**Objetivo:** CI gate Phase 2. Roda fora do hook, em PR diff completo.
+**Implementado:** CLI standalone que roda smart gate em git diff. Lê `git diff base...head`, materializa conteúdo via `git show ref:path` e alimenta `checkFile` com `ctx.before`/`ctx.after` — então signature/export/extends mudanças disparam BLOCK; body-only é APPROVE. Severidade `high` (default) bloqueia só `signature_change`/`deleted_symbol`; `medium` adiciona `protected_*` e `new_export`; `low` inclui blacklist. Exit 0/1/2 usável em qualquer CI. Templates pra GitHub Actions e GitLab CI prontos pra colar.
 
-### Deliverables
+| Item | Arquivo |
+|---|---|
+| 11.1 | `lib/commands/policy-check.js` |
+| 11.2 | `bin/reversa.js` (registra `policy-check`) |
+| 11.3 | `--format=text` (default) e `--format=json` |
+| 11.4 | `--severity` flag (high/medium/low) |
+| 11.5 | `templates/ci/github-actions.yml` |
+| 11.6 | `templates/ci/gitlab-ci.yml` |
+| 11.7 | `docs/policy-check.{md,pt.md,es.md}` |
 
-| Item | Arquivo | O que faz |
-|---|---|---|
-| 11.1 | `lib/commands/policy-check.js` | CLI: lê git diff base..HEAD, parse cada arquivo antes/depois, roda diff-detector, exit 0/1/2 |
-| 11.2 | `bin/reversa.js` | Registra `policy-check` |
-| 11.3 | Output formats | `--format=text` (default) e `--format=json` |
-| 11.4 | `--severity` flag | high (only protected breaking) / medium (any signature change) / low (advisory) |
-| 11.5 | `templates/ci/github-actions.yml` | Workflow exemplo |
-| 11.6 | `templates/ci/gitlab-ci.yml` | Equivalente |
-| 11.7 | `docs/policy-check.{md,pt.md,es.md}` | Doc 3 langs |
+Bump pra `1.10.0`.
 
 ### CLI exemplo
 
 ```bash
-npx reversa policy-check --base main --severity high
-# Comparing main...HEAD
-# ❌ src/auth/login.js: signature change to protected `login` (sdd/auth.md)
-#    Old: login(email, password): string | null
-#    New: login(email, password, mfaCode): string | null
-#    Callers: 12
-#    Alternative: make mfaCode optional
-# Exit 1
+npx reversa policy-check --base origin/main --head HEAD --severity high
+# Comparing origin/main...HEAD (severity=high)
+#   ✗ src/auth/login.js: Signature change to protected `login` ...
+#       kind: signature_change
+#       old:  (email, password)
+#       new:  (email, password, mfaCode)
+#       → Make the new parameter optional
+#       → Update the spec first
+# Results: 0 approved · 0 advisory · 1 blocked (1 at gate)
+# FAIL — exit 1
 ```
 
 ---
