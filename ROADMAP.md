@@ -283,14 +283,16 @@ protected_files:
 
 ---
 
-## Fase 8 — Graph L1 Go → v1.9.0-alpha.3 (3-4 dias)
+## Fase 8 — Graph L1 Go → v1.9.0-alpha.3 (3-4 dias) ✅ shipped
+
+**Implementado:** `tree-sitter-go` via `optionalDependencies` (lazy load + fallback graceful pra L0 quando native binary ausente). Extractor produz mesmo schema canonical (`{ symbols, calls, exports }`). Captura func declarations top-level, receivers (pointer e value) mapeados como `method` com id `file#Type.method`, type declarations (struct/interface/alias) com `goKind`, embedded fields como `extends`, call expressions com `from`-symbol resolvido (selector_expression incluso, ex. `fmt.Sprintf`), package decl, e exported flag via PascalCase rune. Suporta variadic params e multi-return signatures.
 
 | Item | Arquivo |
 |---|---|
-| 8.1 | `lib/graph/parsers-l1/go.js` (tree-sitter-go) |
-| 8.2 | `lib/graph/extractors/go-funcs.js` (func + receivers + interfaces) |
-| 8.3 | `lib/graph/extractors/go-calls.js` |
-| 8.4 | Resolve module via go.mod |
+| 8.1 | `lib/graph/parsers-l1/go.js` (tree-sitter-go wrapper) |
+| 8.2 | `lib/graph/extractors/go.js` (func + receivers + interfaces + calls + exports) |
+| 8.3 | `lib/graph/parsers-l1/index.js` (registry) |
+| 8.4 | Resolve module via go.mod (deferido — L0 já cobre import path resolution) |
 
 ---
 
