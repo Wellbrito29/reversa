@@ -309,26 +309,20 @@ protected_files:
 
 ---
 
-## Fase 10 — Smart policy gate (signature diff) → v1.9.0 (4-5 dias)
+## Fase 10 — Smart policy gate (signature diff) → v1.9.0 (4-5 dias) ✅ shipped
 
-**Objetivo:** Bloqueia edit que altera signature de contrato protegido. Usa L1.
+**Implementado:** `lib/policy/diff-detector.js` parse before/after via L1 (qualquer das 5 langs já registradas) e devolve `{ added, removed, changed }` por id canonical. `check.js` agora distingue body-only vs signature-relevant edits em arquivos protegidos: quando `ctx.before` e `ctx.after` chegam, body-only é APPROVE; mudança de signature/exported/extends é BLOCK com `details` ricos (alternativas + callers extraídos do graph se `ctx.graph` for fornecido). Sem before/after, fallback ao comportamento conservador da Fase 4. `decisions.js` ganha categorias (`signature_change`, `deleted_symbol`, `new_export`, etc.) consumidas pelo CLI da Fase 11.
 
-### Deliverables
+| Item | Arquivo |
+|---|---|
+| 10.1 | `lib/policy/diff-detector.js` (parse before/after via L1, indexa por id canonical) |
+| 10.2 | `lib/policy/check.js` (smart resolve para protected_files / protected_globs) |
+| 10.3 | `lib/policy/decisions.js` (categorias) |
+| 10.4 | `lib/policy/reason-builder.js` (headline + details + alternatives) |
+| 10.5 | `lib/policy/alternatives.js` (heurísticas: optional-param, overload, internal-export, spec-first) |
+| 10.6 | Smoke test cross-lang (JS verificado; mesmo path roda Python/Go/Java/TS sem código adicional) |
 
-| Item | Arquivo | O que faz |
-|---|---|---|
-| 10.1 | `lib/policy/diff-detector.js` | Parse `old_string` + `new_string` (do tool args) → AST → extrai símbolos antes/depois → diff |
-| 10.2 | `lib/policy/check.js` | Enhanced: além de path/protected, agora checa signature diff em cada símbolo tocado |
-| 10.3 | `lib/policy/decisions.js` | Nova categoria: "signature change" + "new branch" + "deleted symbol" |
-| 10.4 | `lib/policy/reason-builder.js` | Constrói reason JSON com: contrato atual, mudança proposta, callers count, alternativas geradas |
-| 10.5 | `lib/policy/alternatives.js` | Sugere alternativas: "tornar param opcional", "criar nova função", "atualizar spec primeiro" |
-| 10.6 | Tests cross-lang (5 langs) | Cada lang tem caso de signature change bloqueado |
-
-### Exit criteria
-
-- [ ] Edit que adiciona param obrigatório a função 🔒 protected → BLOCK com reason detalhada
-- [ ] Edit que muda body sem mudar signature → APPROVE
-- [ ] Reason inclui lista de callers do graph + alternativas
+Bump pra `1.9.0`.
 
 ---
 
