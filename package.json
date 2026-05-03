@@ -1,6 +1,6 @@
 {
   "name": "reversa",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-beta.1",
   "description": "Transform legacy systems into executable specifications for AI coding agents",
   "bin": {
     "reversa": "bin/reversa.js"
@@ -20,6 +20,7 @@
   "files": [
     "agents/",
     "bin/",
+    "bot/",
     "lib/",
     "templates/",
     "README.md",

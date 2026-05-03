@@ -412,21 +412,22 @@ auto_resolve:
 
 ---
 
-## Fase 13 — Audit log + bot → v2.0.0-beta (4-5 dias)
+## Fase 13 — Audit log + bot → v2.0.0-beta.1 (4-5 dias) ✅ shipped
 
-**Objetivo:** Toda decisão automática auditada. Bot commita specs.
+**Implementado:** Audit writer ganhou redação configurável via `_reversa_sdd/audit-policy.json` (`{ "redact": [...] }` substitui campos por `sha256:<16hex>` mantendo correlação). Schema documentado em `lib/audit/schema.md`. Bot scaffold é webhook-shape-agnostic — handler `pr.js` aceita qualquer client com formato Octokit, executa `policy-index build` + `policy-check` + `keeper auto` via spawn (mesmo path que humano usa local), comita atualizações de spec com guard hard-fail se algo fora de `_reversa_sdd/**` aparecer no porcelain. Labels mapeadas em `lib/auto/labels.js` com escalate dominante.
 
-### Deliverables
+| Item | Arquivo |
+|---|---|
+| 13.1 | `lib/audit/writer.js` (com redaction integrada) |
+| 13.2 | `lib/audit/schema.md` |
+| 13.3 | `lib/audit/redact.js` (sha256-prefix preserva correlação) |
+| 13.4 | `bot/keeper-bot/` (handler + commit guard + install.md) |
+| 13.5 | `bot/keeper-bot/handlers/pr.js` |
+| 13.6 | `bot/keeper-bot/install.md` |
+| 13.7 | `lib/auto/labels.js` (`keeper:auto-resolved` / `:needs-review` / `:escalated`) |
+| 13.8 | `docs/keeper-auto.{md,pt.md,es.md}` (3 langs) |
 
-| Item | Arquivo | O que faz |
-|---|---|---|
-| 13.1 | `lib/audit/writer.js` | Append-only `.reversa/audit/YYYY-MM-DD.jsonl` |
-| 13.2 | `lib/audit/schema.md` | Doc do formato JSONL |
-| 13.3 | `lib/audit/redact.js` | Redação opcional (não logar diffs sensíveis) |
-| 13.4 | `bot/keeper-bot/` | GitHub App scaffolding (Probot ou Octokit) |
-| 13.5 | `bot/keeper-bot/handlers/pr.js` | Handler PR: roda keeper auto, commita specs com `[skip ci]` |
-| 13.6 | `bot/keeper-bot/install.md` | Setup guide |
-| 13.7 | `lib/auto/labels.js` | Aplica labels: `keeper:auto-resolved`, `keeper:needs-review`, `keeper:escalated` |
+Bump pra `2.0.0-beta.1`.
 
 ### Exit criteria
 
