@@ -91,6 +91,11 @@ plugins:
             Reversa (Orchestrator): Reversa (Orquestrador)
             Generated outputs: Saídas geradas
             Developing from specs: Desenvolvendo com as specs
+            Migration: Migração
+            The 5 agents: Os 5 agentes
+            Paradigm shift: Mudança de paradigma
+            Strategies: Estratégias
+            Brief schema: Schema do brief
             Contributing: Contribuindo
             Drift loop: Ciclo de drift
             Hooks (auto Keeper): Hooks (Keeper automático)
@@ -114,6 +119,11 @@ plugins:
             Reversa (Orchestrator): Reversa (Orquestador)
             Generated outputs: Salidas generadas
             Developing from specs: Desarrollando con las specs
+            Migration: Migración
+            The 5 agents: Los 5 agentes
+            Paradigm shift: Cambio de paradigma
+            Strategies: Estrategias
+            Brief schema: Schema del brief
             Contributing: Contribuir
             Drift loop: Ciclo de drift
             Hooks (auto Keeper): Hooks (Keeper automático)
@@ -148,4 +158,10 @@ nav:
     - drift-check (CI gate): drift-check.md
   - Generated outputs: saidas/index.md
   - Developing from specs: desenvolvendo-com-specs.md
+  - Migration:
+    - Overview: migracao/index.md
+    - The 5 agents: migracao/agentes.md
+    - Paradigm shift: migracao/paradigma.md
+    - Strategies: migracao/estrategias.md
+    - Brief schema: migracao/brief.md
   - Contributing: contribuindo.md
