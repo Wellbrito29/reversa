@@ -24,6 +24,7 @@ const commands = {
   graph:              () => import('../lib/commands/graph.js'),
   'policy-index':     () => import('../lib/commands/policy-index.js'),
   'policy-check':     () => import('../lib/commands/policy-check.js'),
+  'keeper':           () => import('../lib/commands/keeper-auto.js'),
 };
 
 const green = chalk.hex('#ffa203');
@@ -65,6 +66,8 @@ ______
     policy-check       CI gate — analisa git diff e bloqueia signature breaks
                        Opções: --base=<ref>  --head=<ref>
                                --format=text|json  --severity=high|medium|low
+    keeper auto        Auto-resolve drift via LLM (whitelist + classifier)
+                       Opções: --dry-run  --max-specs=N  --format=text|json
 
   Documentação: https://github.com/sandeco/reversa
   `);

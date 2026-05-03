@@ -1,0 +1,56 @@
+# Reversa Keeper auto-mode policy.
+#
+# Drop into `_reversa_sdd/auto-policy.yaml` to enable LLM-driven drift triage.
+# Auto mode is disabled by default — until `enabled: true` Reversa Keeper
+# behaves exactly like before (HITL).
+
+auto_resolve:
+  enabled: false
+
+  # When the LLM classifier reports a confidence below this, the spec is
+  # marked needs_review (🟡 stale) instead of being auto-rewritten.
+  confidence_threshold: 0.85
+
+  # Soft cap — auto-mode won't try to update more than N specs per PR.
+  max_specs_per_pr: 5
+
+  # Auto-resolve always allows these. Globs use the same syntax as
+  # protected_files in spec frontmatter.
+  whitelist:
+    paths:
+      - "**/*.test.*"
+      - "**/*.spec.*"
+      - "docs/**"
+      - "**/*.md"
+    change_types:
+      - test_only
+      - format_only
+      - comment_only
+      - dep_bump_minor
+      - add_logging
+
+  # Auto-mode never runs in these areas — the entry is escalated to a human
+  # reviewer regardless of LLM confidence.
+  blacklist:
+    paths:
+      - "**/contracts/**"
+      - "**/api/public/**"
+      - "**/migrations/**"
+    change_types:
+      - public_api_change
+      - business_rule_change
+      - schema_migration
+      - adr_required
+
+  # Hard escalations — these always block auto-resolution. Match against the
+  # entry's `change_type`, `severity`, `tags[]`, or status transitions
+  # ("🟢 → 🟡", "🟢 → 🔴").
+  escalate_on:
+    - "🟢 → 🟡 downgrade"
+    - "spec_deletion"
+    - "new_adr_required"
+    - "cross_cluster_change"
+
+  llm:
+    model: claude-haiku-4-5      # classifier — used per drift entry
+    fallback: claude-sonnet-4-6  # spec rewriter — used only on auto_resolve

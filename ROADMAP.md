@@ -359,22 +359,22 @@ npx reversa policy-check --base origin/main --head HEAD --severity high
 
 ---
 
-## Fase 12 — Auto Keeper mode → v2.0.0-alpha (5-7 dias)
+## Fase 12 — Auto Keeper mode → v2.0.0-alpha.1 (5-7 dias) ✅ shipped
 
-**Objetivo:** Keeper roda sem 3 perguntas humanas. LLM decide.
+**Implementado:** Pipeline de decisão completo, com LLM opt-in. Decision tree puro JS roda whitelist/blacklist/escalate antes de qualquer call à API; só quando nada cobre o caso, o classifier (Haiku) é chamado. Spec rewriter (Sonnet) só roda em ROUTE_AUTO. CLI `reversa keeper auto --dry-run` valida policy + queue sem rede — útil em CI. Anthropic SDK declarado em `optionalDependencies` + lazy load via createRequire (offline / dry-run não exige instalação). Prompt caching via system blocks: instrução estável + spec context separados, breakpoint no segundo bloco, diff per-PR no user turn (segue prefix-match invariant). Audit writer append-only em `.reversa/audit/YYYY-MM-DD.jsonl`.
 
-### Deliverables
+| Item | Arquivo |
+|---|---|
+| 12.1 | `lib/auto/policy-schema.js` (parser YAML específico — 2-space + listas) |
+| 12.2 | `lib/auto/classifier.js` (Haiku, lazy load, JSON-only response, fallback graceful) |
+| 12.3 | `lib/auto/spec-writer.js` (Sonnet, full-spec rewrite com cache no spec content) |
+| 12.4 | `lib/auto/decision-tree.js` (paths/change_types/escalate_on antes do LLM) |
+| 12.5 | `lib/auto/prompt-cache.js` (system blocks com cache_control no contexto estável) |
+| 12.6 | `lib/commands/keeper-auto.js` (`--dry-run`, `--max-specs`, audit append) |
+| 12.7 | `templates/auto-policy.example.yaml` |
+| 12.8 | `lib/audit/writer.js` (mínimo — Phase 13 expande) |
 
-| Item | Arquivo | O que faz |
-|---|---|---|
-| 12.1 | `lib/auto/policy-schema.js` | Parse `auto-policy.yaml` |
-| 12.2 | `lib/auto/classifier.js` | LLM call (Claude Haiku): input = spec + diff + graph context + commit msg; output structured = severity + confidence + rationale |
-| 12.3 | `lib/auto/spec-writer.js` | LLM call (Sonnet): input = spec atual + diff + graph; output = spec atualizada |
-| 12.4 | `lib/auto/decision-tree.js` | Routing: whitelist + threshold → auto-resolve; uncertain → mark 🟡 stale; blacklist → escalate-block |
-| 12.5 | `lib/auto/prompt-cache.js` | Anthropic prompt caching pra spec context |
-| 12.6 | `lib/commands/keeper-auto.js` | CLI: `reversa keeper auto` |
-| 12.7 | `agents/reversa-keeper/SKILL.md` | Modo `auto` documentado |
-| 12.8 | `templates/auto-policy.example.yaml` | Template comentado |
+Bump pra `2.0.0-alpha.1`. Doc do agente e SKILL.md auto-mode ficam para Phase 14 final docs.
 
 ### auto-policy.yaml exemplo
 

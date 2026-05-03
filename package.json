@@ -1,6 +1,6 @@
 {
   "name": "reversa",
-  "version": "1.10.0",
+  "version": "2.0.0-alpha.1",
   "description": "Transform legacy systems into executable specifications for AI coding agents",
   "bin": {
     "reversa": "bin/reversa.js"
@@ -47,6 +47,7 @@
     "semver": "^7.6.0"
   },
   "optionalDependencies": {
+    "@anthropic-ai/sdk": "^0.65.0",
     "tree-sitter": "^0.21.0",
     "tree-sitter-go": "^0.21.0",
     "tree-sitter-java": "^0.21.0",
