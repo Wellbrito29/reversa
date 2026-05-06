@@ -11,7 +11,7 @@ chat_language = "pt-br"
 doc_language = "pt-br"
 
 [output]
-folder = "_reversa_sdd"
+folder = "_aegis_sdd"
 
 [agents]
 installed = [

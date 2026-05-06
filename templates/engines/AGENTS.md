@@ -16,4 +16,4 @@ Quando o usuário digitar `reversa` sozinho em uma mensagem:
 ## Regra não-negociável
 
 Nunca apague, modifique ou sobrescreva arquivos pré-existentes do projeto legado.
-O Reversa escreve **apenas** em `.reversa/` e `_reversa_sdd/`.
+O Reversa escreve **apenas** em `.aegis/` e `_aegis_sdd/`.

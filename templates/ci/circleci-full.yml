@@ -51,19 +51,19 @@ jobs:
       - save_cache:
           key: reversa-graph-{{ .Revision }}
           paths:
-            - .reversa/context/graph.json
+            - .aegis/context/graph.json
       - run:
           name: Commit spec updates
           command: |
-            if [ -n "$(git status --porcelain _reversa_sdd)" ]; then
+            if [ -n "$(git status --porcelain _aegis_sdd)" ]; then
               git config user.name "reversa-keeper[bot]"
               git config user.email "reversa-keeper@users.noreply.circleci.com"
-              git add _reversa_sdd
+              git add _aegis_sdd
               git commit -m "reversa(keeper): auto-update specs [skip ci]"
               git push origin "HEAD:$CIRCLE_BRANCH"
             fi
       - store_artifacts:
-          path: .reversa/audit
+          path: .aegis/audit
           destination: reversa-audit
 
 workflows:

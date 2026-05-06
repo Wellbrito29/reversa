@@ -7,7 +7,7 @@
 #
 # Requires:
 #   - Node 18+ (for `npx reversa`)
-#   - `_reversa_sdd/sdd/` with frontmatter `contracts:` / `protected_files:`
+#   - `_aegis_sdd/sdd/` with frontmatter `contracts:` / `protected_files:`
 #   - The PR base ref fetched (we set `fetch-depth: 0`)
 
 name: reversa-policy

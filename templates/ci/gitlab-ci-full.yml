@@ -44,14 +44,14 @@ reversa:keeper-auto:
   cache:
     key: reversa-graph-$CI_PROJECT_ID
     paths:
-      - .reversa/context/graph.json
+      - .aegis/context/graph.json
   script:
     - npx reversa keeper auto --format text --max-specs 5
     - |
-      if [ -n "$(git status --porcelain _reversa_sdd)" ]; then
+      if [ -n "$(git status --porcelain _aegis_sdd)" ]; then
         git config user.name "reversa-keeper[bot]"
         git config user.email "reversa-keeper@users.noreply.gitlab.com"
-        git add _reversa_sdd
+        git add _aegis_sdd
         git commit -m "reversa(keeper): auto-update specs [skip ci]"
         git push "https://oauth2:${KEEPER_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" \
           "HEAD:${CI_COMMIT_REF_NAME}"
@@ -60,4 +60,4 @@ reversa:keeper-auto:
     name: reversa-audit
     when: always
     paths:
-      - .reversa/audit/
+      - .aegis/audit/

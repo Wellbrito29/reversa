@@ -6,7 +6,7 @@
   "doc_language": "Português",
   "answer_mode": "chat",
   "doc_level": "completo",
-  "output_folder": "_reversa_sdd",
+  "output_folder": "_aegis_sdd",
   "forward_folder": "_reversa_forward",
   "phase": null,
   "completed": [],

@@ -43,12 +43,12 @@ REGRAS DE PREENCHIMENTO:
 
 - [ ] Q-007 | Consistência | Termos chave do domínio aparecem com a mesma grafia em todas as seções
 - [ ] Q-008 | Consistência | IDs citados em uma seção existem na seção que os define
-- [ ] Q-009 | Consistência | Confidência (🟢 / 🟡 / 🔴) coerente com a fonte citada do `_reversa_sdd/`
+- [ ] Q-009 | Consistência | Confidência (🟢 / 🟡 / 🔴) coerente com a fonte citada do `_aegis_sdd/`
 
 ### Cobertura
 
 - [ ] Q-010 | Cobertura | Todo Requisito Funcional tem pelo menos um cenário Gherkin
-- [ ] Q-011 | Cobertura | Toda Regra de Negócio nova ou alterada cita a regra original do `_reversa_sdd/domain.md` quando aplicável
+- [ ] Q-011 | Cobertura | Toda Regra de Negócio nova ou alterada cita a regra original do `_aegis_sdd/domain.md` quando aplicável
 
 ### EdgeCases
 
@@ -68,7 +68,7 @@ REGRAS DE PREENCHIMENTO:
 
 ### Princípios
 
-- [ ] Q-019 | Princípios | Cada Regra de Negócio respeita os princípios ativos em `.reversa/principles.md`
+- [ ] Q-019 | Princípios | Cada Regra de Negócio respeita os princípios ativos em `.aegis/principles.md`
 - [ ] Q-020 | Princípios | Conflitos com princípios estão registrados explicitamente, não escondidos
 
 ## Itens reprovados, detalhe

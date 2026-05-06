@@ -4,7 +4,7 @@ Carregado por /reversa-plan.
 
 REGRAS DE PREENCHIMENTO:
 - Escreva como DELTA sobre o legado, jamais redescreva a arquitetura inteira.
-- Cite componentes do _reversa_sdd/ por nome literal.
+- Cite componentes do _aegis_sdd/ por nome literal.
 - Marque cada decisão com 🟢 / 🟡 / 🔴 conforme a confidência da fonte que a sustenta.
 - Decisões dependentes de [DÚVIDA] aceitas como premissa entram com 🟡 e aparecem em "Premissas".
 - Detalhes profundos de modelo de dados vão para data-delta.md, não aqui.
@@ -25,7 +25,7 @@ REGRAS DE PREENCHIMENTO:
 ## 2. Princípios aplicados
 
 <!--
-Liste os princípios de `.reversa/principles.md` que essa feature respeita ou conflita.
+Liste os princípios de `.aegis/principles.md` que essa feature respeita ou conflita.
 Para conflitos, descreva o conflito sem propor mudança no princípio (isso é trabalho de /reversa-principles).
 -->
 
@@ -54,13 +54,13 @@ Cada premissa precisa virar item resolvível em /reversa-doubt no futuro.
 ## 5. Delta arquitetural
 
 <!--
-Liste apenas os componentes do `_reversa_sdd/architecture.md` que mudam.
+Liste apenas os componentes do `_aegis_sdd/architecture.md` que mudam.
 Para cada um, descreva o tipo de mudança em uma linha.
 -->
 
 | Componente | Arquivo de origem no legado | Tipo de mudança | Resumo |
 |------------|------------------------------|-----------------|--------|
-| <nome> | `_reversa_sdd/architecture.md#<id>` | regra-alterada / componente-novo / componente-extinto / contrato-novo / contrato-alterado / contrato-removido | <uma linha> |
+| <nome> | `_aegis_sdd/architecture.md#<id>` | regra-alterada / componente-novo / componente-extinto / contrato-novo / contrato-alterado / contrato-removido | <uma linha> |
 
 ## 6. Delta no modelo de dados
 

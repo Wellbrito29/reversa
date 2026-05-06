@@ -10,9 +10,9 @@
     "block-on-red": false
   },
   "paths": {
-    "sdd-dir": "_reversa_sdd",
+    "sdd-dir": "_aegis_sdd",
     "forward-dir": "_reversa_forward",
-    "config-dir": ".reversa"
+    "config-dir": ".aegis"
   },
   "principles": {
     "enabled": true,

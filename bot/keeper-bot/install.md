@@ -2,7 +2,7 @@
 
 A small GitHub bot that runs `reversa keeper auto` against incoming PRs and
 labels them based on the outcome. It commits any spec updates back to the
-PR branch under `_reversa_sdd/**` only — never source code.
+PR branch under `_aegis_sdd/**` only — never source code.
 
 The bot is intentionally **not** a hosted Anthropic service. You run it as
 either:
@@ -23,7 +23,7 @@ either:
    alternatives, applies `keeper:escalated`, and stops.
 4. Otherwise runs `npx reversa keeper auto --format json --max-specs 5`
    (auto mode requires `auto_resolve.enabled: true` in `auto-policy.yaml`).
-5. Commits any changes under `_reversa_sdd/**` with `[skip ci]` in the
+5. Commits any changes under `_aegis_sdd/**` with `[skip ci]` in the
    message.
 6. Applies one of `keeper:auto-resolved`, `keeper:needs-review`,
    `keeper:escalated` based on the decision tree summary.
@@ -36,7 +36,7 @@ either:
 | `pull-requests: write`    | Comment + label PRs |
 | `issues: write`           | Label PRs (GitHub treats issue-labels as PR-labels) |
 
-The bot must NOT have `contents: write` access outside `_reversa_sdd/**`.
+The bot must NOT have `contents: write` access outside `_aegis_sdd/**`.
 The handler hard-fails if it sees a staged change outside that prefix —
 this is the safety boundary.
 
@@ -49,7 +49,7 @@ this is the safety boundary.
 
 ## Audit log
 
-Every decision is appended to `.reversa/audit/YYYY-MM-DD.jsonl` (see
+Every decision is appended to `.aegis/audit/YYYY-MM-DD.jsonl` (see
 `lib/audit/schema.md`). When running in CI, persist the audit dir as an
 artifact if you want a long-term trail.
 

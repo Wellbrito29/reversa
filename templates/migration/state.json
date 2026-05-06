@@ -21,6 +21,6 @@
   "auto": false,
   "engine": null,
   "reversaVersion": "{{VERSION}}",
-  "briefPath": "_reversa_sdd/migration/migration_brief.md",
+  "briefPath": "_aegis_sdd/migration/migration_brief.md",
   "expectedLegacyArtifacts": "templates/migration/expected_legacy_artifacts.yaml"
 }

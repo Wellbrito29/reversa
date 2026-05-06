@@ -1,4 +1,4 @@
-# Audit log schema (`.reversa/audit/YYYY-MM-DD.jsonl`)
+# Audit log schema (`.aegis/audit/YYYY-MM-DD.jsonl`)
 
 Each line is a single JSON object — append-only, never rewritten in place. New
 fields may appear over time; consumers should ignore unknown keys rather than
@@ -29,7 +29,7 @@ fail.
 
 ## Redaction
 
-When `_reversa_sdd/audit-policy.json` declares fields to redact (`{ "redact": [...] }`),
+When `_aegis_sdd/audit-policy.json` declares fields to redact (`{ "redact": [...] }`),
 the listed fields are replaced with `sha256:<16 hex>` and a top-level
 `redacted` array is added listing the original field names. Redacted entries
 remain valid JSON and remain correlatable — two entries touching the same
