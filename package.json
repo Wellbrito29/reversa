@@ -1,9 +1,9 @@
 {
-  "name": "reversa",
+  "name": "aegis-spec",
   "version": "2.0.0",
-  "description": "Transform legacy systems into executable specifications for AI coding agents",
+  "description": "Executable specifications and guardrails for AI-assisted software evolution",
   "bin": {
-    "reversa": "bin/reversa.js"
+    "aegis": "bin/aegis.js"
   },
   "type": "module",
   "keywords": [
@@ -15,7 +15,11 @@
     "codex",
     "gemini",
     "cursor",
-    "agents"
+    "agents",
+    "aegis",
+    "guardrails",
+    "specs",
+    "drift"
   ],
   "files": [
     "agents/",

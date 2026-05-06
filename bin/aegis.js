@@ -27,26 +27,26 @@ const commands = {
   'keeper':           () => import('../lib/commands/keeper-auto.js'),
 };
 
-const green = chalk.hex('#ffa203');
+const orange = chalk.hex('#ffa203');
 
 if (!command || command === '--help' || command === '-h') {
-  console.log(green(`
-______
-| ___ \\
-| |_/ /_____   _____ _ __ ___  __ _
-|    // _ \\ \\ / / _ \\ '__/ __|/ _\` |
-| |\\ \\  __/\\ V /  __/ |  \\__ \\ (_| |
-\\_| \\_\\___| \\_/ \\___|_|  |___/\\__,_|
+  console.log(orange(`
+    _                            _     
+   / \\   ___ ___  ___ _ __ ___  (_)___ 
+  / _ \\ / __/ __|/ _ \\ '__/ _ \\ | / __|
+ / ___ \\__ \\__ \\  __/ | | (_) || \\__ \\
+/_/   \\_\\___/___/\\___|_|  \\___(_)/ |___/
+                               |__/    
 `) + `
-  reversa v${pkg.version}
+  aegis-spec v${pkg.version}
 
-  Uso: npx reversa <comando>
+  Uso: npx aegis-spec <comando>   ou   aegis <comando>
 
   Comandos:
-    install            Instala o Reversa no projeto atual
+    install            Instala o Aegis Spec no projeto atual
     update             Atualiza os agentes para a última versão
     status             Mostra o estado atual da análise
-    uninstall          Remove o Reversa do projeto
+    uninstall          Remove o Aegis Spec do projeto
     add-agent          Adiciona um agente ao projeto
     add-engine         Adiciona suporte a uma engine
     add-hooks          Instala hooks pre/post-edit do Keeper na engine
@@ -81,7 +81,7 @@ if (command === '--version' || command === '-v') {
 
 if (!commands[command]) {
   console.error(`\n  Comando desconhecido: "${command}"`);
-  console.error('  Execute "npx reversa --help" para ver os comandos disponíveis.\n');
+  console.error('  Execute "npx aegis-spec --help" para ver os comandos disponíveis.\n');
   process.exit(1);
 }
 
