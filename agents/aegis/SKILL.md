@@ -24,8 +24,29 @@ Execute as tarefas do plano **sequencialmente, uma por vez**:
 
 1. Informe o usuário: "Iniciando o **[Nome do Agente]** — [o que ele fará]."
 2. Ative o skill `aegis-[agente]` correspondente. Se a engine não suportar ativação direta de skills por nome, leia `aegis/skills/aegis-[agente]/SKILL.md` na íntegra e execute no contexto atual.
-3. Após conclusão: salve checkpoint em `aegis/config/state.json` seguindo `references/checkpoint-guide.md` e marque a tarefa com ✅ em `aegis/plan.md`.
+3. Após conclusão:
+   - Salve checkpoint em `aegis/config/state.json` seguindo `references/checkpoint-guide.md`
+   - Marque a tarefa com ✅ em `aegis/plan.md`
+   - **Gere compressão de contexto**: leia `references/step-05-session-compression.md` e crie/atualize o resumo da sessão em `aegis/runtime/session-summaries/`
 4. Apresente resumo breve do que foi gerado.
+
+### Compressão de contexto automática
+
+A cada agente concluído, o orquestrador deve gerar um **session summary** em `aegis/runtime/session-summaries/YYYY-MM-DD-HH-MM-{agente}.md`. Esse arquivo contém:
+
+- O que o agente fez (em 3-5 bullet points)
+- Principais descobertas ou artefatos gerados
+- Decisões importantes tomadas pelo usuário
+- Próximo passo do pipeline
+- Qualquer informação que o próximo agente precise saber
+
+Na retomada (`/aegis` em sessão nova), em vez de carregar todo o histórico de contexto, o orquestrador:
+1. Lê o state.json para saber a fase atual
+2. Lê o **último session summary** mais recente em `aegis/runtime/session-summaries/`
+3. Apresenta o resumo ao usuário como contexto inicial
+4. Continua o pipeline do ponto onde parou
+
+Isso reduz drasticamente o consumo de tokens em sessões longas sem perder informação essencial.
 
 **Ação especial após o Scout:**
 

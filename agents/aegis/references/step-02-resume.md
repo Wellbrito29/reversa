@@ -15,16 +15,34 @@ Diga: "[Nome], bem-vindo de volta ao Aegis Spec! 🎼"
 
 ## 4. Resumo de progresso
 
+### 4.1 Leitura do session summary (compressão de contexto)
+
+Antes de apresentar o resumo, verifique se existe algum session summary em `aegis/runtime/session-summaries/`:
+
+1. Liste os arquivos em `aegis/runtime/session-summaries/`
+2. Se houver arquivos, leia o **mais recente** (ordene por timestamp no nome do arquivo)
+3. Use o conteúdo do session summary como base para o resumo de progresso
+
+O session summary contém as descobertas e decisões principais, permitindo uma retomada eficiente sem carregar todo o histórico da sessão anterior.
+
+### 4.2 Apresentação do progresso
+
 Mostre:
 - ✅ Fases concluídas (campo `completed` do state.json)
 - 🔄 Fase atual (campo `phase`) com a última tarefa registrada em `checkpoints`
 - ⏳ Próximas fases (campo `pending`)
+- 📄 **Resumo da última sessão** (do session summary mais recente, se existir)
 
 Exemplo:
 > "Progresso atual:
 > ✅ Reconhecimento concluído
 > 🔄 Escavação em andamento — módulos `auth` e `orders` analisados, `payments` e `users` pendentes
-> ⏳ Interpretação, Geração, Revisão"
+> ⏳ Interpretação, Geração, Revisão
+>
+> 📄 **Resumo da última sessão** (Scout, 07/05 14:30):
+> - 12 módulos identificados em arquitetura monolito Next.js + PostgreSQL
+> - Stack principal: Next.js 14, TypeScript 5, Prisma
+> - Decisões: doc_level=completo, organização=por módulo"
 
 ## 5. Modo de resposta a lacunas
 
