@@ -34,11 +34,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wellbrito29/aegis-spec.git"
+    "url": "git+https://github.com/Wellbrito29/Aegis.git"
   },
-  "homepage": "https://github.com/Wellbrito29/aegis-spec",
+  "homepage": "https://github.com/Wellbrito29/Aegis",
   "bugs": {
-    "url": "https://github.com/Wellbrito29/aegis-spec/issues"
+    "url": "https://github.com/Wellbrito29/Aegis/issues"
   },
   "engines": {
     "node": ">=18.0.0"

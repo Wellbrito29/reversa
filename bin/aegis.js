@@ -72,7 +72,7 @@ if (!command || command === '--help' || command === '-h') {
   '                       Opções: --dry-run  --max-specs=N  --format=text|json\n' +
   '    migrate-reversa    Migra instalação Reversa → Aegis Spec (.reversa → .aegis)\n' +
   '\n' +
-  '  Documentação: https://github.com/Wellbrito29/aegis-spec\n' +
+  '  Documentação: https://github.com/Wellbrito29/Aegis\n' +
   '  ');
   process.exit(0);
 }

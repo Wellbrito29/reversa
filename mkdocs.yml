@@ -1,9 +1,9 @@
 site_name: Aegis Spec
-site_url: https://wellbrito29.github.io/aegis-spec
+site_url: https://wellbrito29.github.io/Aegis
 site_description: Executable specifications and guardrails for AI-assisted software evolution.
 site_author: Wellbrito29
-repo_url: https://github.com/Wellbrito29/aegis-spec
-repo_name: Wellbrito29/aegis-spec
+repo_url: https://github.com/Wellbrito29/Aegis
+repo_name: Wellbrito29/Aegis
 edit_uri: edit/main/docs/
 copyright: '"Aegis Spec" by Wellbrito29 — fork of Reversa by sandeco'
 
