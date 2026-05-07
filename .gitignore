@@ -5,7 +5,6 @@ dist/
 .claude/
 site/
 .reversa/
-.aegis/
 .npm-cache/
 .tmp-mkdocs-site/
 specs/

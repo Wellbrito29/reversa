@@ -1,8 +1,8 @@
 # Aegis Spec — Framework de Engenharia Aegis Spec
 
 Quando o usuário digitar "/aegis" ou "aegis" sozinho em uma mensagem:
-1. Ative o skill "aegis" em .agents/skills/aegis/SKILL.md
+1. Ative o skill "aegis" em aegis/skills/aegis/SKILL.md
 2. Leia o SKILL.md na íntegra e siga exatamente as instruções do Aegis Spec
 
 Regra absoluta: nunca apague, modifique ou sobrescreva arquivos pré-existentes do projeto legado.
-O Aegis Spec escreve APENAS em .aegis/ e _aegis_sdd/.
+O Aegis Spec escreve APENAS em aegis/ e aegis/.

@@ -1,7 +1,7 @@
 // Spec-only commit helper.
 //
 // The bot is allowed to push to the PR branch, but only files under
-// `_aegis_sdd/**`. We enforce that here: if `git status --porcelain`
+// `aegis/**`. We enforce that here: if `git status --porcelain`
 // shows anything outside that prefix, we abort without committing.
 //
 // We use plain `git` rather than the GitHub Git Database API: the bot
@@ -10,7 +10,7 @@
 
 import { execFileSync } from 'node:child_process';
 
-const ALLOWED_PREFIX = '_aegis_sdd/';
+const ALLOWED_PREFIX = 'aegis/';
 
 export async function commitSpecUpdates({ owner, repo, branch, projectRoot }) {
   const dirty = porcelain(projectRoot);

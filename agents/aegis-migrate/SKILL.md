@@ -96,7 +96,7 @@ Ao transicionar para o próximo agente, **reescreva o objeto inteiro**, não atr
 Para cada agente, faça:
 
 1. Anuncie ao usuário: `"Iniciando o **<Agente>**, <responsabilidade curta>."`.
-2. Ative a skill do agente (`aegis-paradigm-advisor`, `aegis-curator`, `aegis-strategist`, `aegis-designer`, `aegis-inspector`). Se a engine não suportar ativação direta por nome, instrua a leitura de `.agents/skills/<id>/SKILL.md` no contexto atual.
+2. Ative a skill do agente (`aegis-paradigm-advisor`, `aegis-curator`, `aegis-strategist`, `aegis-designer`, `aegis-inspector`). Se a engine não suportar ativação direta por nome, instrua a leitura de `aegis/skills/<id>/SKILL.md` no contexto atual.
 3. Aguarde a conclusão **ou** um checkpoint intra-agente (ver passo 5b). Se for conclusão, valide os artefatos previstos.
 4. Atualize `.state.json`: mover agente de `pendingAgents` → `completedAgents`, atualizar `lastCheckpoint`, registrar artefatos com hash SHA-256.
 5. **Pausa humana** (ver passo 6) antes de prosseguir, conforme tabela abaixo.

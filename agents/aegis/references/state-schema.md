@@ -40,7 +40,7 @@ Este arquivo persiste o estado completo da análise entre sessões. O Reversa l�
   },
   "created_files": [
     "CLAUDE.md",
-    ".agents/skills/reversa/SKILL.md",
+    "aegis/skills/reversa/SKILL.md",
     ".reversa/state.json",
     ".reversa/plan.md"
   ]
