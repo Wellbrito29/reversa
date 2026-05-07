@@ -25,6 +25,7 @@ const commands = {
   'policy-index':     () => import('../lib/commands/policy-index.js'),
   'policy-check':     () => import('../lib/commands/policy-check.js'),
   'keeper':           () => import('../lib/commands/keeper-auto.js'),
+  'migrate-reversa':  () => import('../lib/commands/migrate-reversa.js'),
 };
 
 const orange = chalk.hex('#ffa203');
@@ -68,6 +69,7 @@ if (!command || command === '--help' || command === '-h') {
                                --format=text|json  --severity=high|medium|low
     keeper auto        Auto-resolve drift via LLM (whitelist + classifier)
                        Opções: --dry-run  --max-specs=N  --format=text|json
+    migrate-reversa    Migra instalação Reversa → Aegis Spec (.reversa → .aegis)
 
   Documentação: https://github.com/sandeco/reversa
   `);
