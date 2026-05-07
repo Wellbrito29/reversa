@@ -61,5 +61,5 @@
 
 Após o Time de Descoberta concluir e o `_aegis_sdd/` estar populado, você pode disparar um dos fluxos seguintes:
 
-- `/reversa-migrate`: orquestrador do **Time de Migração** (Paradigm Advisor → Curator → Strategist → Designer → Inspector). Gera as specs do sistema novo. Saída em `_aegis_sdd/migration/`.
-- `/reversa-reconstructor`: gera plano bottom-up para reimplementar o software a partir das specs do legado (uma tarefa por sessão).
+- `/aegis-migrate`: orquestrador do **Time de Migração** (Paradigm Advisor → Curator → Strategist → Designer → Inspector). Gera as specs do sistema novo. Saída em `_aegis_sdd/migration/`.
+- `/aegis-reconstructor`: gera plano bottom-up para reimplementar o software a partir das specs do legado (uma tarefa por sessão).

@@ -1,6 +1,6 @@
 # Reversa policy-check — GitHub Actions workflow.
 #
-# Drop into `.github/workflows/reversa-policy.yml`. Runs on every PR and
+# Drop into `.github/workflows/aegis-policy.yml`. Runs on every PR and
 # blocks merge when a protected contract's signature breaks. Adjust
 # `severity` to medium/low to also gate on protected-file edits without
 # diff context (initial Phase 4 behaviour).
@@ -10,7 +10,7 @@
 #   - `_aegis_sdd/sdd/` with frontmatter `contracts:` / `protected_files:`
 #   - The PR base ref fetched (we set `fetch-depth: 0`)
 
-name: reversa-policy
+name: aegis-policy
 
 on:
   pull_request:

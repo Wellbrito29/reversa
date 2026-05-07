@@ -70,8 +70,8 @@ jobs:
         run: npx reversa keeper auto --format text --max-specs 5
       - name: Commit spec updates
         run: |
-          git config user.name "reversa-keeper[bot]"
-          git config user.email "reversa-keeper[bot]@users.noreply.github.com"
+          git config user.name "aegis-keeper[bot]"
+          git config user.email "aegis-keeper[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain _aegis_sdd)" ]; then
             git add _aegis_sdd
             git commit -m "reversa(keeper): auto-update specs [skip ci]"
@@ -81,5 +81,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: reversa-audit
+          name: aegis-audit
           path: .aegis/audit/

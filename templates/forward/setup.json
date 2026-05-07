@@ -1,6 +1,6 @@
 {
   "schema-version": 1,
-  "reversa-version": "{{VERSION}}",
+  "aegis-version": "{{VERSION}}",
   "installed-at": "{{INSTALLED_AT}}",
   "project-name": "{{PROJECT_NAME}}",
   "prefix-format": "sequencial",

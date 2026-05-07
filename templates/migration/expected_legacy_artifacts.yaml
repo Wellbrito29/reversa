@@ -1,5 +1,5 @@
 # Lista declarativa de artefatos esperados em _aegis_sdd/ antes de iniciar a migração.
-# Atualizar esta lista é uma mudança de configuração; não exige reedição do agente reversa-migrate.
+# Atualizar esta lista é uma mudança de configuração; não exige reedição do agente aegis-migrate.
 #
 # Cada entrada:
 #   path: caminho relativo dentro de _aegis_sdd/

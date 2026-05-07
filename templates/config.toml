@@ -15,15 +15,15 @@ folder = "_aegis_sdd"
 
 [agents]
 installed = [
-  "reversa-scout",
-  "reversa-archaeologist",
-  "reversa-detective",
-  "reversa-architect",
-  "reversa-writer",
-  "reversa-reviewer",
-  "reversa-visor",
-  "reversa-data-master",
-  "reversa-design-system"
+  "aegis-scout",
+  "aegis-archaeologist",
+  "aegis-detective",
+  "aegis-architect",
+  "aegis-writer",
+  "aegis-reviewer",
+  "aegis-visor",
+  "aegis-data-master",
+  "aegis-design-system"
 ]
 
 [engines]

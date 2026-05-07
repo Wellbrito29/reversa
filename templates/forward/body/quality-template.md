@@ -1,6 +1,6 @@
 <!--
 Template de corpo do requirements-audit.md
-Carregado por /reversa-quality.
+Carregado por /aegis-quality.
 
 REGRAS DE PREENCHIMENTO:
 - Total entre dez e trinta itens. Menos é raso, mais é ruído.
@@ -100,4 +100,4 @@ Itens CRITICAL: cobertura ausente, princípio violado, contradição interna ent
 
 | Data | Alteração | Autor |
 |------|-----------|-------|
-| YYYY-MM-DD | Auditoria gerada por `/reversa-quality` | reversa |
+| YYYY-MM-DD | Auditoria gerada por `/aegis-quality` | reversa |

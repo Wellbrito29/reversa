@@ -9,19 +9,19 @@ orbs:
   node: circleci/node@5
 
 executors:
-  reversa-runner:
+  aegis-runner:
     docker:
       - image: cimg/node:20.11
 
 jobs:
   drift-check:
-    executor: reversa-runner
+    executor: aegis-runner
     steps:
       - checkout
       - run: npx reversa drift-check --severity high --format text
 
   policy-check:
-    executor: reversa-runner
+    executor: aegis-runner
     steps:
       - checkout
       - run: git fetch --depth=2147483647 origin "$CIRCLE_BASE_BRANCH"
@@ -34,7 +34,7 @@ jobs:
             --format text
 
   keeper-auto:
-    executor: reversa-runner
+    executor: aegis-runner
     steps:
       - checkout
       - run:
@@ -45,26 +45,26 @@ jobs:
             fi
       - restore_cache:
           keys:
-            - reversa-graph-{{ .Revision }}
-            - reversa-graph-
+            - aegis-graph-{{ .Revision }}
+            - aegis-graph-
       - run: npx reversa keeper auto --format text --max-specs 5
       - save_cache:
-          key: reversa-graph-{{ .Revision }}
+          key: aegis-graph-{{ .Revision }}
           paths:
             - .aegis/context/graph.json
       - run:
           name: Commit spec updates
           command: |
             if [ -n "$(git status --porcelain _aegis_sdd)" ]; then
-              git config user.name "reversa-keeper[bot]"
-              git config user.email "reversa-keeper@users.noreply.circleci.com"
+              git config user.name "aegis-keeper[bot]"
+              git config user.email "aegis-keeper@users.noreply.circleci.com"
               git add _aegis_sdd
               git commit -m "reversa(keeper): auto-update specs [skip ci]"
               git push origin "HEAD:$CIRCLE_BRANCH"
             fi
       - store_artifacts:
           path: .aegis/audit
-          destination: reversa-audit
+          destination: aegis-audit
 
 workflows:
   reversa:
@@ -75,4 +75,4 @@ workflows:
       - keeper-auto:
           requires: [policy-check]
           context:
-            - reversa-anthropic
+            - aegis-anthropic

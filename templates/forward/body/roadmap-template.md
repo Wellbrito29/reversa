@@ -1,6 +1,6 @@
 <!--
 Template de corpo do roadmap.md
-Carregado por /reversa-plan.
+Carregado por /aegis-plan.
 
 REGRAS DE PREENCHIMENTO:
 - Escreva como DELTA sobre o legado, jamais redescreva a arquitetura inteira.
@@ -26,7 +26,7 @@ REGRAS DE PREENCHIMENTO:
 
 <!--
 Liste os princípios de `.aegis/principles.md` que essa feature respeita ou conflita.
-Para conflitos, descreva o conflito sem propor mudança no princípio (isso é trabalho de /reversa-principles).
+Para conflitos, descreva o conflito sem propor mudança no princípio (isso é trabalho de /aegis-principles).
 -->
 
 | Princípio | Como a feature se relaciona | Status |
@@ -44,7 +44,7 @@ Para conflitos, descreva o conflito sem propor mudança no princípio (isso é t
 
 <!--
 Premissas adotadas a partir de [DÚVIDA] não resolvidas.
-Cada premissa precisa virar item resolvível em /reversa-doubt no futuro.
+Cada premissa precisa virar item resolvível em /aegis-doubt no futuro.
 -->
 
 | Premissa | Origem (`requirements.md` seção) | Risco se errada |
@@ -104,4 +104,4 @@ Para cada um, descreva o tipo de mudança em uma linha.
 
 | Data | Alteração | Autor |
 |------|-----------|-------|
-| YYYY-MM-DD | Versão inicial gerada por `/reversa-plan` | reversa |
+| YYYY-MM-DD | Versão inicial gerada por `/aegis-plan` | reversa |

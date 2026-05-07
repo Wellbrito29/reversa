@@ -15,34 +15,34 @@
 
 schema-version: 1
 
-# Ganchos do /reversa-requirements
+# Ganchos do /aegis-requirements
 before-requirements: []
 after-requirements: []
 
-# Ganchos do /reversa-doubt
+# Ganchos do /aegis-doubt
 before-doubt: []
 after-doubt: []
 
-# Ganchos do /reversa-plan
+# Ganchos do /aegis-plan
 before-plan: []
 after-plan: []
 
-# Ganchos do /reversa-to-do
+# Ganchos do /aegis-to-do
 before-to-do: []
 after-to-do: []
 
-# Ganchos do /reversa-audit
+# Ganchos do /aegis-audit
 before-audit: []
 after-audit: []
 
-# Ganchos do /reversa-quality
+# Ganchos do /aegis-quality
 before-quality: []
 after-quality: []
 
-# Ganchos do /reversa-coding
+# Ganchos do /aegis-coding
 before-coding: []
 after-coding: []
 
-# Ganchos do /reversa-principles
+# Ganchos do /aegis-principles
 before-principles: []
 after-principles: []

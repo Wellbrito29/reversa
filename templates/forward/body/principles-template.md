@@ -1,6 +1,6 @@
 <!--
 Template de corpo do principles.md
-Carregado por /reversa-principles.
+Carregado por /aegis-principles.
 
 REGRAS DE PREENCHIMENTO:
 - Princípios numerados em romano (I, II, III, ...). Numeração é estável, jamais reciclada.
@@ -14,7 +14,7 @@ REGRAS DE PREENCHIMENTO:
 
 > Projeto: `<nome do projeto>`
 > Data da última alteração: `YYYY-MM-DD`
-> Mantido por: `/reversa-principles`
+> Mantido por: `/aegis-principles`
 
 ## Princípios ativos
 

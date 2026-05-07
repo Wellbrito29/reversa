@@ -1,6 +1,6 @@
 <!--
 Template de corpo do requirements.md
-Carregado por /reversa-requirements e atualizado por /reversa-doubt.
+Carregado por /aegis-requirements e atualizado por /aegis-doubt.
 
 REGRAS DE PREENCHIMENTO:
 - Mantenha a ordem das seções obrigatórias.
@@ -99,16 +99,16 @@ Cenário: <título do caso negativo>
 ## 9. Esclarecimentos
 
 <!--
-Esta seção é preenchida APENAS por /reversa-doubt.
+Esta seção é preenchida APENAS por /aegis-doubt.
 Antes da primeira sessão de dúvidas, mantenha a seção com o aviso abaixo.
 -->
 
-> Nenhuma sessão de dúvidas registrada ainda. Rode `/reversa-doubt` quando houver `[DÚVIDA]` pendente.
+> Nenhuma sessão de dúvidas registrada ainda. Rode `/aegis-doubt` quando houver `[DÚVIDA]` pendente.
 
 ## 10. Lacunas
 
 <!--
-Liste pontos sem resposta. Lacunas resolvidas pelo /reversa-doubt saem daqui e ficam registradas no histórico.
+Liste pontos sem resposta. Lacunas resolvidas pelo /aegis-doubt saem daqui e ficam registradas no histórico.
 -->
 
 - 🔴 [DÚVIDA] <ponto sem resposta>
@@ -118,4 +118,4 @@ Liste pontos sem resposta. Lacunas resolvidas pelo /reversa-doubt saem daqui e f
 
 | Data | Alteração | Autor |
 |------|-----------|-------|
-| YYYY-MM-DD | Versão inicial gerada por `/reversa-requirements` | reversa |
+| YYYY-MM-DD | Versão inicial gerada por `/aegis-requirements` | reversa |

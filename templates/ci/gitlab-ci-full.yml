@@ -42,22 +42,22 @@ reversa:keeper-auto:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $ANTHROPIC_API_KEY'
   cache:
-    key: reversa-graph-$CI_PROJECT_ID
+    key: aegis-graph-$CI_PROJECT_ID
     paths:
       - .aegis/context/graph.json
   script:
     - npx reversa keeper auto --format text --max-specs 5
     - |
       if [ -n "$(git status --porcelain _aegis_sdd)" ]; then
-        git config user.name "reversa-keeper[bot]"
-        git config user.email "reversa-keeper@users.noreply.gitlab.com"
+        git config user.name "aegis-keeper[bot]"
+        git config user.email "aegis-keeper@users.noreply.gitlab.com"
         git add _aegis_sdd
         git commit -m "reversa(keeper): auto-update specs [skip ci]"
         git push "https://oauth2:${KEEPER_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" \
           "HEAD:${CI_COMMIT_REF_NAME}"
       fi
   artifacts:
-    name: reversa-audit
+    name: aegis-audit
     when: always
     paths:
       - .aegis/audit/

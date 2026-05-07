@@ -1,12 +1,12 @@
 <!--
 Template de corpo do actions.md
-Carregado por /reversa-to-do e atualizado por /reversa-coding.
+Carregado por /aegis-to-do e atualizado por /aegis-coding.
 
 REGRAS DE PREENCHIMENTO:
 - IDs estáveis: T001, T002, ..., zero-padded três dígitos. Nunca recicle.
 - Marcador de paralelismo é [//] no início da linha de ID. Tarefas [//] não compartilham arquivo alvo.
 - Coluna "Dependências" lista IDs separados por vírgula. Ações sem dependência usam "-".
-- Status inicial é [ ]. /reversa-coding muda para [X] ao concluir.
+- Status inicial é [ ]. /aegis-coding muda para [X] ao concluir.
 - Toda ação precisa ser ATÔMICA: cabe num turno do agente, sem precisar de feedback humano no meio.
 -->
 
@@ -71,7 +71,7 @@ REGRAS DE PREENCHIMENTO:
 ## Notas de execução
 
 <!--
-Reservado para /reversa-coding registrar avisos ou observações que surgiram durante a execução.
+Reservado para /aegis-coding registrar avisos ou observações que surgiram durante a execução.
 Não use isso para corrigir ações, edits manuais ficam fora desse arquivo, vão direto no código.
 -->
 
@@ -79,4 +79,4 @@ Não use isso para corrigir ações, edits manuais ficam fora desse arquivo, vã
 
 | Data | Alteração | Autor |
 |------|-----------|-------|
-| YYYY-MM-DD | Versão inicial gerada por `/reversa-to-do` | reversa |
+| YYYY-MM-DD | Versão inicial gerada por `/aegis-to-do` | reversa |
