@@ -30,7 +30,7 @@ export async function commitSpecUpdates({ owner, repo, branch, projectRoot }) {
     'commit',
     '--no-verify',
     '-m',
-    'reversa(keeper): auto-update specs [skip ci]',
+    'aegis(keeper): auto-update specs [skip ci]',
   ]);
   const sha = run(projectRoot, ['rev-parse', 'HEAD']).trim();
   run(projectRoot, ['push', 'origin', `HEAD:${branch}`]);

@@ -1,6 +1,6 @@
-# Reversa Keeper Bot
+# Aegis Spec Keeper Bot
 
-A small GitHub bot that runs `reversa keeper auto` against incoming PRs and
+A small GitHub bot that runs `aegis keeper auto` against incoming PRs and
 labels them based on the outcome. It commits any spec updates back to the
 PR branch under `_aegis_sdd/**` only — never source code.
 
@@ -17,11 +17,11 @@ either:
 ## What it does on a PR
 
 1. Checks out the PR head.
-2. Runs `npx reversa policy-index build` and `npx reversa policy-check
+2. Runs `npx aegis policy-index build` and `npx aegis policy-check
    --base origin/<base> --head HEAD --severity high --format json`.
 3. If `policy-check` blocks, it posts a comment with the reasons + suggested
    alternatives, applies `keeper:escalated`, and stops.
-4. Otherwise runs `npx reversa keeper auto --format json --max-specs 5`
+4. Otherwise runs `npx aegis keeper auto --format json --max-specs 5`
    (auto mode requires `auto_resolve.enabled: true` in `auto-policy.yaml`).
 5. Commits any changes under `_aegis_sdd/**` with `[skip ci]` in the
    message.

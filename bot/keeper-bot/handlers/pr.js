@@ -100,7 +100,7 @@ export async function handlePullRequest({
 
 function runCli(cwd, args, { allowNonZero = false } = {}) {
   try {
-    const stdout = execFileSync('npx', ['reversa', ...args], {
+    const stdout = execFileSync('npx', ['aegis', ...args], {
       cwd,
       encoding: 'utf8',
       env: process.env,
@@ -130,7 +130,7 @@ async function comment(octokit, owner, repo, issue_number, body) {
 }
 
 function renderPolicyComment(payload) {
-  const lines = ['### Reversa policy gate blocked this PR', ''];
+  const lines = ['### Aegis Spec policy gate blocked this PR', ''];
   for (const { file, decision } of payload.decisions ?? []) {
     if (decision.decision !== 'block') continue;
     lines.push(`- \`${file}\`: ${decision.reason ?? decision.category}`);
