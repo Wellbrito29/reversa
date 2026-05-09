@@ -190,7 +190,7 @@ Para arquivos deletados: marque a linha como `~~deletado~~` (não remova histór
 
 ### Passo 7 — Atualizar `drift.md`
 
-Crie ou atualize `<output_folder>/drift.md` seguindo `references/drift-dashboard-schema.md`.
+Crie ou atualize `<output_folder>/reports/drift.md` seguindo `references/drift-dashboard-schema.md`.
 
 Para cada spec atualizada nesta sessão:
 - `last_synced` = agora (UTC)
@@ -211,7 +211,7 @@ Para specs que esta sessão **não tocou** mas que estão `pending` há mais de 
 
 Se `aegis/runtime/queue/keeper-queue.processing.jsonl` foi consumida com sucesso: delete o arquivo. Próxima invocação encontra apenas linhas novas em `aegis/runtime/queue/keeper-queue.jsonl` (escritas pelos hooks após o rename).
 
-Em caso de erro durante o processamento: **não** delete `processing.jsonl`. Logue o erro em `aegis/keeper-errors.log` e encerre — próxima invocação retoma do mesmo arquivo.
+Em caso de erro durante o processamento: **não** delete `processing.jsonl`. Logue o erro em `aegis/runtime/audit/keeper-errors.log` e encerre — próxima invocação retoma do mesmo arquivo.
 
 ### Passo 9 — Salvar checkpoint
 
@@ -231,7 +231,7 @@ Atualize `aegis/config/state.json`:
 > "✅ Keeper concluído.
 > - [N] specs atualizadas: [lista]
 > - Changelog: `<output_folder>/changelog/YYYY-MM-DD.md`
-> - Dashboard: `<output_folder>/drift.md`
+> - Dashboard: `<output_folder>/reports/drift.md`
 >
 > [Se houver drift detectado em specs não tocadas]: ⚠️ [N] specs marcadas como `stale` no dashboard — considere rodar `/aegis-archaeologist` nelas."
 
@@ -242,9 +242,9 @@ Atualize `aegis/config/state.json`:
 | Arquivo | Quando |
 |---|---|
 | `<output_folder>/changelog/YYYY-MM-DD.md` | Modo `after`, sempre |
-| `<output_folder>/sdd/[componente].md` | Modo `after`, atualizado in-place se impactado |
+| `<output_folder>/specs/sdd/[componente].md` | Modo `after`, atualizado in-place se impactado |
 | `<output_folder>/traceability/code-spec-matrix.md` | Modo `after`, se houver arquivos novos/deletados |
-| `<output_folder>/drift.md` | Modo `after`, sempre |
+| `<output_folder>/reports/drift.md` | Modo `after`, sempre |
 | `aegis/config/state.json` | Modo `after`, checkpoint |
 | `aegis/runtime/queue/keeper-queue.jsonl` → `keeper-queue.processing.jsonl` | Modo `after`, rename atomic + delete após consumo |
 

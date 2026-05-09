@@ -1,6 +1,6 @@
 # Keeper × Graph integração
 
-A partir da v1.8.0, o Keeper consulta o graph de dependências L0 (`aegis/context/graph.json`) além do `code-spec-matrix.md` pra ampliar o blast radius e classificar severidade do drift.
+A partir da v1.8.0, o Keeper consulta o graph de dependências L0 (`aegis/runtime/context/graph.json`) além do `code-spec-matrix.md` pra ampliar o blast radius e classificar severidade do drift.
 
 ## O que mudou em `/aegis-keeper after`
 
@@ -23,7 +23,7 @@ Edit em arquivo sem spec ainda dispara atualização de spec à jusante — Keep
 
 O hook `Stop` (Claude Code) e `session.end` (Opencode) fazem **update incremental do graph** dos arquivos dirty no final de cada sessão, antes do próximo `/aegis-keeper after`. Outras engines (Cursor, Kimi, Codex) atualizam o graph no commit via git pre-commit fallback (Fase 1).
 
-Se `aegis/context/graph.json` não existe, o update é pulado silenciosamente. Rode `npx aegis-spec graph build` uma vez pra inicializar.
+Se `aegis/runtime/context/graph.json` não existe, o update é pulado silenciosamente. Rode `npx aegis-spec graph build` uma vez pra inicializar.
 
 ## O que mudou em `drift-check`
 
@@ -34,7 +34,7 @@ Se `aegis/context/graph.json` não existe, o update é pulado silenciosamente. R
   "severity": "high",
   "blocking": [
     {
-      "spec": "aegis/sdd/auth.md",
+      "spec": "aegis/specs/sdd/auth.md",
       "status": "🔴 pending",
       "action": "Rodar /aegis-keeper after",
       "affected_files": [

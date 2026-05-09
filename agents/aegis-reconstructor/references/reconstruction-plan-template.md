@@ -53,7 +53,7 @@ Nenhum gap crítico identificado. Pode iniciar com segurança.
 
 ### Tarefa 04 — [Nome da Unit]
 **Status:** pending
-**Lê:** `aegis/[unit]/requirements.md`, `aegis/[unit]/design.md`, `aegis/[unit]/tasks.md`, `aegis/reports/dependencies.md`
+**Lê:** `aegis/specs/sdd/[unit]/requirements.md`, `aegis/specs/sdd/[unit]/design.md`, `aegis/specs/sdd/[unit]/tasks.md`, `aegis/reports/dependencies.md`
 **Constrói:** [caminho do módulo conforme stack]
 **Pronto quando:** [critério de aceitação extraído de requirements.md, campo "Dado/Quando/Então"]
 **Alerta:** [se houver gap associado, descreva aqui]

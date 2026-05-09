@@ -11,38 +11,63 @@ aegis/
 │   ├── config.toml
 │   ├── config.user.toml
 │   ├── manifest.yaml
-│   └── files-manifest.json
+│   ├── files-manifest.json
+│   ├── auto-policy.yaml         # opt-in (keeper auto)
+│   └── audit-policy.json        # opt-in (audit redaction)
 ├── runtime/
 │   ├── context/
 │   │   ├── graph.json
-│   │   └── policy-index.json
+│   │   ├── policy-index.json
+│   │   ├── surface.json         # scout
+│   │   └── modules.json         # archaeologist
 │   ├── queue/
-│   │   └── keeper.jsonl
-│   └── audit/
+│   │   └── keeper-queue.jsonl
+│   ├── audit/
+│   │   ├── YYYY-MM-DD.jsonl
+│   │   └── keeper-errors.log
+│   ├── hooks/
+│   │   └── runner.js
+│   └── session-summaries/
 ├── skills/
 │   ├── aegis/
 │   ├── aegis-keeper/
 │   └── ...
-├── specs/
-│   ├── sdd/
-│   ├── user-stories/
-│   ├── adrs/
-│   └── openapi/
-├── traceability/
-│   ├── code-spec-matrix.md
-│   └── spec-impact-matrix.md
-├── reports/
-│   ├── drift.md
-│   ├── confidence-report.md
-│   ├── gaps.md
-│   └── questions.md
-├── architecture/
+├── specs/                       # tudo que descreve o sistema
+│   ├── sdd/<unit>/              # writer: requirements, design, tasks (+ opcionais)
+│   ├── user-stories/            # writer
+│   ├── adrs/                    # detective
+│   ├── openapi/                 # writer
+│   ├── database/                # data-master: erd, dictionary, etc
+│   ├── design-system/           # design-system: tokens, palette, etc
+│   └── ui/                      # visor: screen inventory, flow
+├── architecture/                # architect: diagramas + visão geral
 │   ├── architecture.md
 │   ├── c4-context.md
 │   ├── c4-containers.md
 │   ├── c4-components.md
 │   └── erd-complete.md
-└── migration/
+├── traceability/
+│   ├── code-spec-matrix.md      # writer
+│   └── spec-impact-matrix.md    # architect
+├── reports/                     # análises geradas
+│   ├── drift.md                 # keeper
+│   ├── confidence-report.md     # reviewer
+│   ├── gaps.md                  # reviewer
+│   ├── questions.md             # reviewer
+│   ├── cross-review-result.md   # reviewer
+│   ├── code-analysis.md         # archaeologist
+│   ├── data-dictionary.md       # archaeologist
+│   ├── domain.md                # detective
+│   ├── state-machines.md        # detective
+│   ├── permissions.md           # detective
+│   ├── deployment.md            # architect
+│   ├── inventory.md             # scout
+│   ├── dependencies.md          # scout
+│   └── flowcharts/<modulo>.md   # archaeologist
+├── changelog/                   # keeper append-only
+│   └── YYYY-MM-DD.md
+├── migration/                   # time de migração
+└── forward/                     # aegis-requirements: features novas (NNN-nome/)
 ```
 
 Raiz fica só com:

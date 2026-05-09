@@ -63,7 +63,7 @@ jobs:
       - name: Cache graph
         uses: actions/cache@v4
         with:
-          path: .aegis/context/graph.json
+          path: aegis/runtime/context/graph.json
           key: graph-${{ github.sha }}
           restore-keys: graph-
       - name: Run keeper auto
@@ -72,8 +72,8 @@ jobs:
         run: |
           git config user.name "aegis-keeper[bot]"
           git config user.email "aegis-keeper[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain _aegis_sdd)" ]; then
-            git add _aegis_sdd
+          if [ -n "$(git status --porcelain aegis)" ]; then
+            git add aegis
             git commit -m "aegis-spec(keeper): auto-update specs [skip ci]"
             git push
           fi
@@ -82,4 +82,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: aegis-audit
-          path: .aegis/audit/
+          path: aegis/runtime/audit/

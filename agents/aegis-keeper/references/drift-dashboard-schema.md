@@ -1,4 +1,4 @@
-# Schema do `<output_folder>/drift.md`
+# Schema do `<output_folder>/reports/drift.md`
 
 Dashboard de saúde das specs — mostra para cada spec o quão sincronizada está com o código atual.
 
@@ -25,9 +25,9 @@ Geração: aegis-keeper v2.0.0
 
 | Spec | Última sincronização | Status | Distribuição confiança | Ação sugerida |
 |---|---|---|---|---|
-| `sdd/authentication.md` | 2026-04-29 14:32 | 🟢 resolved | 🟢 80% / 🟡 18% / 🔴 2% | — |
-| `sdd/billing.md` | 2026-04-25 09:10 | 🟡 stale | 🟢 75% / 🟡 20% / 🔴 5% | Rodar `/aegis-archaeologist` |
-| `sdd/notifications.md` | 2026-04-29 14:25 | 🔴 pending | 🟢 60% / 🟡 30% / 🔴 10% | Rodar `/aegis-keeper after` |
+| `specs/sdd/authentication.md` | 2026-04-29 14:32 | 🟢 resolved | 🟢 80% / 🟡 18% / 🔴 2% | — |
+| `specs/sdd/billing.md` | 2026-04-25 09:10 | 🟡 stale | 🟢 75% / 🟡 20% / 🔴 5% | Rodar `/aegis-archaeologist` |
+| `specs/sdd/notifications.md` | 2026-04-29 14:25 | 🔴 pending | 🟢 60% / 🟡 30% / 🔴 10% | Rodar `/aegis-keeper after` |
 ```
 
 ---
@@ -35,7 +35,7 @@ Geração: aegis-keeper v2.0.0
 ## Campos
 
 ### `Spec`
-Caminho relativo ao `<output_folder>/`. Geralmente em `sdd/`, mas pode incluir `openapi/`, `database/`, etc.
+Caminho relativo ao `<output_folder>/`. Geralmente em `specs/sdd/`, mas pode incluir `specs/openapi/`, `specs/database/`, etc.
 
 ### `Última sincronização`
 Timestamp UTC da última vez que o Keeper atualizou (ou confirmou consistência) desta spec. Formato: `YYYY-MM-DD HH:MM`.

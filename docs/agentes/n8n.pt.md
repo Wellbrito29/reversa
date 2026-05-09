@@ -15,7 +15,7 @@ O tradutor juramentado pega um documento oficial em uma língua e produz outra v
 
 O N8N Translator é o ponto de entrada quando o "código" legado não é código-fonte, e sim um workflow visual do N8N exportado como JSON. Ele percorre o grafo de nós, interpreta cada passo semanticamente (não só pelo tipo do nó) e emite três artefatos SDD que descrevem o sistema de forma independente do N8N.
 
-Após gerar a spec, o agente prepara `aegis/state.json` e `aegis/plan.md` para que o pipeline padrão do Aegis Spec (Scout, Archaeologist, Detective, Architect, Writer, Reviewer) possa assumir e refinar a análise, se necessário.
+Após gerar a spec, o agente prepara `aegis/config/state.json` e `aegis/plan.md` para que o pipeline padrão do Aegis Spec (Scout, Archaeologist, Detective, Architect, Writer, Reviewer) possa assumir e refinar a análise, se necessário.
 
 ---
 
@@ -43,7 +43,7 @@ O agente usa uma pasta dedicada: `n8n_json_workflows/`. A pasta é criada automa
 | `_aegis_n8n/<slug>/workflow-overview.md` | Análise da fonte: metadados, fluxograma Mermaid, tabela de nós, credenciais, ambiguidades |
 | `_aegis_n8n/<slug>/requirements.md` | Requisitos SDD: funcionais (`RF-NN`), não-funcionais (`RNF-NN`), critérios de aceitação |
 | `_aegis_n8n/<slug>/design.md` | Guia de implementação Python: arquitetura, componentes, bibliotecas, estrutura de pastas, tratamento de erros, configuração, testes |
-| `aegis/state.json` | Estado inicial do pipeline principal (com `source: "n8n"` e `source_artifacts`) |
+| `aegis/config/state.json` | Estado inicial do pipeline principal (com `source: "n8n"` e `source_artifacts`) |
 | `aegis/plan.md` | Plano com seção `Fase 0: Origem N8N` marcando a etapa de tradução |
 
 ---

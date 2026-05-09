@@ -22,7 +22,7 @@ hash: "sha256:<hash do corpo abaixo do front-matter>"
 ## Regras MIGRAR
 
 ### BR-MIGRAR-001
-- **Origem**: `aegis/<unit>/{requirements,design}.md` § <seção>
+- **Origem**: `aegis/specs/sdd/<unit>/{requirements,design}.md` § <seção>
 - **Confiança original**: 🟢 | 🟡 | 🔴 | ⚠️
 - **Descrição**: <regra>
 - **Justificativa de migração**: <por que migra>

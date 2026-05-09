@@ -22,8 +22,8 @@ Cada entrada começa com `## HH:MM` (hora em UTC). Sempre **append** — nunca s
 - `caminho/arquivo2.ext` — [verbo]
 
 **Specs afetadas:**
-- `sdd/componente1.md` — atualizada
-- `sdd/componente2.md` — confiança reclassificada (🟢 → 🟡)
+- `specs/sdd/componente1.md` — atualizada
+- `specs/sdd/componente2.md` — confiança reclassificada (🟢 → 🟡)
 
 **Contexto:** [resposta da pergunta 3, ou omitir esta linha se o usuário pulou]
 
@@ -49,8 +49,8 @@ Cada entrada começa com `## HH:MM` (hora em UTC). Sempre **append** — nunca s
 - `lib/routes.js` — modificado
 
 **Specs afetadas:**
-- `sdd/authentication.md` — atualizada (nova seção "Rate limiting")
-- `sdd/api-contract.md` — confiança da resposta de erro reclassificada (🟡 → 🟢)
+- `specs/sdd/authentication.md` — atualizada (nova seção "Rate limiting")
+- `specs/sdd/api-contract.md` — confiança da resposta de erro reclassificada (🟡 → 🟢)
 
 **Contexto:** Implementação usa `express-rate-limit`. Configuração centralizada em `config/rate-limits.js` para futuras rotas.
 

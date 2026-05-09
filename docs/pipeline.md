@@ -27,7 +27,7 @@ What it produces:
 
 - Complete project inventory (`inventory.md`)
 - Dependency list with versions (`dependencies.md`)
-- Structured JSON data for the next agents (`aegis/context/surface.json`)
+- Structured JSON data for the next agents (`aegis/runtime/context/surface.json`)
 
 After the Scout finishes, Aegis Spec uses the `surface.json` to personalize Phase 2: instead of a generic "analyze the code" task, the plan becomes one task per identified module.
 
@@ -48,7 +48,7 @@ What it produces:
 - Consolidated technical analysis (`code-analysis.md`)
 - Data dictionary (`data-dictionary.md`)
 - Mermaid flowcharts per module (`flowcharts/[module].md`)
-- Structured data per module (`aegis/context/modules.json`)
+- Structured data per module (`aegis/runtime/context/modules.json`)
 
 ---
 

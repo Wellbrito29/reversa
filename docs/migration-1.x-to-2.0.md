@@ -6,8 +6,8 @@ GitHub bot scaffold. Stages 1–3 are unchanged.
 
 ## Compatibility
 
-- Existing specs under `aegis/sdd/` keep working as-is.
-- The drift queue (`aegis/keeper-queue.jsonl`) format is unchanged.
+- Existing specs under `aegis/specs/sdd/` keep working as-is.
+- The drift queue (`aegis/runtime/queue/keeper-queue.jsonl`) format is unchanged.
 - All new behavior is opt-in: the policy gate only blocks files declared
   protected, the auto keeper only runs when `auto_resolve.enabled: true`,
   and the LLM is only called when an `ANTHROPIC_API_KEY` is present.
@@ -18,9 +18,9 @@ GitHub bot scaffold. Stages 1–3 are unchanged.
 |---|---|---|
 | Hooks runner | Append to queue | Append to queue + run pre-edit policy gate |
 | Spec frontmatter | `protected: true` only | + `contracts: [{ name, file, protected, reason }]` and `protected_files: ["glob/**"]` |
-| Drift triage | HITL only | HITL by default; auto-mode opt-in (`aegis/auto-policy.yaml`) |
+| Drift triage | HITL only | HITL by default; auto-mode opt-in (`aegis/config/auto-policy.yaml`) |
 | CI | `drift-check` | + `policy-check` (signature gate) and optional `keeper auto` |
-| Audit | none | `aegis/audit/YYYY-MM-DD.jsonl` (append-only, optionally redacted) |
+| Audit | none | `aegis/runtime/audit/YYYY-MM-DD.jsonl` (append-only, optionally redacted) |
 
 ## Step-by-step
 
@@ -32,7 +32,7 @@ npm install -g aegis@latest
 
 ### 2. (Optional) Mark contracts protected
 
-In any spec under `aegis/sdd/`, add frontmatter:
+In any spec under `aegis/specs/sdd/`, add frontmatter:
 
 ```yaml
 ---
@@ -66,7 +66,7 @@ unset disables auto mode but keeps drift-check + policy-check active.
 ### 4. (Optional) Enable auto mode
 
 Copy `templates/auto-policy.example.yaml` to
-`aegis/auto-policy.yaml`, set `enabled: true`, and tune the
+`aegis/config/auto-policy.yaml`, set `enabled: true`, and tune the
 whitelist / blacklist / `confidence_threshold`. Run with `--dry-run`
 first to see how the policy routes your queue.
 

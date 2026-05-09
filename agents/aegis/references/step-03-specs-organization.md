@@ -83,11 +83,11 @@ Aceite a entrada, sanitize cada nome (remova caracteres proibidos pelo sistema d
 
 ## 3. Detectar conflito com estrutura já em disco (RF-11)
 
-Antes de persistir a decisão, verifique se existe estrutura de specs já materializada em `<output_folder>/` (definido em `state.json`).
+Antes de persistir a decisão, verifique se existe estrutura de specs já materializada em `<output_folder>/specs/sdd/` (definido em `state.json`).
 
-Se a pasta de saída tem subpastas que correspondem a uma granularidade diferente da escolhida agora (por exemplo, escolhida `endpoint` mas o disco tem pastas que parecem `module`), exiba aviso comparando as duas estruturas e peça confirmação:
+Se `specs/sdd/` tem subpastas que correspondem a uma granularidade diferente da escolhida agora (por exemplo, escolhida `endpoint` mas o disco tem pastas que parecem `module`), exiba aviso comparando as duas estruturas e peça confirmação:
 
-> "Detectei que já existem specs geradas com a estrutura **[antiga]** em `<output_folder>/`. Você escolheu agora **[nova]**, que difere da anterior.
+> "Detectei que já existem specs geradas com a estrutura **[antiga]** em `<output_folder>/specs/sdd/`. Você escolheu agora **[nova]**, que difere da anterior.
 >
 > Vou criar a nova estrutura em paralelo, sem tocar na anterior. Specs existentes ficam preservadas.
 >

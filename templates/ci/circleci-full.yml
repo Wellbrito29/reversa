@@ -51,14 +51,14 @@ jobs:
       - save_cache:
           key: aegis-graph-{{ .Revision }}
           paths:
-            - .aegis/context/graph.json
+            - aegis/runtime/context/graph.json
       - run:
           name: Commit spec updates
           command: |
-            if [ -n "$(git status --porcelain _aegis_sdd)" ]; then
+            if [ -n "$(git status --porcelain aegis)" ]; then
               git config user.name "aegis-keeper[bot]"
               git config user.email "aegis-keeper@users.noreply.circleci.com"
-              git add _aegis_sdd
+              git add aegis
               git commit -m "aegis-spec(keeper): auto-update specs [skip ci]"
               git push origin "HEAD:$CIRCLE_BRANCH"
             fi

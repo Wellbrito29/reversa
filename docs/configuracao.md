@@ -92,4 +92,4 @@ Defines the volume of artifacts each agent generates during the analysis. **Not 
 | `completo` | Medium projects, small teams | Everything in essential + full C4 diagrams, ERD, ADRs, OpenAPI, user stories, traceability matrices |
 | `detalhado` | Enterprise systems, high criticality | Everything in complete + per-function flowcharts, expanded ADRs, deployment diagram, mandatory cross-review |
 
-The choice is saved in `aegis/state.json` under the `doc_level` field. You can edit it manually at any time to adjust the level mid-analysis.
+The choice is saved in `aegis/config/state.json` under the `doc_level` field. You can edit it manually at any time to adjust the level mid-analysis.

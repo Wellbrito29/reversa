@@ -12,7 +12,7 @@ Para cada lacuna 🔴 que só o usuário pode resolver, crie uma entrada:
 ## Pergunta [N]
 
 **Contexto:** [Onde no sistema surgiu esta dúvida — módulo, função, linha]
-**Spec afetada:** [`aegis/<unit>/{requirements|design|tasks}.md`]
+**Spec afetada:** [`aegis/specs/sdd/<unit>/{requirements|design|tasks}.md`]
 **Pergunta:** [Pergunta direta, sem ambiguidade]
 **Impacto:** [O que muda na spec dependendo da resposta]
 
@@ -55,7 +55,7 @@ Após receber aviso do usuário:
 ## Pergunta 1
 
 **Contexto:** Módulo `auth` — função `validateSession()` em `src/auth/session.ts:47`
-**Spec afetada:** [`aegis/auth/requirements.md`]
+**Spec afetada:** [`aegis/specs/sdd/auth/requirements.md`]
 **Pergunta:** A sessão expira por inatividade ou apenas por tempo absoluto? O código usa `lastActivity` mas não há lógica de expiração visível.
 **Impacto:** Se for por inatividade, a spec precisa incluir o tempo máximo de idle e o comportamento ao renovar a sessão.
 
@@ -66,7 +66,7 @@ Após receber aviso do usuário:
 ## Pergunta 2
 
 **Contexto:** Módulo `orders` — constante `MAX_ITEMS_PER_ORDER = 50` em `src/orders/constants.ts:12`
-**Spec afetada:** [`aegis/orders/requirements.md`]
+**Spec afetada:** [`aegis/specs/sdd/orders/requirements.md`]
 **Pergunta:** O limite de 50 itens por pedido é uma regra de negócio ou um limite técnico temporário? Há planos de aumentar?
 **Impacto:** Se for regra de negócio, precisa constar como 🟢 nas restrições. Se for técnico, deve ser 🟡 com nota de revisão futura.
 

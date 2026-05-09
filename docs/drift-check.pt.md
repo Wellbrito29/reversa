@@ -12,7 +12,7 @@ Exit codes:
 |---|---|
 | 0 | Limpo — sem drift no severity escolhido |
 | 1 | Drift detectado — bloqueia o build |
-| 2 | `aegis/drift.md` ausente — projeto não inicializado |
+| 2 | `aegis/reports/drift.md` ausente — projeto não inicializado |
 
 ---
 
@@ -39,7 +39,7 @@ npx aegis-spec drift-check [--format text|json] [--severity high|medium|low] [--
 
 ### `--folder`
 
-Override do output folder. Por padrão lê `output_folder` de `aegis/state.json` com fallback `_aegis_sdd`.
+Override do output folder. Por padrão lê `output_folder` de `aegis/config/state.json` com fallback `_aegis_sdd`.
 
 ---
 
@@ -94,8 +94,8 @@ fi
 
 Esse comando NÃO carrega código de agente, chalk, inquirer ou geradores de hook. Só:
 
-1. Lê `aegis/state.json` pra achar output folder (best-effort)
-2. Parseia a tabela markdown em `aegis/drift.md`
+1. Lê `aegis/config/state.json` pra achar output folder (best-effort)
+2. Parseia a tabela markdown em `aegis/reports/drift.md`
 3. Conta status
 4. Sai
 
@@ -108,7 +108,7 @@ Cold start rápido (sem imports pesados), serve em qualquer CI runner.
 ```json
 {
   "severity": "high",
-  "source": "/abs/path/to/aegis/drift.md",
+  "source": "/abs/path/to/aegis/reports/drift.md",
   "counts": { "pending": 1, "stale": 2, "resolved": 12 },
   "blocking": [
     { "spec": "sdd/notifications.md", "status": "pending", "action": "Rodar /aegis-keeper after" }
@@ -117,12 +117,12 @@ Cold start rápido (sem imports pesados), serve em qualquer CI runner.
 }
 ```
 
-Quando `aegis/drift.md` está ausente, saída JSON:
+Quando `aegis/reports/drift.md` está ausente, saída JSON:
 
 ```json
 {
   "error": "drift.md not found",
-  "path": "/abs/path/to/aegis/drift.md",
+  "path": "/abs/path/to/aegis/reports/drift.md",
   "hint": "Rode /aegis pra inicializar, depois /aegis-keeper after pra popular drift.md"
 }
 ```

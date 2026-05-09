@@ -76,10 +76,10 @@ Confirme que o checkpoint do módulo concluído está em `aegis/config/state.jso
 
 **Apenas se `doc_level` for `completo` ou `detalhado`:**
 - `aegis/reports/data-dictionary.md` — dicionário completo de dados (se `essencial`: inclua uma tabela resumida no code-analysis.md)
-- `aegis/flowcharts/[modulo].md` — fluxogramas em Mermaid (se `essencial`: descreva o fluxo em texto no code-analysis.md)
+- `aegis/reports/flowcharts/[modulo].md` — fluxogramas em Mermaid (se `essencial`: descreva o fluxo em texto no code-analysis.md)
 
 **Apenas se `doc_level` for `detalhado`:**
-- `aegis/flowcharts/[modulo]-[funcao].md` — fluxograma por função principal com lógica não-trivial (além dos por módulo)
+- `aegis/reports/flowcharts/[modulo]-[funcao].md` — fluxograma por função principal com lógica não-trivial (além dos por módulo)
 
 ## Escala de confiança
 🟢 CONFIRMADO | 🟡 INFERIDO | 🔴 LACUNA
@@ -88,7 +88,7 @@ Confirme que o checkpoint do módulo concluído está em `aegis/config/state.jso
 
 Este agente produz artefatos transversais à organização escolhida em `[specs]` do `config.toml`. Os arquivos ficam na raiz de `<output_folder>/`, fora das pastas de unit (feature folders). Não aplicar aqui a estrutura `<unit>/requirements.md|design.md|tasks.md`, ela pertence ao Writer.
 
-**Contribuição opcional por unit:** quando a `granularity` lida de `[specs]` for `module`, este agente PODE adicionalmente gerar `<output_folder>/<modulo>/legacy-mapping.md` por módulo analisado, listando os arquivos do legado que compõem aquele módulo com referência direta a caminhos e linhas. Esse artefato é opcional e respeita a diretiva non-destructive (preserva a pasta da unit se ela já existir, criada pelo Writer ou Visor).
+**Contribuição opcional por unit:** quando a `granularity` lida de `[specs]` for `module`, este agente PODE adicionalmente gerar `<output_folder>/specs/sdd/<modulo>/legacy-mapping.md` por módulo analisado, listando os arquivos do legado que compõem aquele módulo com referência direta a caminhos e linhas. Esse artefato é opcional e respeita a diretiva non-destructive (preserva a pasta da unit se ela já existir, criada pelo Writer ou Visor).
 
 Informe ao Aegis Spec: módulos analisados, principais algoritmos, número de entidades.
 Gere `modules.json` seguindo o schema em `references/modules-schema.md`.

@@ -25,16 +25,16 @@ npx aegis-spec remove-hooks --all                # todas as engines de uma vez
 
 ## O que o hook faz
 
-Quando a engine dispara um tool que edita arquivo (`Edit`, `Write`, `MultiEdit`, `apply_patch`, `afterFileEdit`, etc.), o hook invoca o **Aegis Spec hook runner** — um script Node pequeno instalado em `aegis/_hooks/runner.js`.
+Quando a engine dispara um tool que edita arquivo (`Edit`, `Write`, `MultiEdit`, `apply_patch`, `afterFileEdit`, etc.), o hook invoca o **Aegis Spec hook runner** — um script Node pequeno instalado em `aegis/runtime/hooks/runner.js`.
 
 O runner:
 
-1. Faz append de uma entrada em `aegis/keeper-queue.json` (com lock para edições concorrentes)
+1. Faz append de uma entrada em `aegis/runtime/queue/keeper-queue.jsonl` (com lock para edições concorrentes)
 2. Escreve um stub em `aegis/changelog/YYYY-MM-DD.md` pra mudança ser mencionada mesmo se você nunca rodar o Keeper
-3. Marca specs afetadas como `🔴 pending` em `aegis/drift.md`
+3. Marca specs afetadas como `🔴 pending` em `aegis/reports/drift.md`
 4. Imprime warning no terminal se uma spec de alta confiança foi tocada
 
-O runner **nunca bloqueia** a engine e **nunca modifica seu código**. Erros são logados silenciosamente em `aegis/keeper-errors.log`.
+O runner **nunca bloqueia** a engine e **nunca modifica seu código**. Erros são logados silenciosamente em `aegis/runtime/audit/keeper-errors.log`.
 
 Depois, quando você roda `/aegis-keeper after`, o agente lê a queue, faz as 3 perguntas, enriquece o changelog, atualiza as specs e limpa a queue.
 
@@ -57,7 +57,7 @@ Para engines não listadas (Gemini CLI, Aider, Roo, Cline, Copilot, Windsurf, An
 ## Garantias de segurança
 
 - **Preview antes de escrever.** `add-hooks` mostra o JSON/TOML exato que será escrito e pede confirmação.
-- **Sem overwrite cego.** Ao mesclar com config existente (ex.: `.claude/settings.json`), o Aegis Spec preserva todas as chaves e hook entries existentes. Só toca em entradas identificadas pelo marcador `aegis-spec/_hooks/runner.js` no command.
+- **Sem overwrite cego.** Ao mesclar com config existente (ex.: `.claude/settings.json`), o Aegis Spec preserva todas as chaves e hook entries existentes. Só toca em entradas identificadas pelo marcador `aegis-spec/runtime/hooks/runner.js` no command.
 - **Backup pra config global.** Ao editar `~/.kimi/config.toml`, um backup timestamped é salvo como `~/.kimi/config.toml.bak.aegis-<ISO>`.
 - **Install idempotente.** Rodar `add-hooks` duas vezes pra mesma engine substitui os hooks Aegis Spec anteriores; não duplica.
 - **Uninstall limpo.** `remove-hooks` tira só entradas Aegis Spec. Outros hooks que você adicionou manualmente ficam preservados. `npx aegis-spec uninstall` faz o mesmo automaticamente.
@@ -87,10 +87,10 @@ Assim: hooks mantêm queue e dashboard atualizados enquanto o dev codifica local
 [Hook da engine → spawna runner]
         │
         ▼
-[aegis/_hooks/runner.js]
-        ├─→ append em aegis/keeper-queue.json
+[aegis/runtime/hooks/runner.js]
+        ├─→ append em aegis/runtime/queue/keeper-queue.jsonl
         ├─→ stub em aegis/changelog/YYYY-MM-DD.md
-        ├─→ marca aegis/drift.md como pending
+        ├─→ marca aegis/reports/drift.md como pending
         └─→ warning no stderr (specs de alta confiança)
         │
         ▼ (depois, quando dev roda o agente)

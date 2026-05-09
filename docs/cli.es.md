@@ -104,4 +104,4 @@ Elimina hooks del Keeper. Otros hooks añadidos manualmente se preservan.
 npx aegis-spec drift-check
 ```
 
-CI gate. Lee `aegis/drift.md` y exit 1 si hay specs pendientes. Ver [drift-check](drift-check.es.md).
+CI gate. Lee `aegis/reports/drift.md` y exit 1 si hay specs pendientes. Ver [drift-check](drift-check.es.md).

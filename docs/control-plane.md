@@ -29,7 +29,7 @@ Stages 1–2 produce specs. Stage 3 produces code. Stage 4 keeps them honest.
 | **Pre-edit hook** | `Stop` / `afterFileEdit` in your IDE | Block per-edit signature break (`lib/policy/check.js`) |
 | **`policy-check` CLI** | CI on every PR | Block any PR with a contract-breaking signature change |
 | **`keeper auto`** | After CI passes (or via the bot) | Update specs to match new code, or escalate to a human |
-| **Audit log** | Every decision | Persist who/what/why under `aegis/audit/` |
+| **Audit log** | Every decision | Persist who/what/why under `aegis/runtime/audit/` |
 
 ## Languages
 
@@ -52,19 +52,19 @@ native binary is missing, the language falls back to L0.
 | **Hybrid** (recommended) | Auto whitelist + HITL blacklist | Production default |
 
 Auto mode requires an `ANTHROPIC_API_KEY` and `auto_resolve.enabled: true` in
-`aegis/auto-policy.yaml`. See `docs/keeper-auto.md`.
+`aegis/config/auto-policy.yaml`. See `docs/keeper-auto.md`.
 
 ## Files Aegis Spec adds to your repo
 
 | Path | Purpose |
 |---|---|
-| `aegis/sdd/*.md` | Specs with frontmatter (`contracts:`, `protected_files:`) |
-| `aegis/auto-policy.yaml` | Optional — enables auto mode |
-| `aegis/audit-policy.json` | Optional — declares fields to redact in the audit log |
-| `aegis/context/graph.json` | The code graph. Built by `aegis graph build`. |
-| `aegis/context/policy-index.json` | Compiled spec frontmatter. Built by `aegis policy-index build`. |
-| `aegis/keeper-queue.jsonl` | Append-only drift queue from the hooks runner |
-| `aegis/audit/YYYY-MM-DD.jsonl` | Audit log |
+| `aegis/specs/sdd/*.md` | Specs with frontmatter (`contracts:`, `protected_files:`) |
+| `aegis/config/auto-policy.yaml` | Optional — enables auto mode |
+| `aegis/config/audit-policy.json` | Optional — declares fields to redact in the audit log |
+| `aegis/runtime/context/graph.json` | The code graph. Built by `aegis graph build`. |
+| `aegis/runtime/context/policy-index.json` | Compiled spec frontmatter. Built by `aegis policy-index build`. |
+| `aegis/runtime/queue/keeper-queue.jsonl` | Append-only drift queue from the hooks runner |
+| `aegis/runtime/audit/YYYY-MM-DD.jsonl` | Audit log |
 
 ## CI templates
 

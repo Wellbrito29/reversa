@@ -30,9 +30,9 @@ Gerado pelo Revisor ao final da revisão.
 
 | Spec | 🟢 | 🟡 | 🔴 | Confiança |
 |------|----|----|-----|-----------|
-| `sdd/auth.md` | 8 | 3 | 1 | 79% |
-| `sdd/orders.md` | 12 | 5 | 2 | 74% |
-| `sdd/payments.md` | 6 | 8 | 4 | 56% |
+| `specs/sdd/auth.md` | 8 | 3 | 1 | 79% |
+| `specs/sdd/orders.md` | 12 | 5 | 2 | 74% |
+| `specs/sdd/payments.md` | 6 | 8 | 4 | 56% |
 
 ---
 

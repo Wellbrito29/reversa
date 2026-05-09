@@ -55,7 +55,7 @@ hash: "sha256:<hash do corpo abaixo do front-matter>"
 
 | Elemento novo | Origem no legado | Tipo de mapeamento |
 |---|---|---|
-| AGG-Pedido | `domain.md § Pedido` + `sdd/orders.md` | fundido |
+| AGG-Pedido | `domain.md § Pedido` + `specs/sdd/orders.md` | fundido |
 | <novo> | <ref> | 1-para-1 / fundido / dividido / novo |
 
 ## Notas

@@ -63,7 +63,7 @@ Preencha sempre:
 
 ## Saída
 
-**Em `aegis/`:**
+**Em `aegis/reports/`:**
 - `inventory.md` — inventário completo
 - `dependencies.md` — dependências com versões
 

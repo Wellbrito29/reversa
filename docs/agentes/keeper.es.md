@@ -42,12 +42,12 @@ Modo predeterminado si hay cambios sin commitear o eventos en cola. Úsalo **des
 ```
 
 El agente:
-1. Recolecta archivos modificados de `git diff HEAD` y (si hay hooks) `aegis/keeper-queue.json`
+1. Recolecta archivos modificados de `git diff HEAD` y (si hay hooks) `aegis/runtime/queue/keeper-queue.jsonl`
 2. Mapea archivos a specs impactadas vía `code-spec-matrix.md`
 3. Hace 3 preguntas: **Por qué** el cambio, **breaking change**, **contexto extra**
 4. Actualiza cada spec impactada in-place, reclasifica confianza (🟢/🟡/🔴)
 5. Append en `<output_folder>/changelog/YYYY-MM-DD.md`
-6. Actualiza `<output_folder>/drift.md`
+6. Actualiza `<output_folder>/reports/drift.md`
 7. Limpia entradas procesadas de la cola
 
 ---
@@ -57,10 +57,10 @@ El agente:
 | Archivo | Cuándo |
 |---|---|
 | `aegis/changelog/YYYY-MM-DD.md` | Modo `after`, siempre |
-| `aegis/sdd/[componente].md` | Modo `after`, in-place si impactado |
+| `aegis/specs/sdd/[componente].md` | Modo `after`, in-place si impactado |
 | `aegis/traceability/code-spec-matrix.md` | Modo `after`, con archivos nuevos/eliminados |
-| `aegis/drift.md` | Modo `after`, siempre (dashboard) |
-| `aegis/state.json` | Modo `after`, checkpoint |
+| `aegis/reports/drift.md` | Modo `after`, siempre (dashboard) |
+| `aegis/config/state.json` | Modo `after`, checkpoint |
 
 ---
 

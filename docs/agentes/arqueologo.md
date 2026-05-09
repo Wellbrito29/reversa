@@ -42,10 +42,10 @@ The Archaeologist analyzes one module at a time, intentionally. For projects wit
 
 | File | Content |
 |------|---------|
-| `aegis/code-analysis.md` | Consolidated technical analysis |
-| `aegis/data-dictionary.md` | Complete data dictionary |
-| `aegis/flowcharts/[module].md` | Mermaid flowchart per module |
-| `aegis/context/modules.json` | Structured data per module for the next agents |
+| `aegis/reports/code-analysis.md` | Consolidated technical analysis |
+| `aegis/reports/data-dictionary.md` | Complete data dictionary |
+| `aegis/reports/flowcharts/[module].md` | Mermaid flowchart per module |
+| `aegis/runtime/context/modules.json` | Structured data per module for the next agents |
 
 ---
 

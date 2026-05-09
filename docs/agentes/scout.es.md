@@ -23,8 +23,8 @@ El Scout es el primero en entrar al proyecto. Hace el tour inicial: no abre cajo
 
 | Archivo | Contenido |
 |---------|-----------|
-| `aegis/inventory.md` | Inventario completo del proyecto |
-| `aegis/dependencies.md` | Dependencias con versiones |
-| `aegis/context/surface.json` | Datos estructurados para los demás agentes |
+| `aegis/reports/inventory.md` | Inventario completo del proyecto |
+| `aegis/reports/dependencies.md` | Dependencias con versiones |
+| `aegis/runtime/context/surface.json` | Datos estructurados para los demás agentes |
 
 El `surface.json` es especialmente importante: Aegis Spec lo usa para personalizar las tareas de la Fase 2 basándose en los módulos identificados.

@@ -26,7 +26,7 @@ O Aegis Spec verifica se existe uma análise em andamento:
 
 **Primeira vez:** ele cria um plano de exploração personalizado para o seu projeto, apresenta ao usuário para aprovação e começa a análise pela fase 1.
 
-**Sessão retomada:** ele lê o checkpoint salvo em `aegis/state.json` e continua exatamente de onde parou. Não importa se você fechou o editor, reiniciou a máquina ou deixou dormindo por três dias.
+**Sessão retomada:** ele lê o checkpoint salvo em `aegis/config/state.json` e continua exatamente de onde parou. Não importa se você fechou o editor, reiniciou a máquina ou deixou dormindo por três dias.
 
 ---
 
@@ -92,7 +92,7 @@ Depois que o Scout termina, o Aegis Spec apresenta um resumo do que encontrou (q
 | **Completo** | Projetos médios, equipes pequenas (padrão) | Tudo do essencial + diagramas C4, ERD, ADRs, OpenAPI, user stories e matrizes de rastreabilidade |
 | **Detalhado** | Sistemas enterprise, múltiplas equipes | Tudo do completo + flowcharts por função, ADRs expandidos, diagrama de deployment e revisão cruzada obrigatória |
 
-A escolha fica salva em `aegis/state.json` e todos os agentes seguintes a respeitam automaticamente. Se precisar ajustar depois de iniciada a análise, basta editar o campo `doc_level` no arquivo.
+A escolha fica salva em `aegis/config/state.json` e todos os agentes seguintes a respeitam automaticamente. Se precisar ajustar depois de iniciada a análise, basta editar o campo `doc_level` no arquivo.
 
 ---
 

@@ -100,4 +100,4 @@ Define o volume de artefatos que cada agente vai gerar durante a análise. **Nã
 | `completo` | Projetos médios, equipes pequenas | Tudo do essencial + diagramas C4 completos, ERD, ADRs, OpenAPI, user stories, matrizes de rastreabilidade |
 | `detalhado` | Sistemas enterprise, alta criticidade | Tudo do completo + flowcharts por função, ADRs expandidos, diagrama de deployment, revisão cruzada obrigatória |
 
-A escolha fica salva em `aegis/state.json` no campo `doc_level`. Você pode editá-lo manualmente a qualquer momento para ajustar o nível no meio de uma análise.
+A escolha fica salva em `aegis/config/state.json` no campo `doc_level`. Você pode editá-lo manualmente a qualquer momento para ajustar o nível no meio de uma análise.

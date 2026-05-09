@@ -75,10 +75,10 @@ Quando a pasta da unit ainda não existe (Writer não rodou), crie-a vazia para 
 
 **Por unit, dentro da pasta da unit:**
 
-- `<output_folder>/<unit>/screenshots/<nome-da-tela>.<ext>`, o(s) screenshot(s) original(is) capturado(s) pelo usuário (RF-09)
-- `<output_folder>/<unit>/screens.md`, spec detalhada das telas dessa unit (uma seção por tela). Substitui o antigo `screens/<nome-da-tela>.md` solto
+- `<output_folder>/specs/sdd/<unit>/screenshots/<nome-da-tela>.<ext>`, o(s) screenshot(s) original(is) capturado(s) pelo usuário (RF-09)
+- `<output_folder>/specs/sdd/<unit>/screens.md`, spec detalhada das telas dessa unit (uma seção por tela). Substitui o antigo `screens/<nome-da-tela>.md` solto
 
-**Globais, na raiz de `<output_folder>/ui/`:**
+**Globais, em `<output_folder>/specs/ui/`:**
 
 - `inventory.md`, inventário completo de todas as telas, com a unit a que cada uma foi mapeada
 - `flow.md`, fluxo de navegação em Mermaid (atravessa units)

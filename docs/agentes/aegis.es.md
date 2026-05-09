@@ -21,7 +21,7 @@ Sin él, cada agente tocaría su parte sin conectarse con los demás. Con él, t
 
 ## Responsabilidades
 
-- Verifica si hay un análisis en curso (lee `aegis/state.json`)
+- Verifica si hay un análisis en curso (lee `aegis/config/state.json`)
 - Primera sesión: crea el plan de exploración personalizado y lo presenta al usuario
 - Sesiones posteriores: retoma exactamente donde se quedó
 - Ejecuta los agentes del plan **secuencialmente**, uno a la vez

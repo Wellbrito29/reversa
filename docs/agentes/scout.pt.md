@@ -33,9 +33,9 @@ Quantos módulos existem? Qual linguagem? Qual framework? Quais as dependências
 
 | Arquivo | Conteúdo |
 |---------|----------|
-| `aegis/inventory.md` | Inventário completo do projeto |
-| `aegis/dependencies.md` | Dependências com versões |
-| `aegis/context/surface.json` | Dados estruturados para os demais agentes |
+| `aegis/reports/inventory.md` | Inventário completo do projeto |
+| `aegis/reports/dependencies.md` | Dependências com versões |
+| `aegis/runtime/context/surface.json` | Dados estruturados para os demais agentes |
 
 O `surface.json` é especialmente importante: o Aegis Spec o usa para personalizar as tarefas da Fase 2 com base nos módulos identificados.
 

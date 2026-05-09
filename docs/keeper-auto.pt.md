@@ -11,7 +11,7 @@ npx aegis-spec keeper auto --dry-run
 
 ## Arquivo de policy
 
-`aegis/auto-policy.yaml` é lido a cada execução. Auto mode é **off**
+`aegis/config/auto-policy.yaml` é lido a cada execução. Auto mode é **off**
 por padrão — exige `auto_resolve.enabled: true`.
 
 ```yaml
@@ -60,9 +60,9 @@ npx aegis-spec keeper auto [--dry-run] [--max-specs N] [--cwd <path>]
 
 ## Audit log
 
-Toda decisão vai em `aegis/audit/YYYY-MM-DD.jsonl`. Schema em
+Toda decisão vai em `aegis/runtime/audit/YYYY-MM-DD.jsonl`. Schema em
 `lib/audit/schema.md`. Configure redação via
-`aegis/audit-policy.json`:
+`aegis/config/audit-policy.json`:
 
 ```json
 { "redact": ["diff", "commit_message"] }

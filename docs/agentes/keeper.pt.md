@@ -42,12 +42,12 @@ Modo padrão se houver mudanças não-commitadas ou eventos enfileirados pelos h
 ```
 
 O agente:
-1. Coleta arquivos modificados via `git diff HEAD` e (se hooks instalados) `aegis/keeper-queue.json`
+1. Coleta arquivos modificados via `git diff HEAD` e (se hooks instalados) `aegis/runtime/queue/keeper-queue.jsonl`
 2. Mapeia arquivos pra specs impactadas via `code-spec-matrix.md`
 3. Faz 3 perguntas curtas: **Por quê** a mudança, **quebra de compatibilidade**, **contexto extra**
 4. Atualiza cada spec impactada in-place, reclassifica confiança (🟢/🟡/🔴) seguindo as regras em `references/drift-rules.md`
 5. Faz append de uma entrada em `<output_folder>/changelog/YYYY-MM-DD.md`
-6. Atualiza `<output_folder>/drift.md` (o dashboard)
+6. Atualiza `<output_folder>/reports/drift.md` (o dashboard)
 7. Limpa entradas processadas da queue
 
 ---
@@ -57,10 +57,10 @@ O agente:
 | Arquivo | Quando |
 |---|---|
 | `aegis/changelog/YYYY-MM-DD.md` | Modo `after`, sempre |
-| `aegis/sdd/[componente].md` | Modo `after`, atualizado in-place se impactado |
+| `aegis/specs/sdd/[componente].md` | Modo `after`, atualizado in-place se impactado |
 | `aegis/traceability/code-spec-matrix.md` | Modo `after`, quando arquivos adicionados/deletados |
-| `aegis/drift.md` | Modo `after`, sempre (o dashboard) |
-| `aegis/state.json` | Modo `after`, checkpoint |
+| `aegis/reports/drift.md` | Modo `after`, sempre (o dashboard) |
+| `aegis/config/state.json` | Modo `after`, checkpoint |
 
 Modo `before` não escreve nada.
 
@@ -95,7 +95,7 @@ Após processar uma mudança, o Keeper pode subir ou descer a confiança de afir
 
 Você pode rodar o Keeper **manualmente** via `/aegis-keeper` a qualquer momento — funciona em todas as engines suportadas sem setup adicional.
 
-Para invocação **automática** quando arquivos são editados, instale hooks via [`npx aegis-spec add-hooks`](../hooks.pt.md). Os hooks enfileiram eventos em `aegis/keeper-queue.json` e pré-preenchem stubs no changelog. Da próxima vez que você rodar `/aegis-keeper after`, o agente enriquece com as 3 perguntas e atualiza as specs.
+Para invocação **automática** quando arquivos são editados, instale hooks via [`npx aegis-spec add-hooks`](../hooks.pt.md). Os hooks enfileiram eventos em `aegis/runtime/queue/keeper-queue.jsonl` e pré-preenchem stubs no changelog. Da próxima vez que você rodar `/aegis-keeper after`, o agente enriquece com as 3 perguntas e atualiza as specs.
 
 ---
 

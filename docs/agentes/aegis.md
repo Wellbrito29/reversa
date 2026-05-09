@@ -21,7 +21,7 @@ Without it, each agent would play its part without connecting to the others. Wit
 
 ## Responsibilities
 
-- Checks whether an analysis is in progress (reads `aegis/state.json`)
+- Checks whether an analysis is in progress (reads `aegis/config/state.json`)
 - First session: creates a personalized exploration plan and presents it to the user
 - Subsequent sessions: resumes exactly where it left off
 - Runs plan agents **sequentially**, one at a time

@@ -12,7 +12,7 @@ Exit codes:
 |---|---|
 | 0 | Clean — no drift at the chosen severity |
 | 1 | Drift detected — blocks the build |
-| 2 | `aegis/drift.md` not found — project not initialized |
+| 2 | `aegis/reports/drift.md` not found — project not initialized |
 
 ---
 
@@ -39,7 +39,7 @@ npx aegis-spec drift-check [--format text|json] [--severity high|medium|low] [--
 
 ### `--folder`
 
-Override the output folder. By default, reads `output_folder` from `aegis/state.json` and falls back to `_aegis_sdd`.
+Override the output folder. By default, reads `output_folder` from `aegis/config/state.json` and falls back to `_aegis_sdd`.
 
 ---
 
@@ -94,8 +94,8 @@ fi
 
 This command does NOT load any agent code, chalk, inquirer, or hook generator. It only:
 
-1. Reads `aegis/state.json` to find the output folder (best-effort)
-2. Parses the markdown table in `aegis/drift.md`
+1. Reads `aegis/config/state.json` to find the output folder (best-effort)
+2. Parses the markdown table in `aegis/reports/drift.md`
 3. Counts statuses
 4. Exits
 
@@ -108,7 +108,7 @@ Cold start is fast (no heavy imports), suitable for any CI runner.
 ```json
 {
   "severity": "high",
-  "source": "/abs/path/to/aegis/drift.md",
+  "source": "/abs/path/to/aegis/reports/drift.md",
   "counts": { "pending": 1, "stale": 2, "resolved": 12 },
   "blocking": [
     { "spec": "sdd/notifications.md", "status": "pending", "action": "Run /aegis-keeper after" }
@@ -117,12 +117,12 @@ Cold start is fast (no heavy imports), suitable for any CI runner.
 }
 ```
 
-When `aegis/drift.md` is missing, JSON output is:
+When `aegis/reports/drift.md` is missing, JSON output is:
 
 ```json
 {
   "error": "drift.md not found",
-  "path": "/abs/path/to/aegis/drift.md",
+  "path": "/abs/path/to/aegis/reports/drift.md",
   "hint": "Run /aegis to initialize, then /aegis-keeper after to populate drift.md"
 }
 ```

@@ -81,9 +81,9 @@ A partir de `gaps.md` e `confidence-report.md`, identifique gaps 🔴 que bloque
 Gere `aegis/migration/reconstruction-plan.md` seguindo o template em `references/reconstruction-plan-template.md`.
 
 Regras de geração:
-- Cada unit identificada (subpasta de `<output_folder>/` com os 3 arquivos canônicos) vira uma tarefa própria
-- O campo `Lê:` de cada tarefa lista exatamente os arquivos que serão lidos na execução, tipicamente `<unit>/requirements.md`, `<unit>/design.md` e `<unit>/tasks.md` mais opcionais aplicáveis
-- O campo `Pronto quando:` é derivado dos critérios de aceitação em `<unit>/requirements.md` (se disponíveis) ou do tipo da unit
+- Cada unit identificada (subpasta de `<output_folder>/specs/sdd/` com os 3 arquivos canônicos) vira uma tarefa própria
+- O campo `Lê:` de cada tarefa lista exatamente os arquivos que serão lidos na execução, tipicamente `specs/sdd/<unit>/requirements.md`, `specs/sdd/<unit>/design.md` e `specs/sdd/<unit>/tasks.md` mais opcionais aplicáveis
+- O campo `Pronto quando:` é derivado dos critérios de aceitação em `specs/sdd/<unit>/requirements.md` (se disponíveis) ou do tipo da unit
 - Units sem `tasks.md` listam `dependencies.md` como referência
 
 Após gerar, apresente ao usuário:

@@ -105,4 +105,4 @@ npx aegis-spec drift-check
 npx aegis-spec drift-check --severity medium --format json
 ```
 
-CI gate. Reads `aegis/drift.md` and exits 1 if there are pending specs at the chosen severity. Engine-agnostic — no agent code is loaded. See [drift-check](drift-check.md) for the full reference.
+CI gate. Reads `aegis/reports/drift.md` and exits 1 if there are pending specs at the chosen severity. Engine-agnostic — no agent code is loaded. See [drift-check](drift-check.md) for the full reference.

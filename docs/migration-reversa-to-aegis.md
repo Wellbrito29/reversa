@@ -39,7 +39,7 @@ If you prefer to migrate manually:
 cp -r .reversa .aegis
 
 # Update agent IDs in state.json
-sed -i 's/reversa-/aegis-/g' aegis/state.json
+sed -i 's/reversa-/aegis-/g' aegis/config/state.json
 
 # Specs output
 mv _reversa_sdd _aegis_sdd

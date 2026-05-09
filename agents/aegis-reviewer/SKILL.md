@@ -16,8 +16,8 @@ Você é o Reviewer. Sua missão é questionar, testar e melhorar a qualidade da
 
 1. Leia `aegis/config/state.json` — especialmente `user_name`, `answer_mode`, `doc_level`, `output_folder` e `engines`
 2. Leia `aegis/config/config.toml` (e `config.user.toml` se existir) → seção `[specs]` para descobrir a `granularity` e mapa de units
-3. Liste as pastas de unit dentro de `<output_folder>/`. Cada unit é uma subpasta com `requirements.md`, `design.md`, `tasks.md` e opcionais. Leia os 3 arquivos canônicos de cada unit, mais os opcionais presentes (`contracts.md`, `flows.md`, `edge-cases.md`, `decisions.md`, `legacy-mapping.md`, `questions.md`, `screens.md`)
-4. Leia também os globais em `<output_folder>/`: `traceability/code-spec-matrix.md`, `traceability/spec-impact-matrix.md`, `openapi/`, `user-stories/`, `architecture.md`, `domain.md`, etc., quando existirem
+3. Liste as pastas de unit dentro de `<output_folder>/specs/sdd/`. Cada unit é uma subpasta com `requirements.md`, `design.md`, `tasks.md` e opcionais. Leia os 3 arquivos canônicos de cada unit, mais os opcionais presentes (`contracts.md`, `flows.md`, `edge-cases.md`, `decisions.md`, `legacy-mapping.md`, `questions.md`, `screens.md`)
+4. Leia também os globais em `<output_folder>/`: `traceability/code-spec-matrix.md`, `traceability/spec-impact-matrix.md`, `specs/openapi/`, `specs/user-stories/`, `specs/adrs/`, `specs/database/`, `specs/design-system/`, `architecture/architecture.md`, etc., quando existirem
 5. Consulte `references/confidence-rules.md` para as regras de classificação
 
 ## Nível de documentação
@@ -60,7 +60,7 @@ Se escolher **Sim**, siga o fluxo abaixo.
 
 Use a ferramenta `codex:rescue` (ou equivalente disponível) para delegar a seguinte tarefa ao Codex:
 
-> Você é um revisor técnico independente. Leia, em cada pasta de unit dentro de `<output_folder>/`, os arquivos `requirements.md`, `design.md` e `tasks.md` (e quaisquer opcionais presentes), além dos artefatos globais em `<output_folder>/`. Encontre:
+> Você é um revisor técnico independente. Leia, em cada pasta de unit dentro de `<output_folder>/specs/sdd/`, os arquivos `requirements.md`, `design.md` e `tasks.md` (e quaisquer opcionais presentes), além dos artefatos globais em `<output_folder>/`. Encontre:
 > 1. Inconsistências internas, regras que se contradizem dentro de uma mesma unit
 > 2. Contradições cruzadas, units que conflitam entre si
 > 3. Lacunas críticas, comportamentos óbvios não especificados
@@ -88,7 +88,7 @@ Após o Codex concluir:
 ## Processo de revisão
 
 ### 1. Revisão por unit
-Para cada unit em `<output_folder>/`:
+Para cada unit em `<output_folder>/specs/sdd/`:
 - Os 3 arquivos canônicos (`requirements.md`, `design.md`, `tasks.md`) estão presentes? Se algum faltar, registre como lacuna.
 - São internamente consistentes? `requirements.md` define o que é esperado, `design.md` mostra como se estrutura, `tasks.md` cobre o prometido?
 - As regras de negócio em `requirements.md` fazem sentido em conjunto? Há contradições internas?
@@ -146,11 +146,11 @@ Se houve revisão cruzada, inclua uma seção adicional no relatório:
 - `aegis/reports/gaps.md` — lacunas que permaneceram sem resposta (se `detalhado`: categorize por severidade: crítico/moderado/cosmético)
 - `aegis/reports/cross-review-result.md` — apontamentos do Codex (se revisão cruzada realizada)
 
-Specs nas pastas de unit em `<output_folder>/` são atualizadas in-place com as reclassificações (cada unit tem seus próprios `requirements.md`, `design.md`, `tasks.md`).
+Specs nas pastas de unit em `<output_folder>/specs/sdd/` são atualizadas in-place com as reclassificações (cada unit tem seus próprios `requirements.md`, `design.md`, `tasks.md`).
 
 ## Layout de saída (transversal)
 
-Os artefatos próprios do Reviewer (`confidence-report.md`, `questions.md`, `gaps.md`, `cross-review-result.md`) são transversais à organização escolhida em `[specs]` e ficam na raiz de `<output_folder>/`, fora das pastas de unit. As reclassificações de afirmações dentro de cada unit acontecem in-place nos arquivos da própria unit.
+Os artefatos próprios do Reviewer (`confidence-report.md`, `questions.md`, `gaps.md`, `cross-review-result.md`) são transversais à organização escolhida em `[specs]` e ficam em `<output_folder>/reports/`, fora das pastas de unit. As reclassificações de afirmações dentro de cada unit acontecem in-place nos arquivos da própria unit.
 
 ## Checkpoint
 

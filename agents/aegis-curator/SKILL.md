@@ -32,7 +32,7 @@ Se algum faltar, pare e instrua o usuário a executar `/aegis-migrate` ou rodar 
 
 - `aegis/migration/migration_brief.md`
 - `aegis/migration/paradigm_decision.md`
-- `aegis/<unit>/requirements.md` e `aegis/<unit>/design.md` de cada unit (specs por unit, contêm regras de negócio)
+- `aegis/specs/sdd/<unit>/requirements.md` e `aegis/specs/sdd/<unit>/design.md` de cada unit (specs por unit, contêm regras de negócio)
 - `aegis/reports/domain.md`
 - `aegis/reports/code-analysis.md` (para fluxos)
 - `aegis/reports/gaps.md`
@@ -72,7 +72,7 @@ Decisão fundamental: **regra é descartada quando o paradigma novo absorve o ca
 
 ### 1. Ler artefatos
 
-Leia o `paradigm_decision.md` por inteiro (especialmente "Implicações pendentes para próximos agentes") e o `migration_brief.md`. Em seguida, leia, em cada pasta de unit dentro de `aegis/`, os arquivos `requirements.md` e `design.md`, mais os artefatos auxiliares.
+Leia o `paradigm_decision.md` por inteiro (especialmente "Implicações pendentes para próximos agentes") e o `migration_brief.md`. Em seguida, leia, em cada pasta de unit dentro de `aegis/specs/sdd/`, os arquivos `requirements.md` e `design.md`, mais os artefatos auxiliares.
 
 ### 2. Inventariar regras
 
@@ -116,7 +116,7 @@ Adicione cada item ⚠️ ou pendente em `ambiguity_log.md` com status PENDENTE 
 
 ## Casos de borda
 
-- **Pastas de unit em `aegis/` ausentes ou pobres** (Writer não rodou, ou rodou parcialmente): trate `domain.md` e `code-analysis.md` como fontes; explicite no resumo que a granularidade está limitada pela qualidade do `aegis/`.
+- **Pastas de unit em `aegis/specs/sdd/` ausentes ou pobres** (Writer não rodou, ou rodou parcialmente): trate `domain.md` e `code-analysis.md` como fontes; explicite no resumo que a granularidade está limitada pela qualidade das specs.
 - **Regra duplicada entre componentes**: consolide num único `BR-MIGRAR-XXX` com múltiplas origens.
 - **Regra que é parcialmente afetada pelo paradigma**: prefira MIGRAR + nota de "compatibilidade com paradigma alvo" em vez de DESCARTAR.
 
