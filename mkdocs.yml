@@ -98,6 +98,7 @@ plugins:
             Audit: Audit
             Quality: Quality
             Coding: Coding
+            Principles: Principles
             Translators: Tradutores
             N8N Translator: N8N Translator
             Generated outputs: Saídas geradas
@@ -137,6 +138,7 @@ plugins:
             Audit: Audit
             Quality: Quality
             Coding: Coding
+            Principles: Principles
             Translators: Traductores
             N8N Translator: N8N Translator
             Generated outputs: Salidas generadas
@@ -184,6 +186,7 @@ nav:
     - Audit: agentes/audit.md
     - Quality: agentes/quality.md
     - Coding: agentes/coding.md
+    - Principles: agentes/principles.md
   - Translators:
     - N8N Translator: agentes/n8n.md
   - Drift loop:
