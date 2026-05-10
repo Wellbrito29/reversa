@@ -93,6 +93,7 @@ plugins:
             Requirements: Requirements
             Tech Brief: Tech Brief
             Doubt: Doubt
+            Plan: Plan
             Translators: Tradutores
             N8N Translator: N8N Translator
             Generated outputs: Saídas geradas
@@ -127,6 +128,7 @@ plugins:
             Requirements: Requirements
             Tech Brief: Tech Brief
             Doubt: Doubt
+            Plan: Plan
             Translators: Traductores
             N8N Translator: N8N Translator
             Generated outputs: Salidas generadas
@@ -169,6 +171,7 @@ nav:
     - Requirements: agentes/requirements.md
     - Tech Brief: agentes/tech-brief.md
     - Doubt: agentes/doubt.md
+    - Plan: agentes/plan.md
   - Translators:
     - N8N Translator: agentes/n8n.md
   - Drift loop:
