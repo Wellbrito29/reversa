@@ -90,6 +90,7 @@ plugins:
             Guide with analogies: Guia com analogias
             Aegis Spec (Orchestrator): Aegis Spec (Orquestrador)
             Forward cycle: Ciclo forward
+            Requirements: Requirements
             Tech Brief: Tech Brief
             Translators: Tradutores
             N8N Translator: N8N Translator
@@ -122,6 +123,7 @@ plugins:
             Guide with analogies: Guía con analogías
             Aegis Spec (Orchestrator): Aegis Spec (Orquestador)
             Forward cycle: Ciclo forward
+            Requirements: Requirements
             Tech Brief: Tech Brief
             Translators: Traductores
             N8N Translator: N8N Translator
@@ -162,6 +164,7 @@ nav:
     - Design System: agentes/design-system.md
     - Keeper: agentes/keeper.md
   - Forward cycle:
+    - Requirements: agentes/requirements.md
     - Tech Brief: agentes/tech-brief.md
   - Translators:
     - N8N Translator: agentes/n8n.md
