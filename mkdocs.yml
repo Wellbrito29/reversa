@@ -92,6 +92,7 @@ plugins:
             Forward cycle: Ciclo forward
             Requirements: Requirements
             Tech Brief: Tech Brief
+            Doubt: Doubt
             Translators: Tradutores
             N8N Translator: N8N Translator
             Generated outputs: Saídas geradas
@@ -125,6 +126,7 @@ plugins:
             Forward cycle: Ciclo forward
             Requirements: Requirements
             Tech Brief: Tech Brief
+            Doubt: Doubt
             Translators: Traductores
             N8N Translator: N8N Translator
             Generated outputs: Salidas generadas
@@ -166,6 +168,7 @@ nav:
   - Forward cycle:
     - Requirements: agentes/requirements.md
     - Tech Brief: agentes/tech-brief.md
+    - Doubt: agentes/doubt.md
   - Translators:
     - N8N Translator: agentes/n8n.md
   - Drift loop:
