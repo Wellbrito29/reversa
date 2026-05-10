@@ -97,6 +97,7 @@ plugins:
             To-Do: To-Do
             Audit: Audit
             Quality: Quality
+            Coding: Coding
             Translators: Tradutores
             N8N Translator: N8N Translator
             Generated outputs: Saídas geradas
@@ -135,6 +136,7 @@ plugins:
             To-Do: To-Do
             Audit: Audit
             Quality: Quality
+            Coding: Coding
             Translators: Traductores
             N8N Translator: N8N Translator
             Generated outputs: Salidas generadas
@@ -181,6 +183,7 @@ nav:
     - To-Do: agentes/to-do.md
     - Audit: agentes/audit.md
     - Quality: agentes/quality.md
+    - Coding: agentes/coding.md
   - Translators:
     - N8N Translator: agentes/n8n.md
   - Drift loop:
