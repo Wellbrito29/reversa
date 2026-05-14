@@ -10,16 +10,18 @@ copyright: '"Aegis Spec" by Wellbrito29 — fork of Reversa by sandeco'
 theme:
   name: material
   language: pt-BR
+  logo: assets/logo.png
+  favicon: assets/favicon.png
   palette:
     - scheme: slate
-      primary: indigo
-      accent: indigo
+      primary: green
+      accent: green
       toggle:
         icon: material/brightness-4
         name: Mudar para modo claro
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: green
+      accent: green
       toggle:
         icon: material/brightness-7
         name: Mudar para modo escuro
@@ -34,7 +36,6 @@ theme:
     - content.tooltips
   icon:
     repo: fontawesome/brands/github
-    logo: material/magnify
 
 markdown_extensions:
   - admonition

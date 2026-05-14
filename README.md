@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="imgs/banners/aegis-spec-github-readme-banner.png" alt="Aegis Spec — Executable specifications and guardrails for AI-assisted software evolution" width="100%">
+</p>
+
 # Aegis Spec Control Plane
 <small>Fork by Wellbrito29, based on Reversa by sandeco</small>
 
@@ -59,6 +63,10 @@ Aegis Spec is built as a **control plane for AI coding agents**, on three pillar
 Together: agents must respect what the code **should be** (Aegis Spec specs), see what it **is** (Graph), and stay aligned (Keeper). Specs are the contract, the graph is the ground truth, drift detection is the gate.
 
 ### Pipeline (4 stages)
+
+<p align="center">
+  <img src="imgs/illustrations/aegis-spec-workflow-diagram.png" alt="Aegis Spec workflow: Specify → Understand → Guard → Deploy" width="80%">
+</p>
 
 ```
 Stage 1 — Discovery     →  Scout, Archaeologist, Detective, Architect, Writer, Reviewer

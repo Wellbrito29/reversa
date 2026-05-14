@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aegis Spec — Control Plane for AI-Assisted Software</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="logo.png" />
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      securityLevel: 'loose',
+      themeVariables: {
+        background: 'transparent',
+        primaryColor: '#0B1115',
+        primaryTextColor: '#F5F7FA',
+        primaryBorderColor: '#00D084',
+        lineColor: '#00E676',
+        secondaryColor: '#11161D',
+        tertiaryColor: '#05080B',
+        clusterBkg: 'rgba(0,208,132,0.04)',
+        clusterBorder: 'rgba(0,230,118,0.3)',
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '14px'
+      },
+      flowchart: { curve: 'basis', padding: 16, htmlLabels: true, useMaxWidth: true },
+      sequence: { actorMargin: 60, messageFontSize: 13, useMaxWidth: true },
+      state: { useMaxWidth: true }
+    });
+    window.addEventListener('DOMContentLoaded', async () => {
+      const nodes = document.querySelectorAll('.mermaid');
+      for (const n of nodes) {
+        try {
+          const { svg } = await mermaid.render('m_' + Math.random().toString(36).slice(2), n.textContent);
+          n.innerHTML = svg;
+        } catch (e) { console.error(e); }
+      }
+    });
+  </script>
+  <style>
+    :root {
+      --bg-0: #05080B;
+      --bg-1: #0B1115;
+      --bg-2: #11161D;
+      --bg-3: #1A2330;
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.16);
+      --text: #F5F7FA;
+      --text-dim: #A9B4BE;
+      --text-faint: #64748B;
+      --emerald: #00D084;
+      --emerald-2: #00E676;
+      --amber: #FFB000;
+      --amber-2: #FFA203;
+      --accent-cyan: #67E8F9;
+      --accent-purple: #A78BFA;
+      --accent-red: #EF4444;
+    }
+    * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; box-sizing: border-box; }
+    html, body { background: var(--bg-0); color: var(--text); font-family: 'Inter', sans-serif; }
+    body { overflow: hidden; height: 100vh; margin: 0; display: grid; place-items: center; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .stage { position: relative; width: 1600px; height: 900px; transform-origin: center center; }
+    .deck { position: relative; width: 100%; height: 100%; }
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      padding: 56px 80px 72px;
+      opacity: 0; pointer-events: none;
+      transform: translateX(40px);
+      transition: opacity 360ms cubic-bezier(.22,1,.36,1), transform 420ms cubic-bezier(.22,1,.36,1);
+      overflow: hidden;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
+    .slide.exit { transform: translateX(-40px); }
+    .slide-num { position: absolute; bottom: 24px; right: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); letter-spacing: 0.1em; }
+    .slide-title-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--emerald-2);
+      padding: 6px 12px;
+      border: 1px solid rgba(0,230,118,0.3);
+      border-radius: 999px;
+      background: rgba(0,208,132,0.08);
+      width: fit-content;
+    }
+    .slide-title { font-size: 56px; line-height: 1.05; font-weight: 800; letter-spacing: -0.02em; margin-top: 16px; }
+    .slide-subtitle { font-size: 20px; color: var(--text-dim); margin-top: 12px; max-width: 920px; line-height: 1.4; }
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      backdrop-filter: blur(8px);
+    }
+    .glass-strong {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      padding: 4px 10px; border-radius: 6px;
+      background: rgba(167,139,250,0.1); color: var(--accent-purple);
+      border: 1px solid rgba(167,139,250,0.2);
+    }
+    .pill.green { background: rgba(0,208,132,0.1); color: var(--emerald-2); border-color: rgba(0,230,118,0.25); }
+    .pill.amber { background: rgba(255,176,0,0.08); color: var(--amber); border-color: rgba(255,176,0,0.25); }
+    .pill.cyan { background: rgba(103,232,249,0.08); color: var(--accent-cyan); border-color: rgba(103,232,249,0.2); }
+    .pill.red { background: rgba(239,68,68,0.08); color: var(--accent-red); border-color: rgba(239,68,68,0.25); }
+    .nav { position: fixed; bottom: 24px; left: 32px; z-index: 50; display: flex; gap: 6px; align-items: center; }
+    .nav-btn {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: grid; place-items: center;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.02);
+      color: var(--text-dim); cursor: pointer;
+      transition: all 160ms;
+    }
+    .nav-btn:hover { background: rgba(0,208,132,0.15); color: var(--emerald-2); border-color: rgba(0,230,118,0.4); }
+    .progress-bar { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.04); z-index: 100; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--emerald), var(--emerald-2)); transition: width 360ms cubic-bezier(.22,1,.36,1); }
+    .grain {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.4; z-index: 0;
+      background-image: radial-gradient(circle at 20% 10%, rgba(0,208,132,0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 90%, rgba(255,176,0,0.06) 0%, transparent 50%);
+    }
+    .slide > * { position: relative; z-index: 1; }
+    .code-block {
+      font-family: 'JetBrains Mono', monospace; font-size: 13px;
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 20px;
+      color: #E2E8F0; line-height: 1.6;
+      overflow-x: auto;
+    }
+    .code-key { color: var(--accent-cyan); }
+    .code-str { color: var(--emerald-2); }
+    .code-cmt { color: var(--text-faint); font-style: italic; }
+    .code-fn { color: var(--accent-purple); }
+    .code-num { color: var(--amber); }
+    .mermaid { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; min-height: 0; }
+    .mermaid svg { max-width: 100% !important; max-height: 100% !important; width: auto !important; height: auto !important; }
+    .mermaid .nodeLabel { color: #F5F7FA !important; }
+    .mermaid .edgeLabel { background: var(--bg-1) !important; color: var(--text-dim) !important; padding: 2px 6px !important; border-radius: 4px; }
+    .keystroke {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px;
+      padding: 2px 6px; border-radius: 4px;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+    .grid-bg {
+      position: absolute; inset: 0; opacity: 0.4;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    }
+    .glow-emerald { box-shadow: 0 0 80px -20px rgba(0,208,132,0.5); }
+    .glow-amber { box-shadow: 0 0 80px -20px rgba(255,176,0,0.4); }
+    .stat-num { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+    .stat-label { font-size: 13px; color: var(--text-dim); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 8px; }
+    .check::before { content: '✓'; color: var(--emerald-2); font-weight: 700; margin-right: 8px; }
+    .cross::before { content: '✗'; color: var(--accent-red); font-weight: 700; margin-right: 8px; }
+    .arrow::before { content: '→'; color: var(--emerald-2); font-weight: 600; margin-right: 8px; }
+    .layer { border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; background: rgba(255,255,255,0.015); transition: all 240ms; }
+    .layer:hover { background: rgba(0,208,132,0.04); border-color: rgba(0,230,118,0.3); }
+    .cover-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(0,208,132,0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(255,176,0,0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(103,232,249,0.05) 0%, transparent 70%);
+    }
+    .blink { animation: blink 1.4s infinite; }
+    @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0.2} }
+    h2.section-h { font-size: 14px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+    .conf-emoji { font-size: 22px; }
+  </style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progress" style="width: 0%"></div></div>
+
+<div class="stage" id="stage">
+<div class="deck" id="deck">
+
+  <!-- =========== SLIDE 1: COVER =========== -->
+  <section class="slide active" data-title="Cover">
+    <div class="cover-bg"></div>
+    <div class="grid-bg"></div>
+    <div class="flex flex-col justify-center h-full max-w-5xl">
+      <div class="flex items-center gap-3 mb-8">
+        <img src="logo.png" alt="" class="w-12 h-12 rounded-lg" />
+        <span class="mono text-sm" style="color: var(--text-dim); letter-spacing: 0.2em;">AEGIS SPEC · v2.0</span>
+      </div>
+      <h1 class="font-black tracking-tighter" style="font-size: 96px; line-height: 0.95;">
+        Control Plane for <span style="background: linear-gradient(135deg, var(--emerald-2), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AI-assisted</span> code
+      </h1>
+      <p class="mt-6 text-2xl font-light" style="color: var(--text-dim); max-width: 880px; line-height: 1.4;">
+        Turn legacy systems into <span style="color: var(--text);">executable specifications</span> and keep them aligned as <span style="color: var(--emerald-2); font-weight: 500;">AI agents change the code</span>.
+      </p>
+      <div class="mt-12 flex items-center gap-6">
+        <span class="pill green">npm i -g aegis-spec</span>
+        <span class="mono text-sm" style="color: var(--text-faint);">github.com/Wellbrito29/Aegis</span>
+      </div>
+      <div class="mt-16 flex items-center gap-3 text-sm" style="color: var(--text-faint);">
+        <span class="keystroke">→</span> next
+        <span class="keystroke">←</span> back
+        <span class="keystroke">F</span> fullscreen
+        <span class="ml-4 blink">●</span> live demo
+      </div>
+    </div>
+  </section>
+
+  <!-- =========== SLIDE 2: PROBLEM =========== -->
+  <section class="slide" data-title="Problem">
+    <div class="grid-bg"></div>
+    <span class="slide-title-tag">● The problem</span>
+    <h1 class="slide-title">AI agents need specs to be safe</h1>
+    <p class="slide-subtitle">Greenfield: write spec, agent executes. Legacy or vibe-coded: no spec → agent has no idea what it cannot break.</p>
+
+    <div class="grid grid-cols-2 gap-6 mt-10 flex-1">
+      <div class="glass p-8 flex flex-col">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="pill red">WITHOUT AEGIS</span>
+          <span class="mono text-xs" style="color: var(--text-faint);">vibe-driven evolution</span>
+        </div>
+        <ul class="space-y-3 text-base" style="color: var(--text-dim);">
+          <li class="cross">10-year-old logic, no documentation</li>
+          <li class="cross">Implicit business rules nobody can cite</li>
+          <li class="cross">Agent rewrites a function, breaks an invariant</li>
+          <li class="cross">Drift between code and Confluence wiki</li>
+          <li class="cross">"Why did it work yesterday?" loop</li>
+          <li class="cross">Refactor blocked by fear of unknown contracts</li>
+        </ul>
+      </div>
+
+      <div class="glass-strong p-8 flex flex-col glow-emerald">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="pill green">WITH AEGIS</span>
+          <span class="mono text-xs" style="color: var(--text-faint);">spec-as-contract</span>
+        </div>
+        <ul class="space-y-3 text-base" style="color: var(--text);">
+          <li class="check">Specs extracted from real code, line-traceable</li>
+          <li class="check">Contracts marked 🟢 confirmed / 🟡 inferred / 🔴 gap</li>
+          <li class="check">Drift loop catches every diverging edit</li>
+          <li class="check">Policy gate blocks signature breaks at the PR</li>
+          <li class="check">Knowledge graph shows blast radius before merge</li>
+          <li class="check">Agents read specs first, then write</li>
+        </ul>
+      </div>
+    </div>
+    <span class="slide-num">02 / 12</span>
+  </section>
+
+  <!-- =========== SLIDE 3: THREE PILLARS =========== -->
+  <section class="slide" data-title="Three Pillars">
+    <div class="grid-bg"></div>
+    <span class="slide-title-tag">● Foundation</span>
+    <h1 class="slide-title">Three pillars</h1>
+    <p class="slide-subtitle">Specs are the contract. Graph is the ground truth. Keeper is the gate that keeps them aligned.</p>
+
+    <div class="grid grid-cols-3 gap-6 mt-10 flex-1">
+      <div class="glass-strong p-8 flex flex-col glow-emerald">
+        <div class="text-5xl font-black mb-4" style="color: var(--emerald-2);">📜</div>
+        <h2 class="text-2xl font-bold mb-3">Aegis Spec</h2>
+        <p class="text-sm mb-4" style="color: var(--text-dim);">Spec authority. Features, contracts, invariants, retroactive ADRs.</p>
+        <div class="mt-auto pt-4 border-t" style="border-color: var(--border);">
+          <div class="mono text-xs" style="color: var(--text-faint);">aegis/specs/sdd · adrs · openapi</div>
+        </div>
+      </div>
+
+      <div class="glass-strong p-8 flex flex-col glow-amber">
+        <div class="text-5xl font-black mb-4" style="color: var(--amber);">🛡️</div>
+        <h2 class="text-2xl font-bold mb-3">Keeper</h2>
+        <p class="text-sm mb-4" style="color: var(--text-dim);">Drift gate. Hooks queue edits, Keeper updates specs in 3 questions.</p>
+        <div class="mt-auto pt-4 border-t" style="border-color: var(--border);">
+          <div class="mono text-xs" style="color: var(--text-faint);">/aegis-keeper before · after</div>
+        </div>
+      </div>
+
+      <div class="glass-strong p-8 flex flex-col">
+        <div class="text-5xl font-black mb-4" style="color: var(--accent-cyan);">🕸️</div>
+        <h2 class="text-2xl font-bold mb-3">Graph</h2>
+        <p class="text-sm mb-4" style="color: var(--text-dim);">Codebase oracle. L0 file imports + L1 symbols/signatures via tree-sitter.</p>
+        <div class="mt-auto pt-4 border-t" style="border-color: var(--border);">
+          <div class="mono text-xs" style="color: var(--text-faint);">aegis graph build · impact</div>
+        </div>
+      </div>
+    </div>
+    <span class="slide-num">03 / 12</span>
+  </section>
+
+  <!-- =========== SLIDE 4: PIPELINE =========== -->
+  <section class="slide" data-title="Pipeline">
+    <div class="grid-bg"></div>
+    <span class="slide-title-tag">● Pipeline</span>
+    <h1 class="slide-title">4 stages — Specify, Understand, Guard, Deploy</h1>
+    <p class="slide-subtitle">Discovery extracts specs. Migration plans the rewrite. Build delegates to your coding agent. Control plane stops drift.</p>
+
+    <div class="flex-1 mt-6 grid grid-cols-2 gap-6">
+      <div class="flex items-center justify-center">
+        <img src="workflow.png" alt="Workflow" style="max-width: 100%; max-height: 460px;" class="rounded-lg" />
+      </div>
+      <div class="space-y-3">
+        <div class="layer">
+          <div class="flex items-center gap-2 mb-1"><span class="pill green">STAGE 1</span><div class="font-medium">Discovery</div></div>
+          <div class="text-sm" style="color: var(--text-dim);">Scout · Archaeologist · Detective · Architect · Writer · Reviewer → legacy code into <span class="mono">aegis/</span> specs.</div>
+        </div>
+        <div class="layer">
+          <div class="flex items-center gap-2 mb-1"><span class="pill amber">STAGE 2 (opt)</span><div class="font-medium">Migration</div></div>
+          <div class="text-sm" style="color: var(--text-dim);">Paradigm Advisor · Curator · Strategist · Designer · Inspector → migration plan + parity tests.</div>
+        </div>
+        <div class="layer">
+          <div class="flex items-center gap-2 mb-1"><span class="pill cyan">STAGE 3</span><div class="font-medium">Build</div></div>
+          <div class="text-sm" style="color: var(--text-dim);">Hand off to your coding agent (Claude · Codex · Cursor · Gemini · Kimi) — the migration plan drives new code.</div>
+        </div>
+        <div class="layer" style="border-color: rgba(0,230,118,0.3);">
+          <div class="flex items-center gap-2 mb-1"><span class="pill green">STAGE 4 ⭐</span><div class="font-medium">Control plane (this fork)</div></div>
+          <div class="text-sm" style="color: var(--text-dim);">Keeper + Graph + Policy gate (file-level + signature diff). Drift never lands.</div>
+        </div>
+      </div>
+    </div>
+    <span class="slide-num">04 / 12</span>
+  </section>
+
+  <!-- =========== SLIDE 5: DRIFT LOOP =========== -->
+  <section class="slide" data-title="Drift Loop">
+    <div class="grid-bg"></div>
+    <span class="slide-title-tag">● Drift loop</span>
+    <h1 class="slide-title">Hook · Queue · Keeper · CI gate</h1>
+    <p class="slide-subtitle">Every code edit emits an event. Keeper closes the loop. CI gate refuses PRs whose drift is unresolved.</p>
+
+    <div class="flex-1 mt-6 mermaid">
+flowchart LR
+  Edit["Edit a file<br/><small>code agent or human</small>"]
+  Hook["Engine hook<br/><small>~300ms append-only</small>"]
+  Queue[("keeper-queue.jsonl<br/><small>drift queue</small>")]
+  Stub["Stub in changelog/<br/><small>spec marked 🔴 pending</small>"]
+  Keeper["/aegis-keeper after<br/><small>3 questions</small>"]
+  Spec["Specs updated in-place<br/><small>🟢 confirmed</small>"]
+  PR["PR opened"]
+  CI["CI: aegis drift-check<br/>+ policy-check"]
+  Block["BLOCK<br/><small>drift pending or contract broken</small>"]
+  Pass["Ready for review<br/><small>blast radius posted</small>"]
+
+  Edit --> Hook --> Queue --> Stub
+  Stub --> Keeper --> Spec
+  Spec --> PR --> CI
+  CI -->|exit 1| Block
+  CI -->|exit 0| Pass
+
+  classDef ok fill:#0B1115,stroke:#00E676,color:#F5F7FA
+  classDef warn fill:#0B1115,stroke:#FFB000,color:#F5F7FA
+  classDef stop fill:#0B1115,stroke:#EF4444,color:#F5F7FA
+  class Edit,Hook,Queue ok
+  class Stub,Keeper warn
+  class Spec,Pass ok
+  class Block stop
+    </div>
+    <span class="slide-num">05 / 12</span>
+  </section>
+
+  <!-- =========== SLIDE 6: ARCHITECTURE =========== -->
+  <section class="slide" data-title="Architecture">
+    <div class="grid-bg"></div>
+    <span class="slide-title-tag">● Architecture</span>
+    <h1 class="slide-title">Layout v2 single-folder</h1>
+    <p class="slide-subtitle">Everything lives under <code class="mono">aegis/</code>. Config, specs, runtime, reports — one tree, one source of truth.</p>
+
+    <div class="grid grid-cols-2 gap-6 mt-10 flex-1">
+      <div class="glass p-6">
+        <h2 class="section-h">Folder layout</h2>
+        <pre class="code-block text-xs">aegis/
+  config/
+    state.json              <span class="code-cmt"># session state</span>
+    config.toml             <span class="code-cmt"># project</span>
+    auto-policy.yaml        <span class="code-cmt"># Keeper auto</span>
+    files-manifest.json     <span class="code-cmt"># SHA-256</span>
+  runtime/
+    context/
+      graph.json            <span class="code-cmt"># L0/L1 graph</span>
+      policy-index.json     <span class="code-cmt"># protected</span>
+    queue/keeper-queue.jsonl
+    audit/YYYY-MM-DD.jsonl
+  specs/
+    sdd/  adrs/  openapi/
+  reports/
+    drift.md  gaps.md  questions.md
+  architecture/
+    c4-context.md  c4-containers.md
+  traceability/
+    code-spec-matrix.md</pre>
+      </div>
+
+      <div class="space-y-4">
+        <div class="glass p-5">
+          <h2 class="section-h">CLI surface</h2>
+          <pre class="code-block text-xs">npx aegis-spec install
+npx aegis-spec graph build [--level L1]
+npx aegis-spec policy-index build
+npx aegis-spec policy-check --base origin/main
+npx aegis-spec drift-check --severity high
+npx aegis-spec keeper auto --dry-run
+npx aegis-spec add-hooks --engine claude-code</pre>
+        </div>
+        <div class="glass p-5">
+          <h2 class="section-h">Stack</h2>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="pill green">Node 18+</span>
+            <span class="pill">ESM only</span>
+            <span class="pill cyan">Babel L1 JS/TS</span>
+            <span class="pill amber">tree-sitter Py/Go/Java</span>
+            <span class="pill">Anthropic SDK opt</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="slide-num">06 / 12</span>
+  </section>
+
+  <!-- =========== SLIDE 7: AGENTS =========== -->
+  <section class="slide" data-title="Agents">
+    <div class="grid-bg"></div>
+    <span class="slide-title-tag">● Agents</span>
+    <h1 class="slide-title">29 specialized skills</h1>
+    <p class="slide-subtitle">Each agent ships as a SKILL.md installed into your engine of choice — Claude Code, Codex, Cursor, Gemini, Kimi, and 9 more.</p>
+
+    <div class="grid grid-cols-3 gap-5 mt-8 flex-1">
+      <div class="glass p-5">
+        <h2 class="section-h">Discovery (required)</h2>
+        <ul class="space-y-2 text-sm" style="color: var(--text-dim);">
+          <li><span class="font-medium" style="color: var(--text);">Aegis Spec</span> · orchestrator</li>
+          <li><span class="font-medium" style="color: var(--text);">Scout</span> · maps surface</li>
+          <li><span class="font-medium" style="color: var(--text);">Archaeologist</span> · deep code dive</li>
+          <li><span class="font-medium" style="color: var(--text);">Detective</span> · implicit rules + ADRs</li>
+          <li><span class="font-medium" style="color: var(--text);">Architect</span> · C4 + ERD synthesis</li>
+          <li><span class="font-medium" style="color: var(--text);">Writer</span> · spec generation</li>
+          <li><span class="font-medium" style="color: var(--text);">Reviewer</span> · validates gaps</li>
+        </ul>
+      </div>
+
+      <div class="glass p-5">
+        <h2 class="section-h">Migration team</h2>
+        <ul class="space-y-2 text-sm" style="color: var(--text-dim);">
+          <li><span class="font-medium" style="color: var(--text);">Migrate</span> · orchestrator</li>
+          <li><span class="font-medium" style="color: var(--text);">Paradigm Advisor</span></li>
+          <li><span class="font-medium" style="color: var(--text);">Curator</span> · keep / discard</li>
+          <li><span class="font-medium" style="color: var(--text);">Strategist</span> · Strangler / Big Bang</li>
+          <li><span class="font-medium" style="color: var(--text);">Designer</span> · target arch</li>
+          <li><span class="font-medium" style="color: var(--text);">Inspector</span> · parity Gherkin</li>
+        </ul>
+      </div>
+
+      <div class="glass p-5">
+        <h2 class="section-h">Forward + control</h2>
+        <ul class="space-y-2 text-sm" style="color: var(--text-dim);">
+          <li><span class="font-medium" style="color: var(--text);">Requirements</span> · idea → doc</li>
+          <li><span class="font-medium" style="color: var(--text);">Tech Brief · Plan · To-Do</span></li>
+          <li><span class="font-medium" style="color: var(--text);">Coding · Audit · Quality</span></li>
+          <li><span class="font-medium" style="color: var(--text);">Principles · Resume</span></li>
+          <li><span class="font-medium" style="color: var(--emerald-2);">Keeper ⭐</span> · drift gate</li>
+          <li><span class="font-medium" style="color: var(--text);">Visor · Data Master · Design System</span></li>
+        </ul>
+      </div>
+    </div>
+    <span class="slide-num">07 / 12</span>
+  </section>
+
+  <!-- =========== SLIDE 8: CONFIDENCE SCALE =========== -->
+  <section class="slide" data-title="Confidence Scale">
+    <div class="grid-bg"></div>
+    <span class="slide-title-tag">● Trust model</span>
+    <h1 class="slide-title">Every claim labelled with confidence</h1>
+    <p class="slide-subtitle">Hallucination is the mortal enemy of legacy specs. Aegis annotates every statement so humans know what to trust.</p>
+
+    <div class="grid grid-cols-3 gap-6 mt-12 flex-1">
+      <div class="glass-strong p-8 flex flex-col glow-emerald">
+        <div class="conf-emoji" style="font-size: 48px;">🟢</div>
+        <h2 class="text-2xl font-bold mt-4 mb-3" style="color: var(--emerald-2);">CONFIRMED</h2>
+        <p class="text-sm" style="color: var(--text-dim);">Extracted directly from code. Citable with file path and line number. Safe to cite in PRs.</p>
+        <div class="mono text-xs mt-auto pt-4 border-t" style="border-color: var(--border); color: var(--text-faint);">e.g. <span style="color: var(--emerald-2);">src/auth/login.js:42</span></div>
+      </div>
+
+      <div class="glass-strong p-8 flex flex-col glow-amber">
+        <div class="conf-emoji" style="font-size: 48px;">🟡</div>
+        <h2 class="text-2xl font-bold mt-4 mb-3" style="color: var(--amber);">INFERRED</h2>
+        <p class="text-sm" style="color: var(--text-dim);">Deduced from patterns or naming. May be wrong. Validate with stakeholder before relying on it.</p>
+        <div class="mono text-xs mt-auto pt-4 border-t" style="border-color: var(--border); color: var(--text-faint);">e.g. naming convention says retry, no test confirms</div>
+      </div>
+
+      <div class="glass-strong p-8 flex flex-col" style="border-color: rgba(239,68,68,0.4);">
+        <div class="conf-emoji" style="font-size: 48px;">🔴</div>
+        <h2 class="text-2xl font-bold mt-4 mb-3" style="color: var(--accent-red);">GAP</h2>
+        <p class="text-sm" style="color: var(--text-dim);">Not determinable from code alone. Lands in <code class="mono text-xs">aegis/reports/questions.md</code> for human resolution.</p>
+        <div class="mono text-xs mt-auto pt-4 border-t" style="border-color: var(--border); color: var(--text-faint);">e.g. business policy not in code</div>
+      </div>
+    </div>
+    <span class="slide-num">08 / 12</span>
+  </section>
+
+  <!-- =========== SLIDE 9: ENGINES =========== -->
+  <section class="slide" data-title="Engines">
+    <div class="grid-bg"></div>
+    <span class="slide-title-tag">● Engines</span>
+    <h1 class="slide-title">14 supported engines, one install</h1>
+    <p class="slide-subtitle">Aegis ships skills, entry files, and hooks that work across Claude Code, Codex, Cursor, Kimi, Opencode, and more.</p>
+
+    <div class="grid grid-cols-4 gap-4 mt-8 flex-1">
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill green">⭐</span><div class="font-medium">Claude Code</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">CLAUDE.md · /aegis</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill green">⭐</span><div class="font-medium">Codex</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">AGENTS.md</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill green">⭐</span><div class="font-medium">Cursor</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">.cursorrules</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">Gemini CLI</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">GEMINI.md</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">Windsurf</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">.windsurfrules</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">Antigravity</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">AGENTS.md</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">Opencode</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">AGENTS.md</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">Kimi CLI</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">AGENTS.md</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">Cline</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">.clinerules</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">Roo Code</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">.roorules</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">GitHub Copilot</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">.github/copilot-*.md</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">Aider</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">CONVENTIONS.md</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">Amazon Q</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">.amazonq/rules/</div></div>
+      <div class="layer"><div class="flex items-center gap-2"><span class="pill">·</span><div class="font-medium">Kiro</div></div><div class="mono text-xs mt-1" style="color: var(--text-dim);">aegis/skills/</div></div>
+    </div>
+
+    <div class="mt-6 mono text-xs" style="color: var(--text-faint);">
+      Detection by project marker (.claude/, .cursorrules, …) or global binary in PATH.
+    </div>
+    <span class="slide-num">09 / 12</span>
+  </section>
+
+  <!-- =========== SLIDE 10: STATS =========== -->
+  <section class="slide" data-title="Stats">
+    <div class="grid-bg"></div>
+    <span class="slide-title-tag">● Numbers</span>
+    <h1 class="slide-title">Project at a glance</h1>
+    <p class="slide-subtitle">Compact codebase, broad coverage. v2.0 single-folder layout, MIT, Node-18-or-newer, zero non-optional native deps.</p>
+
+    <div class="grid grid-cols-4 gap-5 mt-12">
+      <div class="glass p-7"><div class="stat-num" style="color: var(--emerald-2);">29</div><div class="stat-label">specialized skills</div></div>
+      <div class="glass p-7"><div class="stat-num" style="color: var(--amber);">14</div><div class="stat-label">engines supported</div></div>
+      <div class="glass p-7"><div class="stat-num" style="color: var(--accent-cyan);">16</div><div class="stat-label">CLI subcommands</div></div>
+      <div class="glass p-7"><div class="stat-num" style="color: var(--accent-purple);">5</div><div class="stat-label">L1 languages (JS/TS/Py/Go/Java)</div></div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-5 mt-6">
+      <div class="layer">
+        <h2 class="section-h">Test coverage</h2>
+        <div class="text-3xl font-bold" style="color: var(--emerald-2);">82% line</div>
+        <p class="text-sm mt-2" style="color: var(--text-dim);">342 tests on Node 18 / 20 / 22</p>
+      </div>
+      <div class="layer">
+        <h2 class="section-h">Codebase size</h2>
+        <div class="text-3xl font-bold" style="color: var(--emerald-2);">~8.4k LOC</div>
+        <p class="text-sm mt-2" style="color: var(--text-dim);">85 .js files, no build step</p>
+      </div>
+      <div class="layer">
+        <h2 class="section-h">Docs</h2>
+        <div class="text-3xl font-bold" style="color: var(--emerald-2);">3 langs</div>
+        <p class="text-sm mt-2" style="color: var(--text-dim);">EN · PT · ES via mkdocs-i18n</p>
+      </div>
+    </div>
+
+    <div class="mt-8 flex gap-3">
+      <span class="pill green">✓ MIT License</span>
+      <span class="pill green">✓ ESM only</span>
+      <span class="pill green">✓ Zero required native deps</span>
+      <span class="pill green">✓ CI on Node 18/20/22</span>
+    </div>
+    <span class="slide-num">10 / 12</span>
+  </section>
+
+  <!-- =========== SLIDE 11: ROADMAP =========== -->
+  <section class="slide" data-title="Roadmap">
+    <div class="grid-bg"></div>
+    <span class="slide-title-tag">● Roadmap</span>
+    <h1 class="slide-title">Where it's going</h1>
+    <p class="slide-subtitle">Phases 1–13 shipped: hooks, L0+L1 graph, drift loop, policy gates, Keeper auto, audit + redaction. Next: bot adoption, OTel, more languages.</p>
+
+    <div class="grid grid-cols-2 gap-6 mt-10 flex-1">
+      <div class="glass p-6">
+        <h2 class="section-h">Shipped</h2>
+        <ul class="space-y-2 text-sm" style="color: var(--text-dim);">
+          <li class="check">P1 — lightweight hooks (append-only JSONL)</li>
+          <li class="check">P2 — L0 import graph (5 languages)</li>
+          <li class="check">P3 — graph store + queries + impact</li>
+          <li class="check">P4 — policy-index + policy-check</li>
+          <li class="check">P5 — Keeper auto (whitelist + LLM)</li>
+          <li class="check">P10 — smart signature gate</li>
+          <li class="check">P12 — audit log + redaction</li>
+          <li class="check">P13 — bot scaffold + CI templates</li>
+        </ul>
+      </div>
+      <div class="glass p-6">
+        <h2 class="section-h">Next</h2>
+        <ul class="space-y-2 text-sm" style="color: var(--text-dim);">
+          <li class="arrow">More L1 languages (Rust, C#)</li>
+          <li class="arrow">OpenTelemetry traces per agent</li>
+          <li class="arrow">Bot turnkey (GitHub App)</li>
+          <li class="arrow">Spec versioning + diff history</li>
+          <li class="arrow">Dashboard for drift / blast radius</li>
+          <li class="arrow">Cost guardrails for Keeper auto</li>
+          <li class="arrow">Pluggable LLM provider (Bedrock, Vertex)</li>
+        </ul>
+      </div>
+    </div>
+    <span class="slide-num">11 / 12</span>
+  </section>
+
+  <!-- =========== SLIDE 12: OUTRO =========== -->
+  <section class="slide" data-title="Thanks">
+    <div class="cover-bg"></div>
+    <div class="grid-bg"></div>
+    <div class="flex flex-col justify-center h-full max-w-5xl">
+      <div class="flex items-center gap-3 mb-8">
+        <img src="logo.png" alt="" class="w-12 h-12 rounded-lg" />
+        <span class="mono text-sm" style="color: var(--text-dim); letter-spacing: 0.2em;">AEGIS SPEC · v2.0</span>
+      </div>
+      <h1 class="font-black tracking-tighter" style="font-size: 84px; line-height: 0.95;">
+        <span style="background: linear-gradient(135deg, var(--emerald-2), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Specify · Protect · Detect · Assure</span>
+      </h1>
+      <p class="mt-6 text-2xl font-light" style="color: var(--text-dim); max-width: 880px; line-height: 1.4;">
+        Specs are the contract. Graph is the ground truth. Keeper is the gate.
+      </p>
+      <div class="mt-12 flex items-center gap-6">
+        <span class="pill green">npm i -g aegis-spec</span>
+        <span class="mono text-sm" style="color: var(--text-faint);">github.com/Wellbrito29/Aegis</span>
+        <span class="mono text-sm" style="color: var(--text-faint);">wellbrito29.github.io/Aegis</span>
+      </div>
+      <div class="mt-12 text-base" style="color: var(--text-dim);">questions?</div>
+    </div>
+    <span class="slide-num">12 / 12</span>
+  </section>
+
+</div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn" id="prev" title="Previous (←)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="nav-btn" id="next" title="Next (→)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <span class="mono text-xs ml-3" id="counter" style="color: var(--text-faint);">01 / 12</span>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+
+  function show(idx) {
+    if (idx < 0 || idx >= total) return;
+    const dir = idx > current ? 1 : -1;
+    slides[current].classList.remove('active');
+    if (dir === 1) slides[current].classList.add('exit');
+    else slides[current].classList.remove('exit');
+    current = idx;
+    slides[current].classList.add('active');
+    slides[current].classList.remove('exit');
+    counter.textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    progress.style.width = ((idx + 1) / total * 100) + '%';
+    history.replaceState(null, '', '#' + (idx + 1));
+  }
+
+  document.getElementById('prev').onclick = () => show(current - 1);
+  document.getElementById('next').onclick = () => show(current + 1);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(current + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(current - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); show(0); }
+    else if (e.key === 'End') { e.preventDefault(); show(total - 1); }
+    else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  let tx = 0;
+  document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+  });
+
+  const h = parseInt(location.hash.slice(1));
+  if (h && h >= 1 && h <= total) show(h - 1);
+  else show(0);
+
+  const stage = document.getElementById('stage');
+  function fit() {
+    const sx = window.innerWidth / 1600;
+    const sy = window.innerHeight / 900;
+    const s = Math.min(sx, sy);
+    stage.style.transform = 'scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+
+</body>
+</html>

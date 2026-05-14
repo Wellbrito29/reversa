@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.png" alt="Aegis Spec" width="100%">
+</p>
+
 # Aegis Spec
 
 **Turn legacy systems into executable specifications for AI agents.**

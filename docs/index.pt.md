@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.png" alt="Aegis Spec" width="100%">
+</p>
+
 # Aegis Spec
 
 **Transforme sistemas legados em especificações executáveis por agentes de IA.**
