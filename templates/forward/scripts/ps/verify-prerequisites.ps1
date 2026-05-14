@@ -1,5 +1,5 @@
 # verify-prerequisites.ps1
-# Helper genérico de pré-condições, chamado pelos skills forward do Reversa.
+# Helper genérico de pré-condições, chamado pelos skills forward do Aegis.
 # Saída padrão JSON em uma única linha.
 #
 # Uso:
@@ -20,10 +20,11 @@ $ErrorActionPreference = 'Stop'
 
 $scriptDir   = Split-Path -Parent $PSCommandPath
 $projectRoot = (Resolve-Path (Join-Path $scriptDir '..\..')).Path
-$reversaDir  = Join-Path $projectRoot '.reversa'
-$sddDir      = Join-Path $projectRoot '_reversa_sdd'
-$forwardDir  = Join-Path $projectRoot '_reversa_forward'
-$active      = Join-Path $reversaDir 'active-requirements.json'
+$aegisDir    = Join-Path $projectRoot 'aegis'
+$configDir   = Join-Path $aegisDir 'config'
+$sddDir      = Join-Path $aegisDir 'specs/sdd'
+$forwardDir  = Join-Path $aegisDir 'forward'
+$active      = Join-Path $configDir 'active-requirements.json'
 
 $missing  = New-Object System.Collections.Generic.List[string]
 $featureDir = ''
@@ -68,7 +69,7 @@ function Test-One {
       if (-not (Test-Path -LiteralPath $sddDir -PathType Container)) { $missing.Add('sdd') | Out-Null }
     }
     'principles' {
-      if (-not (Test-Path -LiteralPath (Join-Path $reversaDir 'principles.md'))) { $missing.Add('principles') | Out-Null }
+      if (-not (Test-Path -LiteralPath (Join-Path $configDir 'principles.md'))) { $missing.Add('principles') | Out-Null }
     }
     default {
       $missing.Add("desconhecido:$Name") | Out-Null
@@ -82,7 +83,7 @@ foreach ($r in $Require) {
 
 $result = [ordered]@{
   'project-root'         = $projectRoot
-  'reversa-dir'          = $reversaDir
+  'aegis-dir'            = $aegisDir
   'sdd-dir'              = $sddDir
   'forward-dir'          = $forwardDir
   'active-requirements'  = $active

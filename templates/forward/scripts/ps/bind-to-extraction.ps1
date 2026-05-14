@@ -1,5 +1,5 @@
 # bind-to-extraction.ps1
-# Helper que lê _reversa_sdd/ e devolve um JSON com as fontes canônicas que os skills forward devem consultar.
+# Helper que lê aegis/ e devolve um JSON com as fontes canônicas que os skills forward devem consultar.
 #
 # Uso:
 #   bind-to-extraction.ps1 [-Json] [-For <comando>]
@@ -9,9 +9,9 @@
 # -For to-do          architecture, code-analysis
 # -For audit          architecture, domain
 # -For coding         architecture, domain, code-analysis
-# sem -For            todos os arquivos do _reversa_sdd
+# sem -For            todos os arquivos canônicos em aegis/
 #
-# Códigos de saída: 0 ok, 1 _reversa_sdd ausente, 2 uso inválido.
+# Códigos de saída: 0 ok, 1 aegis/ ausente, 2 uso inválido.
 
 [CmdletBinding()]
 param(
@@ -23,28 +23,28 @@ $ErrorActionPreference = 'Stop'
 
 $scriptDir   = Split-Path -Parent $PSCommandPath
 $projectRoot = (Resolve-Path (Join-Path $scriptDir '..\..')).Path
-$sddDir      = Join-Path $projectRoot '_reversa_sdd'
+$aegisDir    = Join-Path $projectRoot 'aegis'
 
-if (-not (Test-Path -LiteralPath $sddDir -PathType Container)) {
-  Write-Error "$sddDir nao existe. rode a pipeline reversa antes."
+if (-not (Test-Path -LiteralPath $aegisDir -PathType Container)) {
+  Write-Error "$aegisDir nao existe. rode a pipeline de extração antes."
   exit 1
 }
 
 $wanted = switch ($For) {
-  'requirements' { @('architecture.md','domain.md','inventory.md') }
-  'plan'         { @('architecture.md','c4-context.md','state-machines.md','dependencies.md','code-analysis.md') }
-  'to-do'        { @('architecture.md','code-analysis.md') }
-  'todo'         { @('architecture.md','code-analysis.md') }
-  'audit'        { @('architecture.md','domain.md') }
-  'coding'       { @('architecture.md','domain.md','code-analysis.md') }
-  default        { @('architecture.md','c4-context.md','code-analysis.md','confidence-report.md','dependencies.md','domain.md','inventory.md','questions.md','state-machines.md') }
+  'requirements' { @('architecture/architecture.md','reports/domain.md','reports/inventory.md') }
+  'plan'         { @('architecture/architecture.md','architecture/c4-context.md','reports/state-machines.md','reports/dependencies.md','reports/code-analysis.md') }
+  'to-do'        { @('architecture/architecture.md','reports/code-analysis.md') }
+  'todo'         { @('architecture/architecture.md','reports/code-analysis.md') }
+  'audit'        { @('architecture/architecture.md','reports/domain.md') }
+  'coding'       { @('architecture/architecture.md','reports/domain.md','reports/code-analysis.md') }
+  default        { @('architecture/architecture.md','architecture/c4-context.md','reports/code-analysis.md','reports/confidence-report.md','reports/dependencies.md','reports/domain.md','reports/inventory.md','reports/questions.md','reports/state-machines.md') }
 }
 
 $present = New-Object System.Collections.Generic.List[string]
 $absent  = New-Object System.Collections.Generic.List[string]
 
 foreach ($f in $wanted) {
-  $full = Join-Path $sddDir $f
+  $full = Join-Path $aegisDir $f
   if (Test-Path -LiteralPath $full) {
     $present.Add($full) | Out-Null
   } else {
@@ -53,10 +53,10 @@ foreach ($f in $wanted) {
 }
 
 $result = [ordered]@{
-  'sdd-dir' = $sddDir
-  'target'  = $For
-  'present' = @($present)
-  'absent'  = @($absent)
+  'aegis-dir' = $aegisDir
+  'target'    = $For
+  'present'   = @($present)
+  'absent'    = @($absent)
 }
 
 if ($Json) {

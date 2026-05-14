@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # verify-prerequisites.sh
-# Helper genérico de pré-condições, chamado pelos skills forward do Reversa.
+# Helper genérico de pré-condições, chamado pelos skills forward do Aegis.
 #
 # Saída padrão JSON em uma única linha. O agente lê e age conforme os campos.
 # Sem dependências externas além de bash, jq opcional.
@@ -10,13 +10,13 @@
 #   verify-prerequisites.sh [--json] [--require <campo>] [--require <campo>] ...
 #
 # Campos suportados em --require:
-#   active-requirements   Exige que .reversa/active-requirements.json exista.
+#   active-requirements   Exige que aegis/config/active-requirements.json exista.
 #   feature-dir           Exige que a pasta apontada por active-requirements exista.
 #   requirements          Exige feature-dir/requirements.md.
 #   roadmap               Exige feature-dir/roadmap.md.
 #   actions               Exige feature-dir/actions.md.
-#   sdd                   Exige _reversa_sdd/ presente.
-#   principles            Exige .reversa/principles.md.
+#   sdd                   Exige aegis/specs/sdd/ presente.
+#   principles            Exige aegis/config/principles.md.
 #
 # Códigos de saída:
 #   0 = todos os requisitos batem
@@ -27,10 +27,11 @@ set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-REVERSA_DIR="$PROJECT_ROOT/.reversa"
-SDD_DIR="$PROJECT_ROOT/_reversa_sdd"
-FORWARD_DIR="$PROJECT_ROOT/_reversa_forward"
-ACTIVE="$REVERSA_DIR/active-requirements.json"
+AEGIS_DIR="$PROJECT_ROOT/aegis"
+CONFIG_DIR="$AEGIS_DIR/config"
+SDD_DIR="$AEGIS_DIR/specs/sdd"
+FORWARD_DIR="$AEGIS_DIR/forward"
+ACTIVE="$CONFIG_DIR/active-requirements.json"
 
 JSON_MODE=0
 REQUIRES=()
@@ -77,7 +78,7 @@ check_one() {
       [ -d "$SDD_DIR" ] || missing+=("sdd")
       ;;
     principles)
-      [ -f "$REVERSA_DIR/principles.md" ] || missing+=("principles")
+      [ -f "$CONFIG_DIR/principles.md" ] || missing+=("principles")
       ;;
     *)
       missing+=("desconhecido:$name")
@@ -92,7 +93,7 @@ done
 emit_json() {
   printf '{'
   printf '"project-root":"%s",' "$PROJECT_ROOT"
-  printf '"reversa-dir":"%s",' "$REVERSA_DIR"
+  printf '"aegis-dir":"%s",' "$AEGIS_DIR"
   printf '"sdd-dir":"%s",' "$SDD_DIR"
   printf '"forward-dir":"%s",' "$FORWARD_DIR"
   printf '"active-requirements":"%s",' "$ACTIVE"

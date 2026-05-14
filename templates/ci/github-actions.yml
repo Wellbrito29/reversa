@@ -7,7 +7,7 @@
 #
 # Requires:
 #   - Node 18+ (for `npx aegis-spec`)
-#   - `_aegis_sdd/sdd/` with frontmatter `contracts:` / `protected_files:`
+#   - `aegis/specs/sdd/` with frontmatter `contracts:` / `protected_files:`
 #   - The PR base ref fetched (we set `fetch-depth: 0`)
 
 name: aegis-policy

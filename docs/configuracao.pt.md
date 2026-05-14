@@ -8,17 +8,20 @@ O Aegis Spec guarda toda a sua configuração e estado da análise dentro da pas
 
 ```
 aegis/
-├── state.json          ← estado da análise entre sessões
-├── config.toml         ← configuração do projeto
-├── config.user.toml    ← suas preferências pessoais (não commitar)
-├── plan.md             ← plano de exploração (você pode editar)
-├── version             ← versão instalada do Aegis Spec
-├── context/
-│   ├── surface.json    ← dados gerados pelo Scout
-│   └── modules.json    ← dados gerados pelo Archaeologist
-└── _config/
-    ├── manifest.yaml           ← metadados da instalação
-    └── files-manifest.json     ← hashes SHA-256 para updates seguros
+├── config/
+│   ├── state.json              ← estado da análise entre sessões
+│   ├── config.toml             ← configuração do projeto
+│   ├── config.user.toml        ← preferências pessoais (não commitar)
+│   ├── manifest.yaml           ← metadados da instalação
+│   └── files-manifest.json     ← hashes SHA-256 para updates seguros
+├── plan.md                     ← plano de exploração (você pode editar)
+├── version                     ← versão instalada do Aegis Spec
+├── runtime/
+│   └── context/
+│       ├── surface.json        ← dados gerados pelo Scout
+│       └── modules.json        ← dados gerados pelo Archaeologist
+├── specs/                      ← specs geradas (sdd, adrs, openapi, …)
+└── reports/                    ← relatórios gerados (drift, gaps, …)
 ```
 
 ---
@@ -36,13 +39,13 @@ language = "pt-br"
 installed = ["aegis", "scout", "archaeologist", "detective", "architect", "writer", "reviewer"]
 
 [output]
-folder = "_aegis_sdd"
+folder = "aegis"
 
 [engines]
 active = ["claude-code"]
 ```
 
-Você pode mudar o `folder` de saída se preferir um nome diferente de `_aegis_sdd`.
+Você pode mudar o `folder` de saída se preferir um nome diferente de `aegis`.
 
 ---
 
@@ -84,7 +87,7 @@ Controla como o Reviewer levanta perguntas de validação para você:
 | Modo | Comportamento |
 |------|---------------|
 | `chat` (padrão) | As perguntas aparecem no chat, uma a uma. Você responde na conversa. |
-| `file` | O Reviewer gera um arquivo `aegis/questions.md` com todas as perguntas. Você preenche e avisa quando terminar. |
+| `file` | O Reviewer gera um arquivo `aegis/reports/questions.md` com todas as perguntas. Você preenche e avisa quando terminar. |
 
 O modo `file` é útil quando há muitas perguntas e você quer responder com calma, fora da sessão.
 

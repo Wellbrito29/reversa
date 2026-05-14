@@ -8,17 +8,20 @@ Aegis Spec guarda toda su configuración y estado del análisis dentro de la car
 
 ```
 aegis/
-├── state.json          ← estado del análisis entre sesiones
-├── config.toml         ← configuración del proyecto
-├── config.user.toml    ← tus preferencias personales (no commitear)
-├── plan.md             ← plan de exploración (puedes editarlo)
-├── version             ← versión instalada de Aegis Spec
-├── context/
-│   ├── surface.json    ← datos generados por Scout
-│   └── modules.json    ← datos generados por Archaeologist
-└── _config/
-    ├── manifest.yaml           ← metadatos de la instalación
-    └── files-manifest.json     ← hashes SHA-256 para updates seguros
+├── config/
+│   ├── state.json              ← estado del análisis entre sesiones
+│   ├── config.toml             ← configuración del proyecto
+│   ├── config.user.toml        ← preferencias personales (no commitear)
+│   ├── manifest.yaml           ← metadatos de la instalación
+│   └── files-manifest.json     ← hashes SHA-256 para updates seguros
+├── plan.md                     ← plan de exploración (puedes editarlo)
+├── version                     ← versión instalada de Aegis Spec
+├── runtime/
+│   └── context/
+│       ├── surface.json        ← datos generados por Scout
+│       └── modules.json        ← datos generados por Archaeologist
+├── specs/                      ← specs generadas (sdd, adrs, openapi, …)
+└── reports/                    ← reportes generados (drift, gaps, …)
 ```
 
 ---
@@ -34,7 +37,7 @@ language = "es"
 installed = ["aegis", "scout", "archaeologist", "detective", "architect", "writer", "reviewer"]
 
 [output]
-folder = "_aegis_sdd"
+folder = "aegis"
 
 [engines]
 active = ["claude-code"]
@@ -60,7 +63,7 @@ answer_mode = "chat"  # "chat" o "file"
 | Modo | Comportamiento |
 |------|----------------|
 | `chat` (por defecto) | Las preguntas aparecen en el chat, una a una. Respondes en la conversación. |
-| `file` | El Reviewer genera un archivo `aegis/questions.md` con todas las preguntas. Lo rellenas y avisas cuando termines. |
+| `file` | El Reviewer genera un archivo `aegis/reports/questions.md` con todas las preguntas. Lo rellenas y avisas cuando termines. |
 
 ---
 

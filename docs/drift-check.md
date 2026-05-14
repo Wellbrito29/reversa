@@ -39,7 +39,7 @@ npx aegis-spec drift-check [--format text|json] [--severity high|medium|low] [--
 
 ### `--folder`
 
-Override the output folder. By default, reads `output_folder` from `aegis/config/state.json` and falls back to `_aegis_sdd`.
+Override the output folder. By default, reads `output_folder` from `aegis/config/state.json` and falls back to `aegis`.
 
 ---
 

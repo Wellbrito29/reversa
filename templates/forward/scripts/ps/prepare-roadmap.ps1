@@ -1,5 +1,5 @@
 # prepare-roadmap.ps1
-# Helper específico do skill /reversa-plan.
+# Helper específico do skill /aegis-plan.
 # Garante que a pasta da feature ativa exista e devolve caminhos absolutos prontos.
 #
 # Uso:
@@ -16,12 +16,12 @@ $ErrorActionPreference = 'Stop'
 
 $scriptDir   = Split-Path -Parent $PSCommandPath
 $projectRoot = (Resolve-Path (Join-Path $scriptDir '..\..')).Path
-$reversaDir  = Join-Path $projectRoot '.reversa'
-$sddDir      = Join-Path $projectRoot '_reversa_sdd'
-$active      = Join-Path $reversaDir 'active-requirements.json'
+$aegisDir    = Join-Path $projectRoot 'aegis'
+$configDir   = Join-Path $aegisDir 'config'
+$active      = Join-Path $configDir 'active-requirements.json'
 
 if (-not (Test-Path -LiteralPath $active)) {
-  Write-Error "$active nao existe. rode reversa-requirements antes."
+  Write-Error "$active nao existe. rode aegis-requirements antes."
   exit 1
 }
 
@@ -56,7 +56,7 @@ $onboardingPath    = Join-Path $featureDir 'onboarding.md'
 
 $result = [ordered]@{
   'project-root' = $projectRoot
-  'sdd-dir'      = $sddDir
+  'aegis-dir'    = $aegisDir
   'feature-dir'  = $featureDir
   'requirements' = [ordered]@{
     path    = $requirementsPath
@@ -70,7 +70,7 @@ $result = [ordered]@{
   'data-delta'     = $dataDeltaPath
   'onboarding'     = $onboardingPath
   'interfaces-dir' = $interfacesDir
-  'template'       = (Join-Path $reversaDir 'templates\roadmap-template.md')
+  'template'       = (Join-Path $aegisDir 'runtime/templates/roadmap-template.md')
 }
 
 if ($Json) {

@@ -39,7 +39,7 @@ npx aegis-spec drift-check [--format text|json] [--severity high|medium|low] [--
 
 ### `--folder`
 
-Override do output folder. Por padrão lê `output_folder` de `aegis/config/state.json` com fallback `_aegis_sdd`.
+Override do output folder. Por padrão lê `output_folder` de `aegis/config/state.json` com fallback `aegis`.
 
 ---
 

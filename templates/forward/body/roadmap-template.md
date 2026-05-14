@@ -4,7 +4,7 @@ Carregado por /aegis-plan.
 
 REGRAS DE PREENCHIMENTO:
 - Escreva como DELTA sobre o legado, jamais redescreva a arquitetura inteira.
-- Cite componentes do _aegis_sdd/ por nome literal.
+- Cite componentes do aegis/ por nome literal.
 - Marque cada decisão com 🟢 / 🟡 / 🔴 conforme a confidência da fonte que a sustenta.
 - Decisões dependentes de [DÚVIDA] aceitas como premissa entram com 🟡 e aparecem em "Premissas".
 - Detalhes profundos de modelo de dados vão para data-delta.md, não aqui.
@@ -54,13 +54,13 @@ Cada premissa precisa virar item resolvível em /aegis-doubt no futuro.
 ## 5. Delta arquitetural
 
 <!--
-Liste apenas os componentes do `_aegis_sdd/architecture.md` que mudam.
+Liste apenas os componentes do `aegis/architecture/architecture.md` que mudam.
 Para cada um, descreva o tipo de mudança em uma linha.
 -->
 
 | Componente | Arquivo de origem no legado | Tipo de mudança | Resumo |
 |------------|------------------------------|-----------------|--------|
-| <nome> | `_aegis_sdd/architecture.md#<id>` | regra-alterada / componente-novo / componente-extinto / contrato-novo / contrato-alterado / contrato-removido | <uma linha> |
+| <nome> | `aegis/architecture/architecture.md#<id>` | regra-alterada / componente-novo / componente-extinto / contrato-novo / contrato-alterado / contrato-removido | <uma linha> |
 
 ## 6. Delta no modelo de dados
 

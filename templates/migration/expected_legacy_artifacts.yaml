@@ -1,8 +1,8 @@
-# Lista declarativa de artefatos esperados em _aegis_sdd/ antes de iniciar a migração.
+# Lista declarativa de artefatos esperados em aegis/ antes de iniciar a migração.
 # Atualizar esta lista é uma mudança de configuração; não exige reedição do agente aegis-migrate.
 #
 # Cada entrada:
-#   path: caminho relativo dentro de _aegis_sdd/
+#   path: caminho relativo dentro de aegis/
 #   kind: identificador lógico do artefato (informativo, não estritamente validado contra front-matter)
 #   required: true bloqueia o pipeline se ausente; false apenas loga aviso
 #   minSchemaVersion: versão mínima esperada de schemaVersion (informativo; ausência tolerada hoje)

@@ -15,7 +15,7 @@ hash: "sha256:<hash do corpo abaixo do front-matter>"
 ## Itens descartados
 
 ### BR-DESCARTAR-001
-- **Origem**: `_aegis_sdd/<unit>/{requirements,design}.md` § <seção>
+- **Origem**: `aegis/specs/sdd/<unit>/{requirements,design}.md` § <seção>
 - **Descrição**: <regra ou comportamento descartado>
 - **Justificativa**: <texto>
 - **Vinculado a paradigma**: sim | não

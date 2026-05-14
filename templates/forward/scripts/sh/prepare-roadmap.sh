@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # prepare-roadmap.sh
-# Helper específico do skill /reversa-plan.
+# Helper específico do skill /aegis-plan.
 # Garante que a pasta da feature ativa esteja pronta para receber roadmap, investigation, data-delta, onboarding e interfaces/.
 # Emite JSON com caminhos absolutos prontos para o agente usar.
 #
@@ -18,9 +18,9 @@ set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-REVERSA_DIR="$PROJECT_ROOT/.reversa"
-SDD_DIR="$PROJECT_ROOT/_reversa_sdd"
-ACTIVE="$REVERSA_DIR/active-requirements.json"
+AEGIS_DIR="$PROJECT_ROOT/aegis"
+CONFIG_DIR="$AEGIS_DIR/config"
+ACTIVE="$CONFIG_DIR/active-requirements.json"
 
 JSON_MODE=0
 while [ $# -gt 0 ]; do
@@ -31,7 +31,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ ! -f "$ACTIVE" ]; then
-  echo "erro: $ACTIVE nao existe. rode reversa-requirements antes." >&2
+  echo "erro: $ACTIVE nao existe. rode aegis-requirements antes." >&2
   exit 1
 fi
 
@@ -60,7 +60,7 @@ roadmap_already=0
 if [ $JSON_MODE -eq 1 ]; then
   printf '{'
   printf '"project-root":"%s",' "$PROJECT_ROOT"
-  printf '"sdd-dir":"%s",' "$SDD_DIR"
+  printf '"aegis-dir":"%s",' "$AEGIS_DIR"
   printf '"feature-dir":"%s",' "$feature_dir"
   printf '"requirements":{"path":"%s","present":%s},' "$requirements_path" "$requirements_present"
   printf '"roadmap":{"path":"%s","already-exists":%s},' "$roadmap_path" "$roadmap_already"
@@ -68,7 +68,7 @@ if [ $JSON_MODE -eq 1 ]; then
   printf '"data-delta":"%s",' "$data_delta_path"
   printf '"onboarding":"%s",' "$onboarding_path"
   printf '"interfaces-dir":"%s",' "$interfaces_dir"
-  printf '"template":"%s"' "$REVERSA_DIR/templates/roadmap-template.md"
+  printf '"template":"%s"' "$AEGIS_DIR/runtime/templates/roadmap-template.md"
   printf '}\n'
 else
   echo "feature-dir: $feature_dir"
