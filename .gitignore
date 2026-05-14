@@ -9,3 +9,5 @@ site/
 specs/
 .opencode/
 aegis/
+.test-tmp/
+coverage/
