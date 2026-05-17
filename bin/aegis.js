@@ -25,6 +25,7 @@ const commands = {
   'policy-index':     () => import('../lib/commands/policy-index.js'),
   'policy-check':     () => import('../lib/commands/policy-check.js'),
   'keeper':           () => import('../lib/commands/keeper-auto.js'),
+  'state':            () => import('../lib/commands/state.js'),
   'migrate-reversa':  () => import('../lib/commands/migrate-reversa.js'),
   'migrate-layout':   () => import('../lib/commands/migrate-layout.js'),
 };

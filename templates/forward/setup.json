@@ -1,22 +1,22 @@
 {
-  "schema-version": 1,
-  "aegis-version": "{{VERSION}}",
-  "installed-at": "{{INSTALLED_AT}}",
-  "project-name": "{{PROJECT_NAME}}",
-  "prefix-format": "sequencial",
+  "schema_version": 1,
+  "aegis_version": "{{VERSION}}",
+  "installed_at": "{{INSTALLED_AT}}",
+  "project_name": "{{PROJECT_NAME}}",
+  "prefix_format": "sequencial",
   "language": "pt-BR",
   "watch": {
-    "archive-after": 3,
-    "block-on-red": false
+    "archive_after": 3,
+    "block_on_red": false
   },
   "paths": {
-    "sdd-dir": "aegis/specs/sdd",
-    "forward-dir": "aegis/forward",
-    "config-dir": "aegis/config"
+    "sdd_dir": "aegis/specs/sdd",
+    "forward_dir": "aegis/forward",
+    "config_dir": "aegis/config"
   },
   "principles": {
     "enabled": true,
-    "auto-load-into-plan": true
+    "auto_load_into_plan": true
   },
   "telemetry": {
     "enabled": false

@@ -26,7 +26,7 @@ Execute as tarefas do plano **sequencialmente, uma por vez**:
 2. Ative o skill `aegis-[agente]` correspondente. Se a engine não suportar ativação direta de skills por nome, leia `aegis/skills/aegis-[agente]/SKILL.md` na íntegra e execute no contexto atual.
 3. Após conclusão:
    - Salve checkpoint em `aegis/config/state.json` seguindo `references/checkpoint-guide.md`
-   - Marque a tarefa com ✅ em `aegis/plan.md`
+   - **Espelhe checkpoint em `aegis/plan.md`**: para cada item da fase concluída, troque `[ ]` por `[x]` ou prefixe com ✅. Faça isso lendo o `state.json.completed` recém-salvo e marcando todas as tarefas correspondentes em `plan.md`. Nunca deixe plan.md desincronizado de state.json.
    - **Gere compressão de contexto**: leia `references/step-05-session-compression.md` e crie/atualize o resumo da sessão em `aegis/runtime/session-summaries/`
 4. Apresente resumo breve do que foi gerado.
 
