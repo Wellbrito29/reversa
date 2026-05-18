@@ -48,13 +48,13 @@ Fonte: `AEGIS_AGENTS_EVAL.md` · 2026-05-18
 
 ---
 
-## Sprint 5 — Forward bootstrap ⬜
+## Sprint 5 — Forward bootstrap ✅ (commit b29cc68)
 
-| # | Status | Problema | O que fará |
+| # | Status | Problema | O que fez |
 |---|--------|----------|-----------|
-| T18 | ⬜ | `aegis-coding` exige `architecture.md` no path literal `aegis/` — v2 moveu para `aegis/architecture/architecture.md`, check pode falhar silenciosamente | Auditar e corrigir todos os path checks em `aegis-coding` contra layout v2 |
-| T19 | ⬜ | Paths de saída do forward team (`audit/`, `quality/`, etc.) não padronizados no SKILL — inconsistência entre agentes | Padronizar: `feature-dir/audit/`, `feature-dir/quality/`, etc. em todos os SKILLs do Forward |
-| T20 | ⬜ | `aegis-doubt` integra respostas diretamente no `requirements.md` — se usuário editou o arquivo manualmente entre runs, integração pode quebrar markdown | Auditar comportamento de patch e adicionar guard ou diff seguro |
+| T18 | ✅ | `aegis-coding` exige `architecture.md` no path literal `aegis/` — v2 moveu para `aegis/architecture/architecture.md`, check pode falhar silenciosamente | Check line 40 corrigido: `aegis/architecture/architecture.md` (path completo). Compatível v2 |
+| T19 | ✅ | Paths de saída do forward team (`audit/`, `quality/`, etc.) não padronizados no SKILL — inconsistência entre agentes | `aegis-quality` output movido para `feature-dir/quality/`. Demais agents já corretos (coding, audit, doubt, plan, to-do, resume) |
+| T20 | ✅ | `aegis-doubt` integra respostas diretamente no `requirements.md` — se usuário editou o arquivo manualmente entre runs, integração pode quebrar markdown | Guards adicionados: se `[DÚVIDA]` ausente ou trecho editado >50%, pula patch e só registra em Esclarecimentos com warning |
 
 ---
 

@@ -224,11 +224,11 @@ Severidade + dependência considerada. IDs ligados aos issues acima.
 - [ ] **T16** [W-04] Skipped — confidence marker linter opcional, baixa prioridade.
 - [x] **T17** [R-02] Reviewer anexa nova run em `confidence-report.md` com delimiter `---\n## Run [ts]` em vez de sobrescrever. Histórico preservado.
 
-### Sprint 5 — Forward bootstrap
+### Sprint 5 — Forward bootstrap — STATUS: concluído (b29cc68)
 
-- [ ] **T18** [F-02] Verificar paths em aegis-coding contra v2 layout (`aegis/architecture/architecture.md` vs `aegis/architecture.md`).
-- [ ] **T19** [F-03, F-04, F-05, F-06] Padronizar paths das saídas forward (`feature-dir/audit/`, `feature-dir/quality/`, etc).
-- [ ] **T20** [F-04] Audit `aegis-doubt` patch behavior contra `requirements.md` editado manualmente.
+- [x] **T18** [F-02] aegis-coding check line 40: `aegis/architecture/architecture.md` (full path) vs ambíguo `architecture.md`. Path correto para v2.
+- [x] **T19** [F-03, F-04, F-05, F-06] aegis-quality output movido de `feature-dir/audit/` para `feature-dir/quality/`. Demais agents já corretos.
+- [x] **T20** [F-04] aegis-doubt: guards adicionados — se `[DÚVIDA]` ausente ou texto editado >50%, pula patch e avisa usuário. Não sobrescreve edits manuais.
 
 ### Sprint 6 — UX/DX
 
