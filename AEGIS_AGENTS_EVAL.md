@@ -217,12 +217,12 @@ Severidade + dependência considerada. IDs ligados aos issues acima.
 - [x] **T12** [K-06] `lib/auto/deleted-ref-cleaner.js`: varre `aegis/specs/**/*.md`, encontra refs ao arquivo deletado, reescreve via LLM com hint de deleção. 5 testes.
 - [x] **T13** [K-09, X-08] Pre-commit hook opt-in no installer: `installGitHook()` wired em `install.js`, prompt `install_git_hook` em `prompts.js`. Roda `aegis policy-check --severity medium` no staged diff.
 
-### Sprint 4 — Writer/Architect/Detective non-destructive controlado
+### Sprint 4 — Writer/Architect/Detective non-destructive controlado — STATUS: concluído (72e8e0d)
 
-- [ ] **T14** [W-01, AR-01] Flag `--force` ou `--regenerate <arquivo>` em writer/architect/detective. Documentar.
-- [ ] **T15** [W-02] Salvar `redator_progress` em state.json a cada arquivo gerado. Resume usa.
-- [ ] **T16** [W-04] Schema linter pra confidence markers (🟢🟡🔴) — opcional.
-- [ ] **T17** [R-02] `confidence-report.md` histórico (não overwrite) — anexar nova run ao final.
+- [x] **T14** [W-01, AR-01] SKILLs documentam `--force` (regenera tudo) e `--regenerate <file>` (regenera arquivo específico). Override controlado de non-destructive.
+- [x] **T15** [W-02] `state.json.redator_progress` adicionado. Writer salva `{"last_unit": "...", "last_file": "..."}` após cada arquivo. Resume oferece "continuar de onde parou".
+- [ ] **T16** [W-04] Skipped — confidence marker linter opcional, baixa prioridade.
+- [x] **T17** [R-02] Reviewer anexa nova run em `confidence-report.md` com delimiter `---\n## Run [ts]` em vez de sobrescrever. Histórico preservado.
 
 ### Sprint 5 — Forward bootstrap
 

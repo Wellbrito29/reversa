@@ -37,14 +37,14 @@ Fonte: `AEGIS_AGENTS_EVAL.md` · 2026-05-18
 
 ---
 
-## Sprint 4 — Writer/Architect/Detective non-destructive ⬜
+## Sprint 4 — Writer/Architect/Detective non-destructive ✅ (commit 72e8e0d)
 
-| # | Status | Problema | O que fará |
+| # | Status | Problema | O que fez |
 |---|--------|----------|-----------|
-| T14 | ⬜ | Writer/Architect são non-destructive estritos — único jeito de rerodar é deletar specs manualmente. Sem `--force` documentado | Adicionar flag `--force` / `--regenerate <arquivo>` nos três agentes e documentar comportamento |
-| T15 | ⬜ | `state.json.redator_progress` citado no SKILL mas ausente no JSON real — Writer interrompido não tem como resumir onde parou | Salvar progresso do Writer em `state.json` a cada arquivo gerado, para que resume funcione corretamente |
-| T16 | ⬜ | Confidence markers (🟢🟡🔴) são convenção textual — nada valida se estão presentes/corretos | Linter de schema opcional que verifica presença dos markers nas specs |
-| T17 | ⬜ | `confidence-report.md` é regerado a cada run, sobrescrevendo histórico — impossível ver regressão de qualidade ao longo do tempo | Mudar para modo append: cada run anexa ao final do arquivo em vez de sobrescrever |
+| T14 | ✅ | Writer/Architect são non-destructive estritos — único jeito de rerodar é deletar specs manualmente. Sem `--force` documentado | SKILLs documentam `--force` (all) e `--regenerate <file>` (single). Agentes interpretam via prompt, não precisa código CLI |
+| T15 | ✅ | `state.json.redator_progress` citado no SKILL mas ausente no JSON real — Writer interrompido não tem como resumir onde parou | `templates/state.json` agora tem `redator_progress: null`. Writer salva `{"last_unit", "last_file"}` após cada arquivo. Resume oferece retomar vs restart |
+| T16 | ⬜ | Confidence markers (🟢🟡🔴) são convenção textual — nada valida se estão presentes/corretos | Skipped — opcional, baixa prioridade |
+| T17 | ✅ | `confidence-report.md` é regerado a cada run, sobrescrevendo histórico — impossível ver regressão de qualidade ao longo do tempo | Reviewer anexa runs com `---\n## Run [timestamp]` delimiter. Histórico preservado |
 
 ---
 
