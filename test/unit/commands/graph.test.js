@@ -99,3 +99,20 @@ test('graph deps: target file not in graph → exit 2', async (t) => {
   const r = await runCommand(GRAPH, ['deps', 'nonexistent.js'], { cwd: root });
   assert.equal(r.exitCode, 2);
 });
+
+test('graph stats: no graph → exit 1', async (t) => {
+  const root = makeTmpProject();
+  t.after(() => cleanup(root));
+  const r = await runCommand(GRAPH, ['stats'], { cwd: root });
+  assert.equal(r.exitCode, 1);
+  assert.match(r.stderr, /No graph found/);
+});
+
+test('graph build --since: non-git repo → exit 1', async (t) => {
+  const root = makeTmpProject();
+  t.after(() => cleanup(root));
+  seedJsProject(root);
+  const r = await runCommand(GRAPH, ['build', '--since=HEAD'], { cwd: root });
+  assert.equal(r.exitCode, 1);
+  assert.match(r.stderr, /Not a git repository/);
+});

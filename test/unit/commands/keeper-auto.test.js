@@ -79,3 +79,29 @@ test('keeper-auto: text format prints summary line', async (t) => {
   assert.match(r.stdout, /\[dry-run\]/);
   assert.match(r.stdout, /auto.*review.*escalate/);
 });
+
+test('keeper-auto: missing aegis/ → exit 1', async (t) => {
+  const root = makeTmpProject();
+  t.after(() => cleanup(root));
+  // Don't create aegis/ directory
+  const r = await runCommand(CMD, ['auto', '--dry-run', '--format=json'], { cwd: root });
+  assert.equal(r.exitCode, 1);
+  const parsed = JSON.parse(r.stdout);
+  assert.match(parsed.error, /aegis\/ not found/);
+});
+
+test('keeper-auto: live mode without ANTHROPIC_API_KEY → exit 1', async (t) => {
+  const root = makeTmpProject();
+  t.after(() => cleanup(root));
+  writeFile(root, 'aegis/config/auto-policy.yaml', 'auto_resolve:\n  enabled: true\n');
+  const originalKey = process.env.ANTHROPIC_API_KEY;
+  delete process.env.ANTHROPIC_API_KEY;
+  try {
+    const r = await runCommand(CMD, ['auto', '--format=json'], { cwd: root });
+    assert.equal(r.exitCode, 1);
+    const parsed = JSON.parse(r.stdout);
+    assert.match(parsed.error, /ANTHROPIC_API_KEY not set/);
+  } finally {
+    if (originalKey) process.env.ANTHROPIC_API_KEY = originalKey;
+  }
+});

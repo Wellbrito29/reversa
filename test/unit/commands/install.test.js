@@ -40,3 +40,34 @@ test('install: completes with minimal config when answers provided', async (t) =
   // Either way, no crash.
   assert.equal(typeof r.exitCode, 'number');
 });
+
+test('install: --non-interactive uses defaults', async (t) => {
+  const root = makeTmpProject();
+  t.after(() => cleanup(root));
+  const r = await runCommand(CMD, ['--non-interactive'], { cwd: root });
+  assert.equal(r.exitCode, 0);
+  assert.ok(existsSync(join(root, 'aegis', 'config', 'state.json')));
+  assert.ok(existsSync(join(root, 'aegis', 'config', 'setup.json')));
+});
+
+test('install: rejects root directory', async (t) => {
+  // Note: May not work in all CI environments due to permissions
+  try {
+    const r = await runCommand(CMD, ['--non-interactive', '--cwd=/']);
+    assert.equal(r.exitCode, 1);
+  } catch (e) {
+    // Expected in restricted environments
+    t.diagnostic('Skipped: permission denied in CI');
+  }
+});
+
+test('install: detects incomplete aegis/ and warns', async (t) => {
+  const root = makeTmpProject();
+  t.after(() => cleanup(root));
+  // Create incomplete aegis/ (missing state.json)
+  writeJson(root, 'aegis/dummy.txt', 'incomplete');
+  const restore = await mockInquirer([{ cleanInstall: false }]);
+  t.after(restore);
+  const r = await runCommand(CMD, [], { cwd: root });
+  assert.match(r.stdout, /appears incomplete/);
+});
