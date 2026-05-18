@@ -37,7 +37,7 @@ A verificação é estrita: `aegis/` precisa existir como diretório E conter pe
        >
        > Execute `/aegis` para gerar a extração do legado e depois volte para cá. Sem esse contexto, `legacy-impact.md` e `regression-watch.md` ficariam sem âncora e o ciclo forward perderia seu diferencial.
 
-   3.2. Se `aegis/` existir mas faltar `architecture.md`, aborte com a mensagem:
+   3.2. Se `aegis/` existir mas faltar `aegis/architecture/architecture.md`, aborte com a mensagem:
 
        > 🛑 `/aegis-coding` exige `aegis/architecture/architecture.md` (gerado pelo Architect na pipeline de descoberta). O arquivo está ausente, talvez a extração tenha sido parcial.
        >

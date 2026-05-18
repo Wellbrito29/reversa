@@ -62,8 +62,8 @@ Ao final do relatório, emita uma de três classificações:
 
 ## Persistência
 
-- Crie `feature-dir/audit/` se não existir
-- Grave `requirements-audit.md` com escrita atômica
+- Crie `feature-dir/quality/` se não existir
+- Grave `feature-dir/quality/requirements-audit.md` com escrita atômica
 - Sempre rewrite completo
 
 ## Ganchos Pós-execução

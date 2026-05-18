@@ -77,6 +77,8 @@ Aguarde o usuário responder. Se ele responder apenas algumas, prossiga apenas c
    3.1. Adicione um item em formato `- **Q:** <pergunta>` mais `**R:** <resposta>`
    3.2. Localize o trecho do requirements onde a dúvida vivia
    3.3. Reescreva o trecho in-place, removendo o `[DÚVIDA]` correspondente
+       - Se `[DÚVIDA]` não existe mais (usuário removeu manualmente), pule rewrite e só registre em Esclarecimentos
+       - Se trecho foi editado substancialmente (>50% diff), pule rewrite e avise usuário via nota: "⚠️ Texto ao redor da dúvida foi editado manualmente — integração pulada"
 4. Atualize a seção `## Lacunas` removendo entradas resolvidas e mantendo as não resolvidas
 
 ## Persistência
