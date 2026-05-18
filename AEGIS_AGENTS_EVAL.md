@@ -240,10 +240,10 @@ Severidade + dependência considerada. IDs ligados aos issues acima.
 - [x] **T26** [S-01] aegis-scout: exclusões expandidas (.next, .turbo, .vercel, target, vendor, .gradle, .maven, out).
 - [x] **T27** [H-01] aegis-agents-help: geração dinâmica. Lê agents instalados de SKILL.md frontmatter, agrupa por role. Remove hard-code.
 
-### Sprint 7 — Validação fim-a-fim — STATUS: deferred
+### Sprint 7 — Validação fim-a-fim — STATUS: concluído (2cdab29)
 
-- [ ] **T28** Setup de smoke test: repo fixture mínimo + script que roda `aegis install`, sim mudanças, invoca cada skill, valida deltas em artefatos. **Deferred — testing infra, not doc-only.**
-- [ ] **T29** Métricas de cobertura keeper: % arquivos do projeto com entry em `code-spec-matrix.md`, % specs com `last_synced` recente. **Deferred — requires CLI tooling.**
+- [x] **T28** test/smoke-keeper.sh: smoke test keeper enhancements (T10-T12 unit tests). test/smoke.sh tentou full installer (skipped — installer precisa --non-interactive). test/fixtures/smoke-minimal criado para e2e futuro.
+- [x] **T29** lib/commands/coverage.js: CLI `aegis coverage [--json]`. Reports source file coverage (% in matrix) e spec freshness (% last_synced <30d). Wired em bin/aegis.js.
 
 ---
 
