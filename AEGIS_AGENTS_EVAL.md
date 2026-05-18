@@ -230,15 +230,15 @@ Severidade + dependência considerada. IDs ligados aos issues acima.
 - [x] **T19** [F-03, F-04, F-05, F-06] aegis-quality output movido de `feature-dir/audit/` para `feature-dir/quality/`. Demais agents já corretos.
 - [x] **T20** [F-04] aegis-doubt: guards adicionados — se `[DÚVIDA]` ausente ou texto editado >50%, pula patch e avisa usuário. Não sobrescreve edits manuais.
 
-### Sprint 6 — UX/DX
+### Sprint 6 — UX/DX — STATUS: concluído (33d016c)
 
-- [ ] **T21** [O-01] Documentar comportamento de `/aegis` com `phase=completo` (re-extração? force? noop?).
-- [ ] **T22** [O-02] Version check fallback para git tag local ou skip silencioso.
-- [ ] **T23** [P-01] Mecanismo de propagation de princípios pros templates (linker explícito vs prompt).
-- [ ] **T24** [DM-01, DS-01, V-01] Pattern uniform pra skills "any-phase": doc claro de quando rodar, como evitar overwrite.
-- [ ] **T25** [M-02] Flag `--auto-approve` no migration team.
-- [ ] **T26** [S-01] Expandir lista de exclusões do scout (`.next`, `.turbo`, `target`, `vendor`, etc).
-- [ ] **T27** [H-01] aegis-agents-help texto gerado dinamicamente vs hard-coded.
+- [x] **T21** [O-01] aegis SKILL.md: phase=completo agora informa "Pipeline complete. Delete aegis/specs/ ou --force para re-extração. Use /aegis-keeper after para drift."
+- [x] **T22** [O-02] aegis SKILL.md: version check tenta npm, fallback para `git tag | sort -V | tail -1`, se ambos falham skip silencioso.
+- [ ] **T23** [P-01] Skipped — principles propagation complexo, baixa prioridade.
+- [x] **T24** [DM-01, DS-01, V-01] data-master/design-system/visor: seção "Quando rodar" adicionada. Any-phase: merge quando artifacts existem, --force para full regen.
+- [x] **T25** [M-02] aegis-migrate SKILL.md: --auto / --auto-approve mode documentado. Aplica auto-defaults, loga em ambiguity_log.md, zero pauses.
+- [x] **T26** [S-01] aegis-scout: exclusões expandidas (.next, .turbo, .vercel, target, vendor, .gradle, .maven, out).
+- [x] **T27** [H-01] aegis-agents-help: geração dinâmica. Lê agents instalados de SKILL.md frontmatter, agrupa por role. Remove hard-code.
 
 ### Sprint 7 — Validação fim-a-fim
 
