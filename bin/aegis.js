@@ -26,6 +26,7 @@ const commands = {
   'policy-check':     () => import('../lib/commands/policy-check.js'),
   'keeper':           () => import('../lib/commands/keeper-auto.js'),
   'state':            () => import('../lib/commands/state.js'),
+  'coverage':         () => import('../lib/commands/coverage.js'),
   'migrate-reversa':  () => import('../lib/commands/migrate-reversa.js'),
   'migrate-layout':   () => import('../lib/commands/migrate-layout.js'),
 };
@@ -72,6 +73,8 @@ if (!command || command === '--help' || command === '-h') {
   '                               --format=text|json  --severity=high|medium|low\n' +
   '    keeper auto        Auto-resolve drift via LLM (whitelist + classifier)\n' +
   '                       Opções: --dry-run  --max-specs=N  --format=text|json\n' +
+  '    coverage           Métricas de cobertura keeper (% arquivos, % specs fresh)\n' +
+  '                       Opções: --format=text|json\n' +
   '    migrate-reversa    Migra instalação Reversa → Aegis Spec (.reversa → aegis)\n' +
   '    migrate-layout     Migra layout antigo → pasta única aegis/ (v2.0+)\n' +
   '\n' +
