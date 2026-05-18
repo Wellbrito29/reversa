@@ -212,9 +212,9 @@ Severidade + dependência considerada. IDs ligados aos issues acima.
 ### Sprint 3 — Keeper robustez
 
 - [x] **T09** [K-04, K-07] Keeper SKILL.md expande read path: `domain.md` (cruza RN-XX por linha), `state-machines.md`, `permissions.md`, `architecture/*.md` sempre lidos quando relevantes.
-- [ ] **T10** [K-03] Optional AST/regex matcher em keeper pra detectar mudança de string-literal/regex/número entre código e spec.
-- [ ] **T11** [K-05] Mapeamento de arquivo novo→spec menos frágil: usar graph reverse-deps quando matrix não tem match.
-- [ ] **T12** [K-06] Arquivo deletado: keeper remove referências ao arquivo dentro das specs impactadas (não só matrix).
+- [x] **T10** [K-03] `lib/auto/literal-extractor.js`: extrai literais do diff, cruza com spec, injeta hint no prompt do spec-writer. 10 testes.
+- [x] **T11** [K-05] `lib/auto/spec-resolver.js`: fallback graph reverse-deps quando matrix não tem match para arquivo novo. 6 testes.
+- [x] **T12** [K-06] `lib/auto/deleted-ref-cleaner.js`: varre `aegis/specs/**/*.md`, encontra refs ao arquivo deletado, reescreve via LLM com hint de deleção. 5 testes.
 - [x] **T13** [K-09, X-08] Pre-commit hook opt-in no installer: `installGitHook()` wired em `install.js`, prompt `install_git_hook` em `prompts.js`. Roda `aegis policy-check --severity medium` no staged diff.
 
 ### Sprint 4 — Writer/Architect/Detective non-destructive controlado
