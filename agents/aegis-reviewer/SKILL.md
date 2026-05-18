@@ -126,7 +126,10 @@ Aguarde o usuário sinalizar conclusão. Então leia o arquivo e processe todas 
 
 ### 6. Relatório de confiança final
 
-Após processar todas as respostas (ou se não houver lacunas), gere `aegis/reports/confidence-report.md` seguindo `references/confidence-report-template.md`.
+Após processar todas as respostas (ou se não houver lacunas), gere ou atualiza `aegis/reports/confidence-report.md`:
+
+- Se arquivo não existe: cria seguindo `references/confidence-report-template.md`.
+- Se já existe: anexa nova run ao final com delimiter `\n---\n## Run [timestamp]\n...` preservando histórico. Não sobrescreve.
 
 Se houve revisão cruzada, inclua uma seção adicional no relatório:
 ```

@@ -12,6 +12,7 @@
   "completed": [],
   "pending": ["reconhecimento", "escavacao", "interpretacao", "geracao", "revisao"],
   "checkpoints": {},
+  "redator_progress": null,
   "engines": [],
   "agents": [],
   "created_files": []

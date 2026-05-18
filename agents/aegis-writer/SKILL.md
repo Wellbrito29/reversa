@@ -94,6 +94,7 @@ Estes ficam fora das pastas de unit, na hierarquia padrão do `<output_folder>/`
 1. Resolva a lista de units conforme a tabela de `granularity` acima.
 2. Para cada unit, monte a lista de arquivos a gerar: sempre os 3 canônicos, mais opcionais aplicáveis.
 3. Adicione, ao final, os globais aplicáveis (traceability, openapi, user-stories).
+4. Checa `state.json.redator_progress`: se não-null e `last_file` presente, ofereça "Resumir de onde parou (unit X, arquivo Y) ou começar do zero?". Se null, inicia do zero.
 
 Apresente o plano ao usuário neste formato (ajuste o idioma conforme `chat_language`):
 
@@ -125,7 +126,7 @@ Para cada item do plano, em sequência:
 2. Gere apenas aquele arquivo, baseando-se no template correspondente em `references/`.
 3. Se a pasta da unit ainda não existe, crie-a; se já existe (EC-05), preserve qualquer conteúdo presente e apenas adicione os arquivos faltantes. Nunca sobrescreva arquivos já existentes sem confirmação.
 4. Marque o item como concluído no plano.
-5. Salve o progresso em `aegis/config/state.json` (campo `redator_progress`).
+5. Salve o progresso em `aegis/config/state.json` (campo `redator_progress` — estrutura: `{"last_unit": "nome", "last_file": "arquivo.md"}`). Sempre sobrescrever progresso anterior.
 6. Informe: `"✅ [arquivo] concluído. Próximo: [próximo item]. Digite CONTINUAR para prosseguir."`
 7. Pare e aguarde a resposta do usuário.
 
@@ -211,3 +212,7 @@ Cada tarefa cita o arquivo do legado de onde o comportamento foi extraído. Crit
 ## Diretiva non-destructive
 
 Nunca apague, mova ou modifique pastas e arquivos já existentes em `<output_folder>/`. Em caso de pasta de unit pré-existente sob `<output_folder>/specs/sdd/`, adicione apenas os arquivos faltantes. Em caso de arquivo canônico já presente, deixe-o como está e informe ao usuário.
+
+### Override: `--force` / `--regenerate <file>`
+
+Se usuário especificar `--force` (regenera todos os artefatos) ou `--regenerate <filepath>` (regenera arquivo específico), sobrescreva arquivo existente conforme solicitado. Backup não obrigatório — usuário assume risco. Use apenas quando drift entre código e spec exige reescrita total.

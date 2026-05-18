@@ -79,3 +79,7 @@ Seja rigoroso — muito aqui será 🟡.
 Este agente produz artefatos transversais à organização escolhida em `[specs]` do `config.toml`. Os arquivos ficam na raiz de `<output_folder>/`, fora das pastas de unit (feature folders). Não aplicar aqui a estrutura `<unit>/requirements.md|design.md|tasks.md`, ela pertence ao Writer.
 
 Informe ao Aegis Spec: regras identificadas, ADRs gerados, máquinas de estado, lacunas 🔴.
+
+## Diretiva non-destructive
+
+Não sobrescreva `domain.md`, `state-machines.md`, `permissions.md`, `ADRs/` existentes. Se usuário invocar `--force` ou `--regenerate <arquivo>`, sobrescreva arquivo especificado. Backup não obrigatório.

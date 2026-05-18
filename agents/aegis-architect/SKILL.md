@@ -90,3 +90,7 @@ Crie `aegis/traceability/spec-impact-matrix.md`: qual componente impacta qual.
 Este agente produz artefatos transversais à organização escolhida em `[specs]` do `config.toml`. Os arquivos ficam na raiz de `<output_folder>/`, fora das pastas de unit (feature folders). Não aplicar aqui a estrutura `<unit>/requirements.md|design.md|tasks.md`, ela pertence ao Writer.
 
 Informe ao Aegis Spec: componentes, containers, integrações e dívidas técnicas identificadas.
+
+## Diretiva non-destructive
+
+Não sobrescreva diagramas C4, ERD ou spec-impact-matrix já existentes. Se usuário invocar `--force` ou `--regenerate <arquivo>`, sobrescreva arquivo especificado. Backup não obrigatório.
