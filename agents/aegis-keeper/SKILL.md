@@ -60,9 +60,11 @@ Leia **apenas** as specs identificadas (não todas — preserve tokens). Para ca
 
 - Contratos de API (assinaturas, parâmetros, tipos de retorno)
 - Invariantes 🟢 (regras que o código deve manter)
-- Regras de negócio 🟢 (do `aegis/reports/domain.md` quando referenciado)
+- Regras de negócio 🟢 — leia SEMPRE `aegis/reports/domain.md` e cruze entradas `RN-XX` com os arquivos alterados pelos números de linha citados em "Onde:". Uma mudança que altera linha citada em uma RN invalida a regra mesmo que a spec SDD não a referencie.
 - ADRs aplicáveis (`aegis/specs/adrs/`)
-- State machines impactadas (`aegis/reports/state-machines.md`)
+- State machines impactadas — leia SEMPRE `aegis/reports/state-machines.md` quando o diff toca arquivo que implementa transição
+- Permissões — leia `aegis/reports/permissions.md` quando há mudança em arquivo de auth/RBAC/middleware
+- Architecture — quando mudança envolve container/componente declarado, leia `aegis/architecture/architecture.md`, `c4-containers.md`, `c4-components.md`
 
 ### Passo 4 — Apresentar briefing
 

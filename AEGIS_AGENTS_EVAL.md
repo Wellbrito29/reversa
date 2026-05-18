@@ -202,20 +202,20 @@ Severidade + dependência considerada. IDs ligados aos issues acima.
 - [x] **T03** [X-06] Hint adicionado no fim do installer ("Run `aegis graph build` once..."). Não auto-roda pra não travar install em repos grandes.
 - [x] **T04** [X-04, X-05, F-01] `lib/paths.js` ganha `FORWARD_DIR` + `ACTIVE_REQUIREMENTS_JSON`. `writer.js` cria diretório forward + bootstrap json `{active:null,paused-features:[]}`. 330 tests verdes.
 
-### Sprint 2 — Reconciliação de estado
+### Sprint 2 — Reconciliação de estado — STATUS: concluído (39cb646)
 
-- [ ] **T05** [X-03] Função `reconcileState()` que compara `state.json.checkpoints[*].outputs` com FS. Reportar/limpar entries órfãs.
-- [ ] **T06** [O-04] Orquestrador atualiza `plan.md` checkboxes após cada checkpoint salvo.
-- [ ] **T07** [X-12, X-10] Unificar naming convention em config (escolher snake_case). Migration script pra projetos existentes.
-- [ ] **T08** [X-11] Garantir `files-manifest.json` é gravado em toda instalação e read pelo updater.
+- [x] **T05** [X-03] `reconcileState()` + `pruneStaleCheckpoints()` em `lib/state/reconcile.js`. CLI `aegis state reconcile [--prune] [--json]`. 8 unit tests.
+- [x] **T06** [O-04] `agents/aegis/SKILL.md` instrui orquestrador a espelhar `state.json.completed` em `plan.md` após cada checkpoint.
+- [x] **T07** [X-12, X-10] `templates/forward/setup.json` migrado kebab→snake_case. `migrateSetupJson()` roda em install e update (idempotente). 4 unit tests.
+- [x] **T08** [X-11] Confirmado: `buildManifest/saveManifest` já estava wired em install/update/uninstall. Gap era state de projeto específico, não código.
 
 ### Sprint 3 — Keeper robustez
 
-- [ ] **T09** [K-04, K-07] Keeper passo 4 expande read path: `domain.md`, `state-machines.md`, `permissions.md`, `architecture/*.md` sempre incluídos.
+- [x] **T09** [K-04, K-07] Keeper SKILL.md expande read path: `domain.md` (cruza RN-XX por linha), `state-machines.md`, `permissions.md`, `architecture/*.md` sempre lidos quando relevantes.
 - [ ] **T10** [K-03] Optional AST/regex matcher em keeper pra detectar mudança de string-literal/regex/número entre código e spec.
 - [ ] **T11** [K-05] Mapeamento de arquivo novo→spec menos frágil: usar graph reverse-deps quando matrix não tem match.
 - [ ] **T12** [K-06] Arquivo deletado: keeper remove referências ao arquivo dentro das specs impactadas (não só matrix).
-- [ ] **T13** [K-09, X-08] Pre-commit hook opcional no installer que escreve em `keeper-queue.jsonl`. Prompt durante install.
+- [x] **T13** [K-09, X-08] Pre-commit hook opt-in no installer: `installGitHook()` wired em `install.js`, prompt `install_git_hook` em `prompts.js`. Roda `aegis policy-check --severity medium` no staged diff.
 
 ### Sprint 4 — Writer/Architect/Detective non-destructive controlado
 
