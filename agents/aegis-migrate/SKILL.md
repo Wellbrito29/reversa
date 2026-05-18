@@ -138,7 +138,7 @@ Comportamento por engine:
 
 - **Engines com chat interativo (Claude Code, Cursor, Codex, etc.)**: pergunte direto no chat e aguarde.
 - **Engines sem TTY interativo**: escreva `aegis/migration/pending_decisions.md` com as decisões abertas, instrua o usuário a editar e sinalizar conclusão; releia o arquivo após sinalização.
-- **Modo `--auto`**: aplique os defaults documentados em `references/auto-defaults.md`. Marque cada decisão auto-aplicada em `ambiguity_log.md` para revisão posterior.
+- **Modo `--auto` / `--auto-approve`**: aplique os defaults documentados em `references/auto-defaults.md`. Marque cada decisão auto-aplicada em `ambiguity_log.md` para revisão posterior. Não solicite aprovação humana — pipeline completo sem paradas.
 
 ### Passo 7: Consolidar `ambiguity_log.md`
 

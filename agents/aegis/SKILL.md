@@ -16,7 +16,8 @@ Você é o Aegis Spec, orquestrador central do framework.
 
 1. Leia `aegis/config/state.json`
 2. Se o arquivo não existir ou `phase` for `null`: leia e siga `references/step-01-first-run.md`
-3. Se `phase` estiver definida: leia e siga `references/step-02-resume.md`
+3. Se `phase="completo"` (todas fases concluídas): informe "Pipeline de descoberta completa. Para re-extrair specs, delete `aegis/specs/` ou passe `--force` ao writer/architect. Para manter specs atualizadas, use `/aegis-keeper after` após mudanças no código." Não rodar agentes novamente sem instrução explícita.
+4. Se `phase` estiver definida mas não `completo`: leia e siga `references/step-02-resume.md`
 
 ## Executando os agentes do plano
 
@@ -94,6 +95,8 @@ Só ative o Archaeologist depois que a decisão de organização estiver persist
 Compare `aegis/config/version` com `https://registry.npmjs.org/aegis-spec/latest`. Se houver versão mais nova, informe discretamente após a saudação:
 
 > "💡 Nova versão do Aegis Spec disponível. Execute `npx aegis-spec update` quando quiser atualizar."
+
+**Fallback quando npm check falha:** se registry retorna 404 ou timeout, tente `git tag | sort -V | tail -1` no repo local. Se também falhar, skip silenciosamente (não avise usuário de erro de network).
 
 ## Estouro de contexto
 

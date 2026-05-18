@@ -19,7 +19,7 @@ Leia `aegis/config/state.json` → campos `output_folder` (padrão: `aegis`) e `
 ## Processo
 
 ### 1. Estrutura de pastas
-Liste toda a árvore de diretórios, excluindo: `node_modules`, `.git`, `aegis`, `dist`, `build`, `coverage`, `__pycache__`, `.cache`
+Liste toda a árvore de diretórios, excluindo: `node_modules`, `.git`, `aegis`, `dist`, `build`, `coverage`, `__pycache__`, `.cache`, `.next`, `.turbo`, `.vercel`, `target` (Rust), `vendor` (Go), `.gradle`, `.maven`, `out`
 
 ### 2. Tecnologias e frameworks
 Identifique a partir dos arquivos de configuração:

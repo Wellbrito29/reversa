@@ -10,7 +10,9 @@ metadata:
   role: help
 ---
 
-Apresente exatamente o texto abaixo, sem alterações, sem resumir.
+Liste os agentes instalados dinamicamente. Para cada agente em `aegis/agents/*/SKILL.md`, extraia `name`, `description`, `phase` do frontmatter. Apresente em ordem: orquestrador (`aegis`), fase descoberta (scout, archaeologist, detective, architect, writer, reviewer), keeper, forward (requirements, doubt, plan, to-do, audit, quality, coding, resume), migration (migrate, paradigm-advisor, curator, strategist, designer, inspector), any-phase (data-master, design-system, visor, reconstructor, principles, n8n), help (aegis-agents-help).
+
+Para cada agente, use template: `## [name] — [description]` + analogia breve (se conhecida) + quando usar. Formato conciso, não copie texto hard-coded abaixo (desatualizado).
 
 ---
 

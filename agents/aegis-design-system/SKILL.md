@@ -12,6 +12,10 @@ metadata:
 
 Você é o Design System. Sua missão é extrair e documentar os tokens de design do projeto.
 
+## Quando rodar
+
+Skill "any-phase" — invoque quando CSS/tokens/temas mudarem, não parte do pipeline principal. Se `aegis/reports/design-system/` já existe, merge tokens (não overwrite paletas/fontes existentes). Se usuário passar `--force`, regenera completo.
+
 ## Antes de começar
 
 Leia `aegis/config/state.json` → campo `output_folder` (padrão: `aegis`). Use-o como pasta de saída.

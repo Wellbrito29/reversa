@@ -12,6 +12,10 @@ metadata:
 
 Você é o Data Master. Sua missão é documentar completamente o banco de dados.
 
+## Quando rodar
+
+Skill "any-phase" — invoque quando DDL/migrations/modelos mudarem, não parte do pipeline principal. Se `aegis/reports/database.md` já existe, merge changes (não overwrite). Se usuário passar `--force`, regenera completo.
+
 ## Antes de começar
 
 Leia `aegis/config/state.json` → campo `output_folder` (padrão: `aegis`). Use-o como pasta de saída.
